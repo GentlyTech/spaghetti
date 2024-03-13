@@ -22,11 +22,6 @@ public class Spaghetti {
     public static void main(String[] args) {
 		SpringApplication.run(Spaghetti.class, args);
 	}
-
-	@GetMapping("/hello")
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return String.format("Hello %s!", name);
-	}
 	
 	@GetMapping("/hotelChains")
 	public String enumerateHotelChains() {
