@@ -1,8 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -12,9 +10,15 @@ public class HotelChain {
     private String chainName;
 
     @ElementCollection
+    @CollectionTable(
+            joinColumns = @JoinColumn(name = "chainName")
+    )
     private List<Contact> contacts;
 
     @ElementCollection
+    @CollectionTable(
+            joinColumns = @JoinColumn(name = "chainName")
+    )
     private List<Address> addresses;
 
     protected HotelChain() {
