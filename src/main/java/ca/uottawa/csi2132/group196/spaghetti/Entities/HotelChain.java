@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities;
 
+import com.google.gson.Gson;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class HotelChain {
     
     @Override
     public String toString() {
-        return getChainName();
+        return new Gson().toJson(this);
     }
 
 }

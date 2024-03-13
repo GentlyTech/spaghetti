@@ -1,6 +1,7 @@
 package ca.uottawa.csi2132.group196.spaghetti;
 
 import ca.uottawa.csi2132.group196.spaghetti.Repositories.HotelChainRepository;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,6 +30,6 @@ public class Spaghetti {
 	
 	@GetMapping("/hotelChains")
 	public String enumerateHotelChains() {
-		return hotelChainRepository.findAll().toString();
+		return new Gson().toJson(hotelChainRepository.findAll());
 	}
 }
