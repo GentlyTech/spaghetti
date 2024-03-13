@@ -30,10 +30,12 @@ public class HotelChain {
     }
 
     public String getChainName() {
-        return null;
+        return this.chainName;
+    }
+    
+    @Override
+    public String toString() {
+        return getChainName();
     }
 
-    public int getHotelCount() {
-        return -1; // TODO implement this
-    }
 }
