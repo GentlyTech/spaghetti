@@ -20,5 +20,25 @@ public class Hotel extends JsonSerializable {
         
     }
     
+    public Hotel(long hotelId, String hotelName, int rating) {
+        this.hotelId = hotelId;
+        this.hotelName = hotelName;
+        this.rating = rating;
+    }
+
+    public long getHotelId() {
+        return this.hotelId;
+    }
     
+    public String getHotelName() {
+        return this.hotelName;
+    }
+
+    /**
+     * Rating as in the "star" classification of the hotel, not the customer review rating.
+     * @return the star rating of this hotel
+     */
+    public int getHotelRating() {
+        return this.rating;
+    }
 }
