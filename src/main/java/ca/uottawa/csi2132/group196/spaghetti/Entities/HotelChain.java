@@ -1,12 +1,12 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities;
 
-import com.google.gson.Gson;
+import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-public class HotelChain {
+public class HotelChain extends JsonSerializable {
     @Id
     private String chainName;
 
@@ -32,11 +32,6 @@ public class HotelChain {
 
     public String getChainName() {
         return this.chainName;
-    }
-    
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);
     }
 
 }
