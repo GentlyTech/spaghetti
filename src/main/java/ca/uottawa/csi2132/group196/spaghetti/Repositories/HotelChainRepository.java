@@ -14,4 +14,6 @@ public interface HotelChainRepository extends CrudRepository<HotelChain, String>
 
     @Query("SELECT chain FROM HotelChain chain JOIN FETCH chain.addresses WHERE chain.chainName = :chainName")
     List<Address> findAddressesByChainName(@Param("chainName") String chainName);
+    
+    HotelChain findHotelChainByChainName(String chainName);
 }
