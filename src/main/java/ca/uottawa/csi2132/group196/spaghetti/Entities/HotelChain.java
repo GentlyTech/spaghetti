@@ -22,6 +22,10 @@ public class HotelChain extends JsonSerializable {
     )
     private List<Address> addresses;
 
+    @OneToMany(mappedBy = "owner")
+    // FIXME figure out why this relationship table names the hotel_id column hotels_hotel_id instead
+    private List<Hotel> hotels;
+
     protected HotelChain() {
 
     }
