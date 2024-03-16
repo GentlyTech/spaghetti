@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities;
 
+import ca.uottawa.csi2132.group196.spaghetti.Entities.IdClasses.AddressId;
 import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
 import jakarta.persistence.*;
 
@@ -20,7 +21,7 @@ public class HotelChain extends JsonSerializable {
     @CollectionTable(
             joinColumns = @JoinColumn(name = "chainName")
     )
-    private List<Address> addresses;
+    private List<AddressId> addresses;
 
     @OneToMany(mappedBy = "owner")
     // FIXME figure out why this relationship table names the hotel_id column hotels_hotel_id instead

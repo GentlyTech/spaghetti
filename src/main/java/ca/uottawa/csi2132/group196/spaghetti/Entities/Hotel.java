@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities;
 
+import ca.uottawa.csi2132.group196.spaghetti.Entities.IdClasses.AddressId;
 import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
 import jakarta.persistence.*;
 
@@ -20,12 +21,9 @@ public class Hotel extends JsonSerializable {
             joinColumns = @JoinColumn(name = "hotelId")
     )
     private List<Contact> contacts;
-
-    @ElementCollection
-    @CollectionTable(
-            joinColumns = @JoinColumn(name = "hotelId")
-    )
-    private List<Address> addresses;
+    
+    @OneToOne
+    private Address address;
 
     @ManyToOne
     @JoinColumn(name = "owner")

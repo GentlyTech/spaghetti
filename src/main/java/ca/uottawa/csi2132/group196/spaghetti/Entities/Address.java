@@ -1,13 +1,16 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities;
 
-import jakarta.persistence.Embeddable;
+import ca.uottawa.csi2132.group196.spaghetti.Entities.IdClasses.AddressId;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
 
-@Embeddable
+@Entity
 public class Address {
-    private String street;
-    private String city;
-    private String province;
-    private String country;
-    private String postalCode;
+    @EmbeddedId
+    private AddressId addressId;
+    
+    public Address() {
+        
+    }
     
 }

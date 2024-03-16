@@ -1,6 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Repositories;
 
-import ca.uottawa.csi2132.group196.spaghetti.Entities.Address;
+import ca.uottawa.csi2132.group196.spaghetti.Entities.IdClasses.AddressId;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,7 +13,7 @@ public interface HotelChainRepository extends CrudRepository<HotelChain, String>
     //int getHotelCount();
 
     @Query("SELECT chain FROM HotelChain chain JOIN FETCH chain.addresses WHERE chain.chainName = :chainName")
-    List<Address> findAddressesByChainName(@Param("chainName") String chainName);
+    List<AddressId> findAddressesByChainName(@Param("chainName") String chainName);
     
     HotelChain findHotelChainByChainName(String chainName);
 }
