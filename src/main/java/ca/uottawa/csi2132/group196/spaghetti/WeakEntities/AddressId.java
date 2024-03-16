@@ -1,4 +1,4 @@
-package ca.uottawa.csi2132.group196.spaghetti.Entities.IdClasses;
+package ca.uottawa.csi2132.group196.spaghetti.WeakEntities;
 
 import jakarta.persistence.Embeddable;
 
@@ -12,8 +12,16 @@ public class AddressId implements Serializable {
     private String country;
     private String postalCode;
     
-    public AddressId() {
+    protected AddressId() {
         
+    }
+    
+    public AddressId(String street, String city, String province, String country, String postalCode) {
+        this.street = street;
+        this.city = city;
+        this.province = province;
+        this.country = country;
+        this.postalCode = postalCode;
     }
     
     public String getStreet() {

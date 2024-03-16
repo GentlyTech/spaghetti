@@ -1,6 +1,7 @@
-package ca.uottawa.csi2132.group196.spaghetti.Entities;
+package ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel;
 
-import ca.uottawa.csi2132.group196.spaghetti.Entities.IdClasses.AddressId;
+import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain.HotelChain;
+import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.ContactId;
 import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
 import jakarta.persistence.*;
 
@@ -16,14 +17,11 @@ public class Hotel extends JsonSerializable {
 
     private int rating;
 
-    @ElementCollection
-    @CollectionTable(
-            joinColumns = @JoinColumn(name = "hotelId")
-    )
-    private List<Contact> contacts;
+    @OneToMany(mappedBy = "hotel")
+    private List<HotelContact> contacts;
     
-    @OneToOne
-    private Address address;
+    @OneToOne(mappedBy = "hotel")
+    private HotelAddress address;
 
     @ManyToOne
     @JoinColumn(name = "owner")

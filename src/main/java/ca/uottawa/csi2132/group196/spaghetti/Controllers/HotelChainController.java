@@ -1,6 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Controllers;
 
-import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain;
+import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain.HotelChain;
 import ca.uottawa.csi2132.group196.spaghetti.Repositories.HotelChainRepository;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;

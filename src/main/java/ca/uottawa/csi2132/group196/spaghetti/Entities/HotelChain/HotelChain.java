@@ -1,6 +1,7 @@
-package ca.uottawa.csi2132.group196.spaghetti.Entities;
+package ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain;
 
-import ca.uottawa.csi2132.group196.spaghetti.Entities.IdClasses.AddressId;
+import ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel.Hotel;
+import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.ContactId;
 import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
 import jakarta.persistence.*;
 
@@ -11,17 +12,11 @@ public class HotelChain extends JsonSerializable {
     @Id
     private String chainName;
 
-    @ElementCollection
-    @CollectionTable(
-            joinColumns = @JoinColumn(name = "chainName")
-    )
-    private List<Contact> contacts;
+    @OneToMany(mappedBy = "hotelChain")
+    private List<HotelChainContact> contacts;
 
-    @ElementCollection
-    @CollectionTable(
-            joinColumns = @JoinColumn(name = "chainName")
-    )
-    private List<AddressId> addresses;
+    @OneToMany(mappedBy = "hotelChain")
+    private List<HotelChainAddress> addresses;
 
     @OneToMany(mappedBy = "owner")
     // FIXME figure out why this relationship table names the hotel_id column hotels_hotel_id instead
