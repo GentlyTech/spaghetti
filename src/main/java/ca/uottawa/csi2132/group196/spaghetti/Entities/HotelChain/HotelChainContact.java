@@ -1,17 +1,17 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain;
 
-import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.ContactId;
+import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.Contact;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "HotelChainContacts")
+@Table(name = "hotelChainContacts")
 public class HotelChainContact {
     @ManyToOne
     @JoinColumn(name = "chainName")
     HotelChain hotelChain;
     
     @EmbeddedId
-    ContactId contact;
+    Contact contact;
     
     protected HotelChainContact() {
         

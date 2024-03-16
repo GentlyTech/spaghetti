@@ -1,6 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain;
 
-import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.AddressId;
+import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.Address;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,7 +11,7 @@ public class HotelChainAddress {
     private HotelChain hotelChain;
 
     @EmbeddedId
-    private AddressId address;
+    private Address address;
 
     protected HotelChainAddress() {
 

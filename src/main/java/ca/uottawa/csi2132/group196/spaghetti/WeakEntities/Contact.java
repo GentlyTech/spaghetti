@@ -5,16 +5,16 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class ContactId implements Serializable {
+public class Contact implements Serializable {
     private String name;
     private String email;
     private String phoneNumber;
     
-    protected ContactId() {
+    protected Contact() {
         
     }
     
-    public ContactId(String name, String email, String phoneNumber) {
+    public Contact(String name, String email, String phoneNumber) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;

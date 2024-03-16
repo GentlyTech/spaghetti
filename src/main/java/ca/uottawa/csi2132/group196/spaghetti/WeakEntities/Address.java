@@ -5,18 +5,18 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class AddressId implements Serializable {
+public class Address implements Serializable {
     private String street;
     private String city;
     private String province;
     private String country;
     private String postalCode;
     
-    protected AddressId() {
+    protected Address() {
         
     }
     
-    public AddressId(String street, String city, String province, String country, String postalCode) {
+    public Address(String street, String city, String province, String country, String postalCode) {
         this.street = street;
         this.city = city;
         this.province = province;
