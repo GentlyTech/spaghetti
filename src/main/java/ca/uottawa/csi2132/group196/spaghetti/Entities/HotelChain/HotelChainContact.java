@@ -1,6 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain;
 
-import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.Contact;
+import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Contact;
 import jakarta.persistence.*;
 
 @Entity

@@ -1,4 +1,4 @@
-package ca.uottawa.csi2132.group196.spaghetti.WeakEntities;
+package ca.uottawa.csi2132.group196.spaghetti.Embeddables;
 
 import jakarta.persistence.Embeddable;
 

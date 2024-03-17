@@ -2,7 +2,7 @@ package ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel;
 
 import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain.HotelChain;
 import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
-import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.Room;
+import ca.uottawa.csi2132.group196.spaghetti.Entities.Room;
 import jakarta.persistence.*;
 
 import java.util.List;

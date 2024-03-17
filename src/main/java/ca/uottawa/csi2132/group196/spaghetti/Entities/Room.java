@@ -1,7 +1,8 @@
-package ca.uottawa.csi2132.group196.spaghetti.WeakEntities;
+package ca.uottawa.csi2132.group196.spaghetti.Entities;
 
 import ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.Types.ViewType;
+import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Problem;
 import jakarta.persistence.*;
 
 import java.util.List;

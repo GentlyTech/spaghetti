@@ -1,6 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Repositories;
 
-import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.Address;
+import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Address;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain.HotelChain;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
