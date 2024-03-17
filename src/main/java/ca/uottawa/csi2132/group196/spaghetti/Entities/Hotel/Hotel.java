@@ -2,6 +2,7 @@ package ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel;
 
 import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain.HotelChain;
 import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
+import ca.uottawa.csi2132.group196.spaghetti.WeakEntities.Room;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,7 +19,10 @@ public class Hotel extends JsonSerializable {
 
     @OneToMany(mappedBy = "hotel")
     private List<HotelContact> contacts;
-    
+
+    @OneToMany(mappedBy = "owner")
+    private List<Room> rooms;
+
     @OneToOne(mappedBy = "hotel")
     private HotelAddress address;
 
