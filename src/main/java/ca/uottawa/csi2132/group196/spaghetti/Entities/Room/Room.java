@@ -12,7 +12,7 @@ import java.util.List;
 public class Room extends JsonSerializable {
     @Id
     @ManyToOne
-    @JoinColumn(name = "owner")
+    @JoinColumn(name = "hotelId")
     private Hotel owner;
 
     @Id
