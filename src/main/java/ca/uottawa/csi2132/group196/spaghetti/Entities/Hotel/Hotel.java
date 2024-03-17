@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel;
 
+import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain.HotelChain;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.Room;
 import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
@@ -22,6 +23,14 @@ public class Hotel extends JsonSerializable {
 
     @OneToMany(mappedBy = "owner")
     private List<Room> rooms;
+
+    @ElementCollection
+    @CollectionTable(
+            joinColumns = {
+                    @JoinColumn(name = "hotelId"),
+            }
+    )
+    private List<Amenity> amenities;
 
     @OneToOne(mappedBy = "hotel")
     private HotelAddress address;

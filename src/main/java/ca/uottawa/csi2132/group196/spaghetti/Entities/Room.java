@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities;
 
+import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Problem;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
@@ -25,8 +26,8 @@ public class Room extends JsonSerializable {
     @ElementCollection
     @CollectionTable(
             joinColumns = {
-                    @JoinColumn(name = "hotelChain"),
-                    @JoinColumn(name = "roomNumber")
+                    @JoinColumn(name = "hotelId", referencedColumnName = "hotelId"),
+                    @JoinColumn(name = "roomNumber", referencedColumnName = "roomNumber")
             }
     )
     private List<Problem> problems;
@@ -36,6 +37,15 @@ public class Room extends JsonSerializable {
     private boolean extendable;
 
     private ViewType viewType;
+    
+    @ElementCollection
+    @CollectionTable(
+            joinColumns = {
+                    @JoinColumn(name = "hotelId", referencedColumnName = "hotelId"),
+                    @JoinColumn(name = "roomNumber", referencedColumnName = "roomNumber")
+            }
+    )
+    private List<Amenity> amenities;
 
     protected Room() {
 
