@@ -10,11 +10,11 @@ public class HotelChainContact extends JsonSerializable {
     @ManyToOne
     @JoinColumn(name = "chainName")
     HotelChain hotelChain;
-    
+
     @EmbeddedId
     Contact contact;
-    
+
     protected HotelChainContact() {
-        
+
     }
 }

@@ -2,7 +2,9 @@ package ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain;
 
 import ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
@@ -18,7 +20,6 @@ public class HotelChain extends JsonSerializable {
     private List<HotelChainAddress> addresses;
 
     @OneToMany(mappedBy = "owner")
-    
     private List<Hotel> hotels;
 
     protected HotelChain() {

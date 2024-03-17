@@ -10,11 +10,11 @@ public class Contact extends JsonSerializable implements Serializable {
     private String name;
     private String email;
     private String phoneNumber;
-    
+
     protected Contact() {
-        
+
     }
-    
+
     public Contact(String name, String email, String phoneNumber) {
         this.name = name;
         this.email = email;

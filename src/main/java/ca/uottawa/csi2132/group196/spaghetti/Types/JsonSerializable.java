@@ -7,7 +7,7 @@ public class JsonSerializable {
     public String toString() {
         return new Gson().toJson(this);
     }
-    
+
     public String toJson() {
         return this.toString();
     }

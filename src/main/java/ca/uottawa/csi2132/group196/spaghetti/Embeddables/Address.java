@@ -12,11 +12,11 @@ public class Address extends JsonSerializable implements Serializable {
     private String province;
     private String country;
     private String postalCode;
-    
+
     protected Address() {
-        
+
     }
-    
+
     public Address(String street, String city, String province, String country, String postalCode) {
         this.street = street;
         this.city = city;
@@ -24,7 +24,7 @@ public class Address extends JsonSerializable implements Serializable {
         this.country = country;
         this.postalCode = postalCode;
     }
-    
+
     public String getStreet() {
         return this.street;
     }
@@ -40,7 +40,7 @@ public class Address extends JsonSerializable implements Serializable {
     public String getCountry() {
         return this.country;
     }
-    
+
     public String getPostalCode() {
         return this.postalCode;
     }
