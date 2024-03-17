@@ -1,10 +1,9 @@
 package ca.uottawa.csi2132.group196.spaghetti.Embeddables;
 
-import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class Problem extends JsonSerializable {
+public class Problem {
     private String description;
 
     protected Problem() {

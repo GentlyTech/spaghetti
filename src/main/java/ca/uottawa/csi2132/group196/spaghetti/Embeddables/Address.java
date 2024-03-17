@@ -1,12 +1,11 @@
 package ca.uottawa.csi2132.group196.spaghetti.Embeddables;
 
-import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 
 @Embeddable
-public class Address extends JsonSerializable implements Serializable {
+public class Address implements Serializable {
     private String street;
     private String city;
     private String province;

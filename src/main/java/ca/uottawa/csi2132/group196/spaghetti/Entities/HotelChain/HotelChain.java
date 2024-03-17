@@ -1,7 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain;
 
 import ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel.Hotel;
-import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -9,7 +8,7 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-public class HotelChain extends JsonSerializable {
+public class HotelChain {
     @Id
     private String chainName;
 

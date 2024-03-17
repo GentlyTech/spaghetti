@@ -3,14 +3,13 @@ package ca.uottawa.csi2132.group196.spaghetti.Entities;
 import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Problem;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel.Hotel;
-import ca.uottawa.csi2132.group196.spaghetti.Types.JsonSerializable;
 import ca.uottawa.csi2132.group196.spaghetti.Types.ViewType;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-public class Room extends JsonSerializable {
+public class Room {
     @Id
     @ManyToOne
     @JoinColumn(name = "hotelId")
@@ -37,7 +36,7 @@ public class Room extends JsonSerializable {
     private boolean extendable;
 
     private ViewType viewType;
-    
+
     @ElementCollection
     @CollectionTable(
             joinColumns = {
