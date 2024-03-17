@@ -30,6 +30,9 @@ public class Room {
             }
     )
     private List<Problem> problems;
+    
+    @OneToMany(mappedBy = "room")
+    private List<Booking> bookings;
 
     private String occupancyType;
 
