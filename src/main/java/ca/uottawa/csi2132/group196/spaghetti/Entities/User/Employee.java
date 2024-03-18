@@ -8,21 +8,24 @@ import java.util.List;
 @Entity
 public class Employee extends User {
     private String sin;
-    
+
     @ElementCollection
     @CollectionTable(joinColumns = {
             @JoinColumn(name = "id")
     })
     private List<Role> roles;
-    
+
+    @OneToOne(mappedBy = "employee")
+    private EmployeeAddress address;
+
     protected Employee() {
-        
+
     }
-    
+
     public String getSin() {
         return this.sin;
     }
-    
+
     public List<Role> getRoles() {
         return this.roles;
     }

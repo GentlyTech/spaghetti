@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.DoNotSerialize;
 import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Problem;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel.Hotel;
@@ -30,7 +31,8 @@ public class Room {
             }
     )
     private List<Problem> problems;
-    
+
+    @DoNotSerialize
     @OneToMany(mappedBy = "room")
     private List<Booking> bookings;
 
@@ -52,7 +54,7 @@ public class Room {
     protected Room() {
 
     }
-    
+
     public Hotel getOwner() {
         return this.owner;
     }

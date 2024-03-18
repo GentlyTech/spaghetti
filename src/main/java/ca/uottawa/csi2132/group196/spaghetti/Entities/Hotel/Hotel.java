@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.DoNotSerialize;
 import ca.uottawa.csi2132.group196.spaghetti.Embeddables.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain.HotelChain;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.Room;
@@ -20,6 +21,7 @@ public class Hotel {
     @OneToMany(mappedBy = "hotel")
     private List<HotelContact> contacts;
 
+    @DoNotSerialize
     @OneToMany(mappedBy = "owner")
     private List<Room> rooms;
 
@@ -68,19 +70,19 @@ public class Hotel {
     public HotelChain getHotelOwner() {
         return this.owner;
     }
-    
+
     public HotelAddress getHotelAddress() {
         return this.address;
     }
-    
+
     public List<HotelContact> getHotelContacts() {
         return this.contacts;
     }
-    
+
     public List<Room> getHotelRooms() {
         return this.rooms;
     }
-    
+
     public List<Amenity> getAmenities() {
         return this.amenities;
     }

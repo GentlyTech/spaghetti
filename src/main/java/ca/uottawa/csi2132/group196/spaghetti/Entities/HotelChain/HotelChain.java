@@ -1,6 +1,8 @@
 package ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.DoNotSerialize;
 import ca.uottawa.csi2132.group196.spaghetti.Entities.Hotel.Hotel;
+import com.google.gson.annotations.Expose;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -18,6 +20,7 @@ public class HotelChain {
     @OneToMany(mappedBy = "hotelChain")
     private List<HotelChainAddress> addresses;
 
+    @DoNotSerialize
     @OneToMany(mappedBy = "owner")
     private List<Hotel> hotels;
 
