@@ -2,7 +2,9 @@ package ca.uottawa.csi2132.group196.spaghetti.Controllers;
 
 import ca.uottawa.csi2132.group196.spaghetti.Entities.HotelChain.HotelChain;
 import ca.uottawa.csi2132.group196.spaghetti.Repositories.HotelChainRepository;
+import ca.uottawa.csi2132.group196.spaghetti.Serialization.DoNotSerializeStrategy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +24,15 @@ public class HotelChainController {
 
     @GetMapping("/info")
     public String enumerateHotelChains(@RequestParam(name = "name", required = false) String chainName) {
+        Gson gson = new GsonBuilder().addSerializationExclusionStrategy(new DoNotSerializeStrategy()).create();
         if (chainName == null || chainName.isEmpty()) {
-            return new Gson().toJson(hotelChainRepository.findAll());
+            return gson.toJson(hotelChainRepository.findAll());
         }
         HotelChain rawResponse = hotelChainRepository.getHotelChainByChainName(chainName);
         if (rawResponse == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return new Gson().toJson(rawResponse);
+        return gson.toJson(rawResponse);
     }
 
     @GetMapping("/count")
