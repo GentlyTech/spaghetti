@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class Booking {
-    private BookingStatus status;
+    private BookingStatus bookingStatus;
 
     private String checkInDate;
 
@@ -30,7 +30,7 @@ public class Booking {
     }
     
     public BookingStatus getBookingStatus() {
-        return this.status;
+        return this.bookingStatus;
     }
     
     public String getCheckInDate() {
