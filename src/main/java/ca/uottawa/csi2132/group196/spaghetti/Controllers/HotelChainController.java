@@ -25,10 +25,16 @@ public class HotelChainController {
         if (chainName == null || chainName.isEmpty()) {
             return new Gson().toJson(hotelChainRepository.findAll());
         }
-        HotelChain rawResponse = hotelChainRepository.findHotelChainByChainName(chainName);
+        HotelChain rawResponse = hotelChainRepository.getHotelChainByChainName(chainName);
         if (rawResponse == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return new Gson().toJson(rawResponse);
+    }
+
+    @GetMapping("/count")
+    public String getHotelCount(@RequestParam(name = "name") String chainName) {
+        int count = hotelChainRepository.getHotelCountByChainName(chainName);
+        return new Gson().toJson(count);
     }
 }

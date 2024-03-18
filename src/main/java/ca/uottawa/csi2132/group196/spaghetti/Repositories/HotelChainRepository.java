@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface HotelChainRepository extends CrudRepository<HotelChain, String> {
-    //@Query("") // TODO implement getHotelCount() query annotation
-    //int getHotelCount();
+    @Query("SELECT COUNT(*) FROM Hotel hotel WHERE hotel.owner.chainName = :chainName")
+    int getHotelCountByChainName(@Param("chainName") String chainName);
 
     @Query("SELECT chain FROM HotelChain chain JOIN FETCH chain.addresses WHERE chain.chainName = :chainName")
     List<Address> findAddressesByChainName(@Param("chainName") String chainName);
 
-    HotelChain findHotelChainByChainName(String chainName);
+    HotelChain getHotelChainByChainName(String chainName);
 }
