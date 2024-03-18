@@ -16,4 +16,12 @@ public class HotelContact {
     protected HotelContact() {
 
     }
+
+    public Hotel getHotel() {
+        return this.hotel;
+    }
+
+    public Contact getContact() {
+        return this.contact;
+    }
 }

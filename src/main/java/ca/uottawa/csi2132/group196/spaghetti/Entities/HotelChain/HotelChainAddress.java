@@ -16,4 +16,12 @@ public class HotelChainAddress {
     protected HotelChainAddress() {
 
     }
+
+    public HotelChain getHotelChain() {
+        return this.hotelChain;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
 }

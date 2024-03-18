@@ -14,4 +14,16 @@ public class Employee extends User {
             @JoinColumn(name = "id")
     })
     private List<Role> roles;
+    
+    protected Employee() {
+        
+    }
+    
+    public String getSin() {
+        return this.sin;
+    }
+    
+    public List<Role> getRoles() {
+        return this.roles;
+    }
 }

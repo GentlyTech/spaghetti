@@ -68,4 +68,20 @@ public class Hotel {
     public HotelChain getHotelOwner() {
         return this.owner;
     }
+    
+    public HotelAddress getHotelAddress() {
+        return this.address;
+    }
+    
+    public List<HotelContact> getHotelContacts() {
+        return this.contacts;
+    }
+    
+    public List<Room> getHotelRooms() {
+        return this.rooms;
+    }
+    
+    public List<Amenity> getAmenities() {
+        return this.amenities;
+    }
 }

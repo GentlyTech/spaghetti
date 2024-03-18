@@ -11,4 +11,20 @@ public class User {
     private String name;
     
     private String creationDate;
+
+    protected User() {
+        
+    }
+    
+    public long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getCreationDate() {
+        return this.creationDate;
+    }
 }

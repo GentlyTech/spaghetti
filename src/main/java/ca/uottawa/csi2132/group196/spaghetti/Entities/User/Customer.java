@@ -13,4 +13,16 @@ public class Customer extends User {
     
     @OneToMany(mappedBy = "customer")
     private List<Booking> bookings;
+    
+    protected Customer() {
+        
+    }
+    
+    public String getIdType() {
+        return this.idType;
+    }
+    
+    public List<Booking> getBookings() {
+        return this.bookings;
+    }
 }

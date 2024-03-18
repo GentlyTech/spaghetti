@@ -17,4 +17,11 @@ public class CustomerAddress {
 
     }
 
+    public Customer getCustomer() {
+        return this.customer;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
 }

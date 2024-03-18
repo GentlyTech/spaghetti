@@ -17,4 +17,12 @@ public class EmployeeAddress {
 
     }
 
+    public Employee getEmployee() {
+        return this.employee;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
+
 }

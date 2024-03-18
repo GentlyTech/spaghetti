@@ -24,4 +24,20 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
+    
+    protected Booking() {
+        
+    }
+    
+    public BookingStatus getBookingStatus() {
+        return this.status;
+    }
+    
+    public String getCheckInDate() {
+        return this.checkInDate;
+    }
+    
+    public String getCheckOutDate() {
+        return this.checkOutDate;
+    }
 }

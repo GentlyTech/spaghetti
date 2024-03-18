@@ -52,4 +52,40 @@ public class Room {
     protected Room() {
 
     }
+    
+    public Hotel getOwner() {
+        return this.owner;
+    }
+
+    public int getRoomNumber() {
+        return this.roomNumber;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public double getDamageFee() {
+        return this.damageFee;
+    }
+
+    public List<Problem> getProblems() {
+        return this.problems;
+    }
+
+    public List<Booking> getBookings() {
+        return this.bookings;
+    }
+
+    public String getOccupancyType() {
+        return this.occupancyType;
+    }
+
+    public boolean isExtendable() {
+        return this.extendable;
+    }
+
+    public ViewType getViewType() {
+        return this.viewType;
+    }
 }
