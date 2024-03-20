@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti;
 
+import jakarta.annotation.PreDestroy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,4 +10,11 @@ public class Spaghetti {
         SpringApplication.run(Spaghetti.class, args);
     }
 
+    /**
+     * Perform shutdown actions here.
+     */
+    @PreDestroy
+    public void onShutdown() {
+
+    }
 }

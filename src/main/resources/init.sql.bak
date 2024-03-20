@@ -1,0 +1,219 @@
+-- TODO consider renaming foreign keys to something more friendly
+-- TODO fix cascade rules on foreign keys
+-- TODO add constraints to columns that need it (e.g. range constraints)
+
+CREATE SCHEMA IF NOT EXISTS public;
+
+-- Entities
+
+CREATE TABLE IF NOT EXISTS public.booking
+(
+    booking_status smallint,
+    room_number integer NOT NULL,
+    customer_id bigint NOT NULL,
+    hotel_id bigint NOT NULL,
+    check_in_date character varying(255) COLLATE pg_catalog."default",
+    check_out_date character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT booking_pkey PRIMARY KEY (room_number, customer_id, hotel_id),
+    CONSTRAINT fklnnelfsha11xmo2ndjq66fvro FOREIGN KEY (customer_id)
+        REFERENCES public.customer (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fktn6unndb7hsrn8d7luvrimgaj FOREIGN KEY (room_number, hotel_id)
+        REFERENCES public.room (room_number, hotel_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT booking_booking_status_check CHECK (booking_status >= 0 AND booking_status <= 3)
+);
+
+CREATE TABLE IF NOT EXISTS public.customer
+(
+    id bigint NOT NULL DEFAULT nextval('customer_id_seq'::regclass),
+    creation_date character varying(255) COLLATE pg_catalog."default",
+    id_type character varying(255) COLLATE pg_catalog."default",
+    name character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT customer_pkey PRIMARY KEY (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS public.employee
+(
+    id bigint NOT NULL DEFAULT nextval('employee_id_seq'::regclass),
+    creation_date character varying(255) COLLATE pg_catalog."default",
+    name character varying(255) COLLATE pg_catalog."default",
+    sin character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT employee_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.hotel
+(
+    rating integer NOT NULL,
+    hotel_id bigint NOT NULL DEFAULT nextval('hotel_hotel_id_seq'::regclass),
+    hotel_name character varying(255) COLLATE pg_catalog."default",
+    owner character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT hotel_pkey PRIMARY KEY (hotel_id),
+    CONSTRAINT fkh6wsbhrtqg2kerj3cxor0h954 FOREIGN KEY (owner)
+        REFERENCES public.hotel_chain (chain_name) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.hotel_chain
+(
+    chain_name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT hotel_chain_pkey PRIMARY KEY (chain_name)
+);
+
+CREATE TABLE IF NOT EXISTS public.room
+(
+    damage_fee double precision NOT NULL,
+    extendable boolean NOT NULL,
+    price double precision NOT NULL,
+    room_number integer NOT NULL,
+    view_type smallint,
+    hotel_id bigint NOT NULL,
+    occupancy_type character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT room_pkey PRIMARY KEY (room_number, hotel_id),
+    CONSTRAINT fkdosq3ww4h9m2osim6o0lugng8 FOREIGN KEY (hotel_id)
+        REFERENCES public.hotel (hotel_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT room_view_type_check CHECK (view_type >= 0 AND view_type <= 1)
+);
+
+-- Relationship Tables
+
+CREATE TABLE IF NOT EXISTS public.customer_addresses
+(
+    customer_id bigint,
+    city character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    country character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    postal_code character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    province character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    street character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT customer_addresses_pkey PRIMARY KEY (city, country, postal_code, province, street),
+    CONSTRAINT customer_addresses_customer_id_key UNIQUE (customer_id),
+    CONSTRAINT fkt5007akl8ydn1dskefawemfw0 FOREIGN KEY (customer_id)
+        REFERENCES public.customer (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.employee_addresses
+(
+    employee_id bigint,
+    city character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    country character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    postal_code character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    province character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    street character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT employee_addresses_pkey PRIMARY KEY (city, country, postal_code, province, street),
+    CONSTRAINT employee_addresses_employee_id_key UNIQUE (employee_id),
+    CONSTRAINT fkk9tk9o1fymv1wq2fuycf5i040 FOREIGN KEY (employee_id)
+        REFERENCES public.employee (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.employee_roles
+(
+    id bigint NOT NULL,
+    description character varying(255) COLLATE pg_catalog."default",
+    name character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT fk1xlpopin9cfno37qtl3ag68gs FOREIGN KEY (id)
+        REFERENCES public.employee (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.hotel_addresses
+(
+    hotel_id bigint,
+    city character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    country character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    postal_code character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    province character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    street character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT hotel_addresses_pkey PRIMARY KEY (city, country, postal_code, province, street),
+    CONSTRAINT hotel_addresses_hotel_id_key UNIQUE (hotel_id),
+    CONSTRAINT fk58vw5xw9xaj08vvy71c41vw4j FOREIGN KEY (hotel_id)
+        REFERENCES public.hotel (hotel_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.hotel_amenities
+(
+    hotel_id bigint NOT NULL,
+    description character varying(255) COLLATE pg_catalog."default",
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT fk6nh3bf7h7byp48bw1dmw7k89i FOREIGN KEY (hotel_id)
+        REFERENCES public.hotel (hotel_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.hotel_chain_addresses
+(
+    chain_name character varying(255) COLLATE pg_catalog."default",
+    city character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    country character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    postal_code character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    province character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    street character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT hotel_chain_addresses_pkey PRIMARY KEY (city, country, postal_code, province, street),
+    CONSTRAINT fkf4jlty6bcqu25gp8afyp4uuhb FOREIGN KEY (chain_name)
+        REFERENCES public.hotel_chain (chain_name) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.hotel_chain_contacts
+(
+    chain_name character varying(255) COLLATE pg_catalog."default",
+    email character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    phone_number character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT hotel_chain_contacts_pkey PRIMARY KEY (email, name, phone_number),
+    CONSTRAINT fk67vfv8vasjlhdb8h8vqas2bdd FOREIGN KEY (chain_name)
+        REFERENCES public.hotel_chain (chain_name) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.hotel_contacts
+(
+    hotel_id bigint,
+    email character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    phone_number character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT hotel_contacts_pkey PRIMARY KEY (email, name, phone_number),
+    CONSTRAINT fkig4lh2vmm0eiqfu5llc1ycofu FOREIGN KEY (hotel_id)
+        REFERENCES public.hotel (hotel_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.room_amenities
+(
+    room_number integer NOT NULL,
+    hotel_id bigint NOT NULL,
+    description character varying(255) COLLATE pg_catalog."default",
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT fkih3tpcijq92irb86qvylvqcco FOREIGN KEY (room_number, hotel_id)
+        REFERENCES public.room (room_number, hotel_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS public.room_problems
+(
+    room_number integer NOT NULL,
+    hotel_id bigint NOT NULL,
+    caption character varying(255) COLLATE pg_catalog."default",
+    description character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT fknxwt342qucw8xmf1roqwysij6 FOREIGN KEY (room_number, hotel_id)
+        REFERENCES public.room (room_number, hotel_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
