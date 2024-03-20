@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS public.customer
 (
-    id bigint NOT NULL DEFAULT nextval('customer_id_seq'::regclass),
+    id serial NOT NULL,
     creation_date character varying(255) COLLATE pg_catalog."default",
     id_type character varying(255) COLLATE pg_catalog."default",
     name character varying(255) COLLATE pg_catalog."default",

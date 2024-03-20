@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS public.hotel
 (
+    hotel_id bigserial NOT NULL,
     rating integer NOT NULL,
-    hotel_id bigint NOT NULL DEFAULT nextval('hotel_hotel_id_seq'::regclass),
     hotel_name character varying(255) COLLATE pg_catalog."default",
     owner character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT hotel_pkey PRIMARY KEY (hotel_id),

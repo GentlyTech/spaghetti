@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS public.hotel_chain
 (
-    chain_name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    chain_name text NOT NULL,
     CONSTRAINT hotel_chain_pkey PRIMARY KEY (chain_name)
 );
 
