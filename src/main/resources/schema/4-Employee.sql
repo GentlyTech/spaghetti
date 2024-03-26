@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS public.employee_roles
 (
     employee_id integer NOT NULL,
     role_name   text    NOT NULL,
-    CONSTRAINT employee_id_fk FOREIGN KEY (role_name)
+    CONSTRAINT employee_id_fk FOREIGN KEY (employee_id)
         REFERENCES public.employee (employee_id)
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
