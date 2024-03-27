@@ -1,6 +1,10 @@
 package ca.uottawa.csi2132.group196.spaghetti.Controllers;
 
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Contact;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
+import ca.uottawa.csi2132.group196.spaghetti.Mappers.AddressMapper;
+import ca.uottawa.csi2132.group196.spaghetti.Mappers.ContactMapper;
 import ca.uottawa.csi2132.group196.spaghetti.Mappers.HotelChainMapper;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
@@ -34,10 +38,24 @@ public class HotelChainController {
 
     @GetMapping({"/info/{chain_name}", "/info/{chain_name}/"})
     public String getHotelChainInfo(@PathVariable String chain_name) {
-        HotelChainMapper mapper = new HotelChainMapper(database.getDataSource(), "SELECT hotelChainInst.chain_name AS chain_name, COUNT(hotelInst.hotel_id) AS hotel_count FROM hotel_chain hotelChainInst LEFT JOIN hotel hotelInst ON hotelChainInst.chain_name = hotelInst.owner WHERE chain_name = ? GROUP BY hotelChainInst.chain_name;");
-        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
-        HotelChain result = mapper.findObject(chain_name);
+        HotelChainMapper hotelChainMapper = new HotelChainMapper(database.getDataSource(), "SELECT hotelChainInst.chain_name AS chain_name, COUNT(hotelInst.hotel_id) AS hotel_count FROM hotel_chain hotelChainInst LEFT JOIN hotel hotelInst ON hotelChainInst.chain_name = hotelInst.owner WHERE chain_name = ? GROUP BY hotelChainInst.chain_name;");
+        hotelChainMapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
+        HotelChain result = hotelChainMapper.findObject(chain_name);
+        
         if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        
+        ContactMapper contactMapper = new ContactMapper(database.getDataSource(), "SELECT contactInst.* FROM hotel_chain_contacts hotelChainInst LEFT JOIN contacts contactInst ON hotelChainInst.contact_id = contactInst.contact_id WHERE hotelChainInst.chain_name = ? GROUP BY contactInst.contact_id;");
+        contactMapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
+        List<Contact> contacts = contactMapper.execute(chain_name);
+        
+        result.setContacts(contacts);
+
+        AddressMapper addressMapper = new AddressMapper(database.getDataSource(), "SELECT addressInst.* FROM hotel_chain_addresses hotelChainInst LEFT JOIN addresses addressInst ON hotelChainInst.address_id = addressInst.address_id WHERE hotelChainInst.chain_name = ? GROUP BY addressInst.address_id;");
+        addressMapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
+        List<Address> addresses = addressMapper.execute(chain_name);
+        
+        result.setAddresses(addresses);
+        
         return serializer.toJson(result);
     }
 }
