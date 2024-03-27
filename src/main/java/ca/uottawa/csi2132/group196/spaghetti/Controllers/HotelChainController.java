@@ -23,7 +23,7 @@ public class HotelChainController {
     }
 
     @GetMapping({"/info", "/info/"})
-    public String getAllChainInfo() {
+    public String getHotelChainInfoAll() {
         List<HotelChain> results = database.query("SELECT * FROM hotel_chain", (result, rowNum) -> {
             String chainName = result.getString("chain_name");
             Object rawHotelCount = database.queryForObject("SELECT COUNT(*) FROM public.hotel WHERE owner = ?", Integer.class, chainName);
@@ -40,7 +40,7 @@ public class HotelChainController {
     }
 
     @GetMapping({"/info/{chain_name}", "/info/{chain_name}/"})
-    public String getChainInfo(@PathVariable String chain_name) {
+    public String getHotelChainInfo(@PathVariable String chain_name) {
         HotelChain finalResult = database.queryForObject("SELECT * FROM hotel_chain WHERE chain_name = ?", (result, rowNum) -> {
             String chainName = result.getString("chain_name");
             Object rawHotelCount = database.queryForObject("SELECT COUNT(*) FROM public.hotel WHERE owner = ?", Integer.class, chainName);
