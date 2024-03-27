@@ -16,4 +16,20 @@ public class HotelController {
         this.database = database;
         this.serializer = CustomSerializer.getCustomSerializer();
     }
+
+    public String getHotelIdsByHotelChain() {
+        return null;
+    }
+
+    public String getHotelInfoByHotelId() {
+        return null;
+    }
+
+    public String getHotelIdsByHotelName() {
+        return null;
+    }
+
+    public String getHotelIdsByLocation() {
+        return null;
+    }
 }
