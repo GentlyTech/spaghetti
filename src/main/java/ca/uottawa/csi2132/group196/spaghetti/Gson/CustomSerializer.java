@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CustomSerializer {
-    private static GsonBuilder cachedBuilder;
+    private static Gson cachedInstance;
 
     @Bean
     public static Gson getCustomSerializer() {
-        if (cachedBuilder == null) {
-            cachedBuilder = new GsonBuilder().addSerializationExclusionStrategy(new DoNotSerializeStrategy());
+        if (cachedInstance == null) {
+            cachedInstance = new GsonBuilder().addSerializationExclusionStrategy(new DoNotSerializeStrategy()).create();
         }
-        return cachedBuilder.create();
+        return cachedInstance;
     }
 }
