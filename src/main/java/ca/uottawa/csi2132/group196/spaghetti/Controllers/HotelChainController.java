@@ -26,7 +26,13 @@ public class HotelChainController {
     public String getAllChainInfo() {
         List<HotelChain> results = database.query("SELECT * FROM hotel_chain", (result, rowNum) -> {
             String chainName = result.getString("chain_name");
-            int hotelCount = database.queryForObject("SELECT COUNT(*) FROM public.hotel WHERE owner = ?", Integer.class, chainName);
+            Object rawHotelCount = database.queryForObject("SELECT COUNT(*) FROM public.hotel WHERE owner = ?", Integer.class, chainName);
+            int hotelCount;
+            if (rawHotelCount == null) {
+                hotelCount = 0;
+            } else {
+                hotelCount = (int) rawHotelCount;
+            }
             return new HotelChain(chainName, hotelCount);
         });
 
@@ -37,7 +43,13 @@ public class HotelChainController {
     public String getChainInfo(@PathVariable String chain_name) {
         HotelChain finalResult = database.queryForObject("SELECT * FROM hotel_chain WHERE chain_name = ?", (result, rowNum) -> {
             String chainName = result.getString("chain_name");
-            int hotelCount = database.queryForObject("SELECT COUNT(*) FROM public.hotel WHERE owner = ?", Integer.class, chainName);
+            Object rawHotelCount = database.queryForObject("SELECT COUNT(*) FROM public.hotel WHERE owner = ?", Integer.class, chainName);
+            int hotelCount;
+            if (rawHotelCount == null) {
+                hotelCount = 0;
+            } else {
+                hotelCount = (int) rawHotelCount;
+            }
             return new HotelChain(chainName, hotelCount);
         }, chain_name);
 
