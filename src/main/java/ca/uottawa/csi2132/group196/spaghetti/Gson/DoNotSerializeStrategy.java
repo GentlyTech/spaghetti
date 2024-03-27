@@ -1,6 +1,5 @@
-package ca.uottawa.csi2132.group196.spaghetti.Serialization;
+package ca.uottawa.csi2132.group196.spaghetti.Gson;
 
-import ca.uottawa.csi2132.group196.spaghetti.Annotations.DoNotSerialize;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 

@@ -1,4 +1,4 @@
-package ca.uottawa.csi2132.group196.spaghetti.Annotations;
+package ca.uottawa.csi2132.group196.spaghetti.Gson;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
