@@ -16,20 +16,19 @@ public class HotelChainMapper extends MappingSqlQuery<HotelChain> {
 
     @Override
     protected HotelChain mapRow(ResultSet rs, int rowNum) {
-        String chainName = "";
+        HotelChain hotelChain = new HotelChain();
         try {
-            chainName = rs.getString("chain_name");
+            hotelChain.setChainName(rs.getString("chain_name"));
         } catch (SQLException ignored) {
             
         }
-
-        int hotelCount = 0;
+        
         try {
-            hotelCount = rs.getInt("hotel_count");
+            hotelChain.setHotelCount(rs.getInt("hotel_count"));
         } catch (SQLException ignored) {
 
         }
         
-        return new HotelChain(chainName, hotelCount);
+        return hotelChain;
     }
 }
