@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS public.customer
     creation_date timestamp NOT NULL,
     id_type       text      NOT NULL,
     name          text      NOT NULL,
-    CONSTRAINT customer_pkey PRIMARY KEY (customer_id)
+    CONSTRAINT customer_pk PRIMARY KEY (customer_id)
 );
 
 CREATE TABLE IF NOT EXISTS public.customer_addresses

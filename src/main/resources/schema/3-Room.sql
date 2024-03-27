@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.room
     view_type smallint,
     hotel_id integer NOT NULL,
     occupancy_type text,
-    CONSTRAINT room_pkey PRIMARY KEY (room_number, hotel_id),
+    CONSTRAINT room_pk PRIMARY KEY (room_number, hotel_id),
     CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id)
         REFERENCES public.hotel (hotel_id)
         ON UPDATE NO ACTION

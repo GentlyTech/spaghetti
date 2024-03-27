@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS public.hotel_chain
 (
     chain_name text NOT NULL,
-    CONSTRAINT hotel_chain_pkey PRIMARY KEY (chain_name)
+    CONSTRAINT hotel_chain_pk PRIMARY KEY (chain_name)
 );
 
 CREATE TABLE IF NOT EXISTS public.hotel_chain_contacts

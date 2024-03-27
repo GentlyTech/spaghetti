@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS public.contacts
     email text,
     name text NOT NULL,
     phone_number text,
-    CONSTRAINT contacts_pkey PRIMARY KEY (contact_id)
+    CONSTRAINT contacts_pk PRIMARY KEY (contact_id)
 );

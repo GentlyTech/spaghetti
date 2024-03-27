@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS public.addresses
     postal_code text,
     province text,
     street text,
-    CONSTRAINT addresses_pkey PRIMARY KEY (address_id)
+    CONSTRAINT addresses_pk PRIMARY KEY (address_id)
 );

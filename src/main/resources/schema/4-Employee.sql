@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS public.employee
     creation_date timestamp NOT NULL,
     name          text      NOT NULL,
     sin           text      NOT NULL,
-    CONSTRAINT employee_pkey PRIMARY KEY (employee_id)
+    CONSTRAINT employee_pk PRIMARY KEY (employee_id)
 );
 
 CREATE TABLE IF NOT EXISTS public.employee_addresses

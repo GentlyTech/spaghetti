@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS public.hotel
     rating     integer NOT NULL,
     hotel_name text,
     owner      text,
-    CONSTRAINT hotel_pkey PRIMARY KEY (hotel_id),
+    CONSTRAINT hotel_pk PRIMARY KEY (hotel_id),
     CONSTRAINT hotel_chain_fk FOREIGN KEY (owner)
         REFERENCES public.hotel_chain (chain_name)
         ON UPDATE CASCADE
