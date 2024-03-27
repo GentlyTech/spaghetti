@@ -4,7 +4,7 @@ public class Contact {
     private int contactId = -1;
     private String name = null;
     private String email = null;
-    private String phone_number = null;
+    private String phoneNumber = null;
 
     public int getContactId() {
         return contactId;
@@ -30,11 +30,11 @@ public class Contact {
         this.email = email;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
