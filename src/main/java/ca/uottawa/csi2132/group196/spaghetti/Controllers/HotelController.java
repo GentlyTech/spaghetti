@@ -41,11 +41,17 @@ public class HotelController {
         return serializer.toJson(results);
     }
 
+    @GetMapping({"/info/byCity{city}", "/info/byCity{city}/"})
+    public String getHotelByLocation(@PathVariable String city) {
+        HotelMapper mapper = new HotelMapper(database.getDataSource(), "SELECT hotel_name, owner, rating, city, country, postal_code, street   FROM hotel JOIN hotel_addresses on hotel_addresses.address_id = hotel.hotel_id JOIN addresses on hotel_addresses.hotel_id = hotel.hotel_id WHERE addresses.city = ?");
+        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "city"));
+        List<Hotel> results = mapper.execute(city);
+        return serializer.toJson(results);
+    }
+
+
     public String getHotelIdsByHotelName() {
         return null;
     }
 
-    public String getHotelIdsByLocation() {
-        return null;
-    }
 }
