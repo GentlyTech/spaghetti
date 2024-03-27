@@ -35,8 +35,12 @@ public class HotelChainController {
 
     @GetMapping({"/info/{chain_name}", "/info/{chain_name}/"})
     public String getChainInfo(@PathVariable String chain_name) {
-        HotelChain result = database.queryForObject("SELECT * FROM hotel_chain WHERE chain_name = ?", HotelChain.class, chain_name);
+        HotelChain finalResult = database.queryForObject("SELECT * FROM hotel_chain WHERE chain_name = ?", (result, rowNum) -> {
+            String chainName = result.getString("chain_name");
+            int hotelCount = database.queryForObject("SELECT COUNT(*) FROM public.hotel WHERE owner = ?", Integer.class, chainName);
+            return new HotelChain(chainName, hotelCount);
+        }, chain_name);
 
-        return serializer.toJson(result);
+        return serializer.toJson(finalResult);
     }
 }
