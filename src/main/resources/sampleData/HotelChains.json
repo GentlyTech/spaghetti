@@ -7,7 +7,7 @@
       {
         "name": "Customer Service",
         "email": null,
-        "phone_number": "18009974058"
+        "phoneNumber": "18009974058"
       }
     ]
   },
@@ -33,7 +33,7 @@
         "street": "7707 Woodmont Ave",
         "city": "Bethesda",
         "province": "MD",
-        "postal_code": "20814",
+        "postalCode": "20814",
         "country": "United States"
       }
     ],
@@ -41,12 +41,12 @@
       {
         "name": "Customer Service (US and Canada)",
         "email": null,
-        "phone_number": "18006277468"
+        "phoneNumber": "18006277468"
       },
       {
         "name": "Customer Service (Australia)",
         "email": null,
-        "phone_number": "1800450010"
+        "phoneNumber": "1800450010"
       }
     ]
   },
