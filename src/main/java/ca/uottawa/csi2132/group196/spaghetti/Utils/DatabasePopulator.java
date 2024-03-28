@@ -1,20 +1,22 @@
 package ca.uottawa.csi2132.group196.spaghetti.Utils;
 
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
 import com.google.gson.Gson;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import java.io.*;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 public class DatabasePopulator {
     Gson serializer;
-    
+    Logger logger;
+
     public DatabasePopulator(Gson serializer) {
         this.serializer = serializer;
+        this.logger = Logger.getLogger(this.getClass().getSimpleName());
     }
-    
+
     public <T> void populateFromJsonFile(String path, Class<T> dataType, Consumer<T> callback) {
         InputStream inputStream;
         Reader reader;
@@ -27,6 +29,7 @@ public class DatabasePopulator {
             } else {
                 Resource resource = new ClassPathResource(path);
                 if (!resource.exists()) {
+                    logger.warning(String.format("The file at '%s' was not found. Skipping...", path));
                     return;
                 }
                 inputStream = resource.getInputStream();
@@ -39,8 +42,8 @@ public class DatabasePopulator {
                 callback.accept(data);
             }
 
-        } catch (IOException ignored) {
-
+        } catch (IOException ex) {
+            logger.warning(ex.toString());
         }
     }
 }
