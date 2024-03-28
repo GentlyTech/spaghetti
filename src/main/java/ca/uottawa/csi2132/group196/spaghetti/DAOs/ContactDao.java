@@ -15,9 +15,9 @@ import java.util.Map;
 
 @Repository
 public class ContactDao {
-    private final String INSERT_CONTACT = "INSERT INTO contacts (name, email, phone_number) VALUES (?, ?, ?)";
-    private final String INSERT_CONTACT_RELATION_HOTEL_CHAIN = "INSERT INTO hotel_chain_contacts (chain_name, contact_id) VALUES (?, ?)";
-    private final String INSERT_CONTACT_RELATION_HOTEL = "INSERT INTO hotel_contacts (hotel_id, contact_id) VALUES (?, ?)";
+    private final String INSERT_CONTACT_SQL = "INSERT INTO contacts (name, email, phone_number) VALUES (?, ?, ?)";
+    private final String INSERT_CONTACT_RELATION_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain_contacts (chain_name, contact_id) VALUES (?, ?)";
+    private final String INSERT_CONTACT_RELATION_HOTEL_SQL = "INSERT INTO hotel_contacts (hotel_id, contact_id) VALUES (?, ?)";
 
     private final JdbcTemplate database;
 
@@ -29,7 +29,7 @@ public class ContactDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         database.update(connection -> {
-            PreparedStatement statement = connection.prepareStatement(INSERT_CONTACT, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = connection.prepareStatement(INSERT_CONTACT_SQL, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, contact.getName());
             statement.setString(2, contact.getEmail());
             statement.setString(3, contact.getPhoneNumber());
@@ -50,7 +50,7 @@ public class ContactDao {
         for (int i = 0; i < contacts.size(); i++) {
             Contact contact = contacts.get(i);
             int contactId = insertContact(contact);
-            database.update(INSERT_CONTACT_RELATION_HOTEL_CHAIN, hotelChain.getChainName(), contactId);
+            database.update(INSERT_CONTACT_RELATION_HOTEL_CHAIN_SQL, hotelChain.getChainName(), contactId);
             contactIds[i] = contactId;
         }
         
@@ -64,7 +64,7 @@ public class ContactDao {
         for (int i = 0; i < contacts.size(); i++) {
             Contact contact = contacts.get(i);
             int contactId = insertContact(contact);
-            database.update(INSERT_CONTACT_RELATION_HOTEL, hotel.getHotelId(), contactId);
+            database.update(INSERT_CONTACT_RELATION_HOTEL_SQL, hotel.getHotelId(), contactId);
             contactIds[i] = contactId;
         }
 

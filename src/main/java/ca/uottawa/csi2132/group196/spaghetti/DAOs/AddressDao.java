@@ -15,9 +15,9 @@ import java.util.Map;
 
 @Repository
 public class AddressDao {
-    private final String INSERT_ADDRESS = "INSERT INTO addresses (alias, street, city, province, postal_code, country) VALUES (?, ?, ?, ?, ?, ?)";
-    private final String INSERT_ADDRESS_RELATION_HOTEL_CHAIN = "INSERT INTO hotel_chain_addresses (chain_name, address_id) VALUES (?, ?)";
-    private final String INSERT_ADDRESS_RELATION_HOTEL = "INSERT INTO hotel_addresses (hotel_id, address_id) VALUES (?, ?)";
+    private final String INSERT_ADDRESS_SQL = "INSERT INTO addresses (alias, street, city, province, postal_code, country) VALUES (?, ?, ?, ?, ?, ?)";
+    private final String INSERT_ADDRESS_RELATION_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain_addresses (chain_name, address_id) VALUES (?, ?)";
+    private final String INSERT_ADDRESS_RELATION_HOTEL_SQL = "INSERT INTO hotel_addresses (hotel_id, address_id) VALUES (?, ?)";
 
     private final JdbcTemplate database;
 
@@ -29,7 +29,7 @@ public class AddressDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         database.update(connection -> {
-            PreparedStatement statement = connection.prepareStatement(INSERT_ADDRESS, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = connection.prepareStatement(INSERT_ADDRESS_SQL, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, address.getAlias());
             statement.setString(2, address.getStreet());
             statement.setString(3, address.getCity());
@@ -53,7 +53,7 @@ public class AddressDao {
         for (int i = 0; i < addresses.size(); i++) {
             Address address = addresses.get(i);
             int addressId = insertAddress(address);
-            database.update(INSERT_ADDRESS_RELATION_HOTEL_CHAIN, hotelChain.getChainName(), addressId);
+            database.update(INSERT_ADDRESS_RELATION_HOTEL_CHAIN_SQL, hotelChain.getChainName(), addressId);
             addressIds[i] = addressId;
         }
 
@@ -67,7 +67,7 @@ public class AddressDao {
         for (int i = 0; i < addresses.size(); i++) {
             Address address = addresses.get(i);
             int addressId = insertAddress(address);
-            database.update(INSERT_ADDRESS_RELATION_HOTEL, hotel.getHotelId(), addressId);
+            database.update(INSERT_ADDRESS_RELATION_HOTEL_SQL, hotel.getHotelId(), addressId);
             addressIds[i] = addressId;
         }
 
