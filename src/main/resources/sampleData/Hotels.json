@@ -1,0 +1,36 @@
+[
+  {
+    "rating": 4,
+    "hotelName": "Ottawa Marriott Hotel",
+    "owner": "Marriott",
+    "addresses": [
+      {
+        "street": "100 Kent St",
+        "city": "Ottawa",
+        "province": "ON",
+        "postal_code": "K1P5R7",
+        "country": "Canada"
+      }
+    ],
+    "contacts": [
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Sheraton Vancouver Wall Centre",
+    "owner": "Marriott",
+    "addresses": [
+    ],
+    "contacts": [
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hilton Garden Inn Ottawa Downtown",
+    "owner": "Hilton",
+    "addresses": [
+    ],
+    "contacts": [
+    ]
+  }
+]

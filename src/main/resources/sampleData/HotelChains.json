@@ -1,0 +1,60 @@
+[
+  {
+    "chainName": "Hilton",
+    "addresses": [
+    ],
+    "contacts": [
+      {
+        "name": "Customer Service",
+        "email": null,
+        "phone_number": "18009974058"
+      }
+    ]
+  },
+  {
+    "chainName": "Walt Disney",
+    "addresses": [
+    ],
+    "contacts": [
+    ]
+  },
+  {
+    "chainName": "Hyatt",
+    "addresses": [
+    ],
+    "contacts": [
+    ]
+  },
+  {
+    "chainName": "Marriott",
+    "addresses": [
+      {
+        "alias": "Headquarters",
+        "street": "7707 Woodmont Ave",
+        "city": "Bethesda",
+        "province": "MD",
+        "postal_code": "20814",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Customer Service (US and Canada)",
+        "email": null,
+        "phone_number": "18006277468"
+      },
+      {
+        "name": "Customer Service (Australia)",
+        "email": null,
+        "phone_number": "1800450010"
+      }
+    ]
+  },
+  {
+    "chainName": "Travelodge",
+    "addresses": [
+    ],
+    "contacts": [
+    ]
+  }
+]
