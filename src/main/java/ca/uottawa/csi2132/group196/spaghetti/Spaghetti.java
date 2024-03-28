@@ -1,25 +1,30 @@
 package ca.uottawa.csi2132.group196.spaghetti;
 
+import ca.uottawa.csi2132.group196.spaghetti.DAOs.HotelChainDao;
+import ca.uottawa.csi2132.group196.spaghetti.DAOs.HotelDao;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.DatabasePopulator;
 import com.google.gson.Gson;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.io.*;
-import java.util.logging.Logger;
 
 @SpringBootApplication
 public class Spaghetti {
     JdbcTemplate database;
     Gson serializer;
 
-    public Spaghetti(JdbcTemplate database, Gson serializer) {
+    HotelChainDao hotelChainDao;
+    HotelDao hotelDao;
+
+    public Spaghetti(JdbcTemplate database, Gson serializer, HotelChainDao hotelChainDao, HotelDao hotelDao) {
         this.database = database;
         this.serializer = serializer;
+        this.hotelChainDao = hotelChainDao;
+        this.hotelDao = hotelDao;
     }
 
     public static void main(String[] args) {
@@ -31,21 +36,23 @@ public class Spaghetti {
      */
     @PostConstruct
     public void onStartup() {
-        InputStream inputStream;
-        Reader reader;
+        DatabasePopulator populator = new DatabasePopulator(serializer);
 
-        // Init HotelChains
-        try {
-            inputStream = new ClassPathResource("sampleData/HotelChains.json").getInputStream();
-            reader = new InputStreamReader(inputStream);
-            HotelChain[] hotelChains = serializer.fromJson(reader, HotelChain[].class);
-            for (HotelChain hotelChain : hotelChains) {
-                
+        populator.populateFromJsonFile("sampleData/HotelChains.json", HotelChain[].class, data -> {
+            for (HotelChain hotelChain : data) {
+                hotelChainDao.insertHotelChain(hotelChain);
+                // TODO insert contacts
+                // TODO insert addresses
             }
-        }
-        catch (IOException ignored) {
-            
-        }
+        });
+
+        populator.populateFromJsonFile("sampleData/Hotels.json", Hotel[].class, data -> {
+            for (Hotel hotel : data) {
+                hotelDao.insertHotel(hotel);
+                // TODO insert contacts
+                // TODO insert addresses
+            }
+        });
 
     }
 
