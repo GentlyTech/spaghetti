@@ -2,6 +2,7 @@ package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
 public class Address {
     private int addressId = -1;
+    private String alias = null;
     private String city = null;
     private String country = null;
     private String postalCode = null;
@@ -54,5 +55,13 @@ public class Address {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 }

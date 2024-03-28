@@ -24,6 +24,12 @@ public class AddressMapper extends MappingSqlQuery<Address> {
         }
 
         try {
+            address.setAlias(rs.getString("alias"));
+        } catch (SQLException ignored) {
+
+        }
+
+        try {
             address.setCity(rs.getString("city"));
         } catch (SQLException ignored) {
 
