@@ -46,29 +46,26 @@ public class HotelChainController {
     @GetMapping({"/info", "/info/"})
     public String getHotelChainInfoAll() {
         // If we wanted to we could do something like `SELECT hotelChainInst.chain_name AS chain_name, COUNT(hotelInst.hotel_id) AS hotel_count FROM hotel_chain hotelChainInst FULL JOIN hotel hotelInst ON hotelChainInst.chain_name = hotelInst.owner GROUP BY hotelChainInst.chain_name;` but breaking the queries up is cleaner
-        List<HotelChain> results = new HotelChainMapper(database.getDataSource(), "SELECT hotelChainInst.chain_name AS chain_name, COUNT(hotelInst.hotel_id) AS hotel_count FROM hotel_chain hotelChainInst FULL JOIN hotel hotelInst ON hotelChainInst.chain_name = hotelInst.owner GROUP BY hotelChainInst.chain_name;").execute();
+        List<HotelChain> results = hotelChainDao.getAllHotelChains();
+        for (int i = 0; i < results.size(); i++) {
+            HotelChain hotelChain = results.get(i);
+            hotelChain.setAddresses(addressDao.getAddressesForHotelChain(hotelChain.getChainName()));
+            hotelChain.setContacts(contactDao.getContactsForHotelChain(hotelChain.getChainName()));
+            hotelChain.setHotelCount(hotelDao.getHotelCountByChainName(hotelChain.getChainName()));
+            results.set(i, hotelChain);
+        }
         return serializer.toJson(results);
     }
 
     @GetMapping({"/info/{chain_name}", "/info/{chain_name}/"})
     public String getHotelChainInfo(@PathVariable String chain_name) {
-        HotelChainMapper hotelChainMapper = new HotelChainMapper(database.getDataSource(), "SELECT hotelChainInst.chain_name AS chain_name, COUNT(hotelInst.hotel_id) AS hotel_count FROM hotel_chain hotelChainInst LEFT JOIN hotel hotelInst ON hotelChainInst.chain_name = hotelInst.owner WHERE chain_name = ? GROUP BY hotelChainInst.chain_name;");
-        hotelChainMapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
-        HotelChain result = hotelChainMapper.findObject(chain_name);
+        HotelChain result = hotelChainDao.getHotelChainByChainName(chain_name);
 
         if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        ContactMapper contactMapper = new ContactMapper(database.getDataSource(), "SELECT contactInst.* FROM hotel_chain_contacts hotelChainInst LEFT JOIN contacts contactInst ON hotelChainInst.contact_id = contactInst.contact_id WHERE hotelChainInst.chain_name = ? GROUP BY contactInst.contact_id;");
-        contactMapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
-        List<Contact> contacts = contactMapper.execute(chain_name);
-
-        result.setContacts(contacts);
-
-        AddressMapper addressMapper = new AddressMapper(database.getDataSource(), "SELECT addressInst.* FROM hotel_chain_addresses hotelChainInst LEFT JOIN addresses addressInst ON hotelChainInst.address_id = addressInst.address_id WHERE hotelChainInst.chain_name = ? GROUP BY addressInst.address_id;");
-        addressMapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
-        List<Address> addresses = addressMapper.execute(chain_name);
-
-        result.setAddresses(addresses);
+        result.setContacts(contactDao.getContactsForHotelChain(result.getChainName()));
+        result.setAddresses(addressDao.getAddressesForHotelChain(result.getChainName()));
+        result.setHotelCount(hotelDao.getHotelCountByChainName(result.getChainName()));
 
         return serializer.toJson(result);
     }
