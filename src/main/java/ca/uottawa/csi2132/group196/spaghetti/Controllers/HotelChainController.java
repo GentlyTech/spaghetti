@@ -45,7 +45,6 @@ public class HotelChainController {
 
     @GetMapping({"/info", "/info/"})
     public String getHotelChainInfoAll() {
-        // If we wanted to we could do something like `SELECT hotelChainInst.chain_name AS chain_name, COUNT(hotelInst.hotel_id) AS hotel_count FROM hotel_chain hotelChainInst FULL JOIN hotel hotelInst ON hotelChainInst.chain_name = hotelInst.owner GROUP BY hotelChainInst.chain_name;` but breaking the queries up is cleaner
         List<HotelChain> results = hotelChainDao.getAllHotelChains();
         for (int i = 0; i < results.size(); i++) {
             HotelChain hotelChain = results.get(i);
