@@ -70,5 +70,13 @@ public class ContactDao {
 
         return contactIds;
     }
+    
+    public List<Contact> getContactsForHotelChain(String chainName) {
+        return null;
+    }
+
+    public List<Contact> getContactsForHotel(int hotelId) {
+        return null;
+    }
 
 }

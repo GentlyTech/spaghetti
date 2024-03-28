@@ -73,4 +73,12 @@ public class AddressDao {
 
         return addressIds;
     }
+
+    public List<Address> getAddressesForHotelChain(String chainName) {
+        return null;
+    }
+
+    public List<Address> getAddressesForHotel(int hotelId) {
+        return null;
+    }
 }
