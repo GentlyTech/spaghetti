@@ -4,14 +4,12 @@ import ca.uottawa.csi2132.group196.spaghetti.DAOs.AddressDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.AmenityDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.ContactDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.HotelDao;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -65,7 +63,18 @@ public class HotelController {
         return null;
     }
 
-    public String getHotelIdsByLocation() {
-        return null;
+    @PostMapping("/info/byLocation")
+    public String getHotelIdsByLocation(@RequestBody Address address) {
+        List<Hotel> results = hotelDao.getHotelsByAddress(address);
+
+        for (int i = 0; i < results.size(); i++) {
+            Hotel hotel = results.get(i);
+            hotel.setAddress(addressDao.getAddressForHotel(hotel.getHotelId()));
+            hotel.setContacts(contactDao.getContactsForHotel(hotel.getHotelId()));
+            hotel.setAmenities(amenityDao.getAmenitiesForHotel(hotel.getHotelId()));
+            results.set(i, hotel);
+        }
+
+        return serializer.toJson(results);
     }
 }

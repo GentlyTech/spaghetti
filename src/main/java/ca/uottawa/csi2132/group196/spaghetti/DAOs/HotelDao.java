@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,6 +20,7 @@ public class HotelDao {
     private static final String INSERT_HOTEL_SQL = "INSERT INTO hotel (hotel_name, rating, owner) VALUES (?, ?, ?)";
     private static final String SELECT_HOTEL_BY_ID_SQL = "SELECT * FROM hotel WHERE hotel_id = ?";
     private static final String SELECT_HOTEL_BY_CHAIN_SQL = "SELECT * FROM hotel WHERE owner = ?";
+    private static final String SELECT_HOTELS_BY_ADDRESS_SQL = "SELECT hotelInst.* FROM addresses addressInst LEFT JOIN hotel_addresses hotelRelInst ON addressInst.address_id = hotelRelInst.address_id LEFT JOIN hotel hotelInst ON hotelRelInst.hotel_id = hotelInst.hotel_id WHERE LOWER(addressInst.street) LIKE LOWER(?) OR LOWER(addressInst.city) LIKE LOWER(?) OR LOWER(addressInst.province) LIKE LOWER(?) OR LOWER(addressInst.postal_code) LIKE LOWER(?) OR LOWER(addressInst.country) LIKE LOWER(?)";
 
     private final JdbcTemplate database;
 
@@ -48,6 +50,16 @@ public class HotelDao {
         FieldMapper<Hotel> mapper = new FieldMapper<>(database.getDataSource(), SELECT_HOTEL_BY_CHAIN_SQL, Hotel.class);
         mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
         return mapper.execute(chainName);
+    }
+
+    public List<Hotel> getHotelsByAddress(Address address) {
+        FieldMapper<Hotel> mapper = new FieldMapper<>(database.getDataSource(), SELECT_HOTELS_BY_ADDRESS_SQL, Hotel.class);
+        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "street"));
+        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "city"));
+        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "province"));
+        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "postal_code"));
+        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "country"));
+        return mapper.execute(address.getStreet(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry());
     }
 
     public int getHotelCountByChainName(String chainName) {
