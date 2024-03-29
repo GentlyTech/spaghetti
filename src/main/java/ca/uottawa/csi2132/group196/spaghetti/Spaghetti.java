@@ -32,9 +32,10 @@ public class Spaghetti {
     HotelDao hotelDao;
     ProblemDao problemDao;
     RoleDao roleDao;
+    RoomDao roomDao;
     UserDao userDao;
 
-    public Spaghetti(JdbcTemplate database, Gson serializer, AddressDao addressDao, AmenityDao amenityDao, BookingDao bookingDao, ContactDao contactDao, CustomerDao customerDao, EmployeeDao employeeDao, HotelChainDao hotelChainDao, HotelDao hotelDao, ProblemDao problemDao, RoleDao roleDao, UserDao userDao) {
+    public Spaghetti(JdbcTemplate database, Gson serializer, AddressDao addressDao, AmenityDao amenityDao, BookingDao bookingDao, ContactDao contactDao, CustomerDao customerDao, EmployeeDao employeeDao, HotelChainDao hotelChainDao, HotelDao hotelDao, ProblemDao problemDao, RoleDao roleDao, RoomDao roomDao, UserDao userDao) {
         this.database = database;
         this.serializer = serializer;
         this.addressDao = addressDao;
@@ -47,6 +48,7 @@ public class Spaghetti {
         this.hotelDao = hotelDao;
         this.problemDao = problemDao;
         this.roleDao = roleDao;
+        this.roomDao = roomDao;
         this.userDao = userDao;
     }
 
@@ -80,8 +82,9 @@ public class Spaghetti {
                 amenityDao.insertAmenitiesFromHotel(hotel);
 
                 List<Room> rooms = new RoomGenerator(hotel, roomAmenities).generateRooms(100);
-                // TODO insert rooms into database
-                Logger.getLogger("Init").info(serializer.toJson(rooms));
+                for (Room room : rooms) {
+                    roomDao.insertRoom(room);
+                }
             }
         });
 
