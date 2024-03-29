@@ -8,7 +8,6 @@ public class HotelChain {
     @MappedField("chain_name")
     private String chainName = null;
 
-    @MappedField("hotel_count")
     private int hotelCount = 0;
 
     private List<Address> addresses = null;
