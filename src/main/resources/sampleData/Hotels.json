@@ -12,6 +12,12 @@
         "country": "Canada"
       }
     ],
+    "amenities": [
+      {
+        "name": "Free Wi-Fi",
+        "description": "Complementary fast and unlimited Wi-Fi for all your internet surfing needs."
+      }
+    ],
     "contacts": [
       {
         "name": "Reception",
@@ -26,6 +32,8 @@
     "owner": "Marriott",
     "addresses": [
     ],
+    "amenities": [
+    ],
     "contacts": [
     ]
   },
@@ -34,6 +42,8 @@
     "hotelName": "Hilton Garden Inn Ottawa Downtown",
     "owner": "Hilton",
     "addresses": [
+    ],
+    "amenities": [
     ],
     "contacts": [
     ]
