@@ -18,32 +18,9 @@ public class DatabasePopulator {
     }
 
     public <T> void populateFromJsonFile(String path, Class<T> dataType, Consumer<T> callback) {
-        InputStream inputStream;
-        Reader reader;
-
-        try {
-            File file = new File(path);
-
-            if (file.exists()) {
-                inputStream = new FileInputStream(file);
-            } else {
-                Resource resource = new ClassPathResource(path);
-                if (!resource.exists()) {
-                    logger.warning(String.format("The file at '%s' was not found. Skipping...", path));
-                    return;
-                }
-                inputStream = resource.getInputStream();
-            }
-            reader = new InputStreamReader(inputStream);
-
-            T data = serializer.fromJson(reader, dataType);
-
-            if (callback != null) {
-                callback.accept(data);
-            }
-
-        } catch (IOException ex) {
-            logger.warning(ex.toString());
+        T data = populateFromJsonFile(path, dataType);
+        if (callback != null) {
+            callback.accept(data);
         }
     }
 
