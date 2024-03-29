@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS public.booking
 (
-    booking_status smallint,
+    booking_status text,
     room_number integer NOT NULL,
     customer_id integer NOT NULL,
     hotel_id integer NOT NULL,
@@ -14,6 +14,5 @@ CREATE TABLE IF NOT EXISTS public.booking
     CONSTRAINT room_fk FOREIGN KEY (room_number, hotel_id)
         REFERENCES public.room (room_number, hotel_id)
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT booking_status_check CHECK (booking_status >= 0 AND booking_status <= 3)
+        ON DELETE NO ACTION
 );

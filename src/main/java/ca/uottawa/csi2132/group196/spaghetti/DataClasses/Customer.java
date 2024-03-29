@@ -1,7 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
 import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
-import ca.uottawa.csi2132.group196.spaghetti.Types.IDType;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +12,7 @@ public class Customer {
     private LocalDateTime creationDate = null;
 
     @MappedField("id_type")
-    private IDType idType = IDType.NONE;
+    private String idType = null;
 
     @MappedField
     private String name = null;
@@ -45,11 +44,11 @@ public class Customer {
         this.creationDate = creationDate;
     }
 
-    public IDType getIdType() {
+    public String getIdType() {
         return idType;
     }
 
-    public void setIdType(IDType idType) {
+    public void setIdType(String idType) {
         this.idType = idType;
     }
 

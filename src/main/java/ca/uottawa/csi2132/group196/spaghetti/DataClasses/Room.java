@@ -1,7 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
 import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
-import ca.uottawa.csi2132.group196.spaghetti.Types.ViewType;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class Room {
     private String occupancyType = null;
 
     @MappedField("view_type")
-    private ViewType viewType = ViewType.BORING;
+    private String viewType = null;
 
     private List<Amenity> amenities = null;
 
@@ -95,11 +94,11 @@ public class Room {
         this.occupancyType = occupancyType;
     }
 
-    public ViewType getViewType() {
+    public String getViewType() {
         return viewType;
     }
 
-    public void setViewType(ViewType viewType) {
+    public void setViewType(String viewType) {
         this.viewType = viewType;
     }
 }
