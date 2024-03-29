@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS public.employee
 (
     employee_id   serial    NOT NULL,
-    creation_date timestamp NOT NULL,
+    creation_date timestamp NOT NULL default current_timestamp,
     name          text      NOT NULL,
     sin           text      NOT NULL,
     CONSTRAINT employee_pk PRIMARY KEY (employee_id)
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS public.employee_roles
         REFERENCES public.employee (employee_id)
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-        CONSTRAINT role_name_fk FOREIGN KEY (role_name)
+    CONSTRAINT role_name_fk FOREIGN KEY (role_name)
         REFERENCES public.roles (name)
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
