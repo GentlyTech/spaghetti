@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS public.room_amenities
 (
     room_number integer NOT NULL,
     hotel_id integer NOT NULL,
-    description text,
     name text NOT NULL,
+    description text,
     CONSTRAINT room_fk FOREIGN KEY (room_number, hotel_id)
         REFERENCES public.room (room_number, hotel_id)
         ON UPDATE NO ACTION
