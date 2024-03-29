@@ -3,6 +3,8 @@ package ca.uottawa.csi2132.group196.spaghetti;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.*;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
+import ca.uottawa.csi2132.group196.spaghetti.Generators.RoomGenerator;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.DatabasePopulator;
 import com.google.gson.Gson;
 import jakarta.annotation.PostConstruct;
@@ -10,6 +12,8 @@ import jakarta.annotation.PreDestroy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.List;
 
 @SpringBootApplication
 public class Spaghetti {
@@ -70,6 +74,9 @@ public class Spaghetti {
                 contactDao.insertContactsFromHotel(hotel);
                 addressDao.insertAddressFromHotel(hotel);
                 amenityDao.insertAmenitiesFromHotel(hotel);
+
+                List<Room> rooms = new RoomGenerator(hotel).generateRooms(100);
+                // TODO insert rooms into database
             }
         });
 
