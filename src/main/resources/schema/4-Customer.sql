@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS public.customer
 (
     customer_id   serial    NOT NULL,
-    creation_date timestamp NOT NULL,
+    creation_date timestamp NOT NULL default current_timestamp,
     id_type       text      NOT NULL,
     name          text      NOT NULL,
     CONSTRAINT customer_pk PRIMARY KEY (customer_id)

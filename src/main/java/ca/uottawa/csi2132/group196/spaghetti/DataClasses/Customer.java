@@ -3,6 +3,7 @@ package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Customer {
     @MappedField("customer_id")
@@ -19,6 +20,15 @@ public class Customer {
 
     @MappedField
     private Address address = null;
+    private List<Booking> bookings = null;
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 
     public Address getAddress() {
         return address;

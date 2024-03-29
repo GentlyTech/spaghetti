@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS public.booking
     customer_id    integer NOT NULL,
     hotel_id       integer NOT NULL,
     booking_status text,
-    check_in_date  timestamp,
-    check_out_date timestamp,
+    check_in_date  date,
+    check_out_date date,
     damage_fee     double precision,
     CONSTRAINT booking_pk PRIMARY KEY (room_number, customer_id, hotel_id),
     CONSTRAINT customer_id_fk FOREIGN KEY (customer_id)

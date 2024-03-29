@@ -13,7 +13,9 @@ import java.awt.print.Book;
 import java.sql.Date;
 import java.sql.Types;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class BookingDao {
 
 
