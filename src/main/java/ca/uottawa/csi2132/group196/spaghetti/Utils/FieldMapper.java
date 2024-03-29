@@ -31,7 +31,7 @@ public class FieldMapper<T> extends MappingSqlQuery<T> {
                 if (mappedFieldAnnotation == null) continue;
 
                 String columnName = field.getName();
-                if (mappedFieldAnnotation.value().isEmpty()) {
+                if (!mappedFieldAnnotation.value().isEmpty()) {
                     columnName = mappedFieldAnnotation.value();
                 }
 
