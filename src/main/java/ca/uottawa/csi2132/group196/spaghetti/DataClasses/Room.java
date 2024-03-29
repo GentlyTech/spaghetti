@@ -19,7 +19,7 @@ public class Room {
     private boolean extendable = false;
 
     @MappedField
-    private int capacity = 0;
+    private int capacity = -1;
 
     @MappedField("view_type")
     private String viewType = null;
@@ -76,8 +76,8 @@ public class Room {
         this.extendable = extendable;
     }
 
-    public String getCapacity() {
-        return occupancyType;
+    public int getCapacity() {
+        return capacity;
     }
 
     public void setCapacity(int capacity) {
