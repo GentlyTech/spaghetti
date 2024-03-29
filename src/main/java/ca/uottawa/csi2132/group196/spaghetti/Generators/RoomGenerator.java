@@ -38,11 +38,11 @@ public class RoomGenerator {
             room.setRoomNumber(i + 1);
 
             // extendable
-            int int_random = rand.nextInt(2);
-            room.setExtendable(int_random == 1);
+            int extendable = rand.nextInt(2);
+            room.setExtendable(extendable == 1);
 
             // capacity
-            int capacity = rand.nextInt(10);
+            int capacity = rand.nextInt(1, 10);
             room.setCapacity(capacity);
 
             // price based on capacity
@@ -69,8 +69,8 @@ public class RoomGenerator {
             room.setPrice(price);
 
             //viewtype
-            int int_random3 = rand.nextInt(2);
-            if (int_random == 1) {
+            int viewType = rand.nextInt(2);
+            if (viewType == 1) {
                 room.setViewType("Sea View");
             } else {
                 room.setViewType("Mountain View");
