@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS public.room
 (
-    extendable     boolean          NOT NULL,
-    price          double precision NOT NULL,
-    room_number    integer          NOT NULL,
-    view_type      text,
-    hotel_id       integer          NOT NULL,
-    occupancy_type text,
+    hotel_id    integer          NOT NULL,
+    room_number integer          NOT NULL,
+    price       double precision NOT NULL,
+    view_type   text,
+    capacity    integer          NOT NULL,
+    extendable  boolean          NOT NULL,
     CONSTRAINT room_pk PRIMARY KEY (room_number, hotel_id),
     CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id)
         REFERENCES public.hotel (hotel_id)
