@@ -14,9 +14,6 @@ public class Room {
     @MappedField
     private double price = 0.0;
 
-    @MappedField("damage_fee")
-    private double damageFee = 0.0;
-
     @MappedField
     private boolean extendable = false;
 
@@ -68,14 +65,6 @@ public class Room {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public double getDamageFee() {
-        return damageFee;
-    }
-
-    public void setDamageFee(double damageFee) {
-        this.damageFee = damageFee;
     }
 
     public boolean isExtendable() {

@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS public.room
 (
-    damage_fee     double precision NOT NULL,
     extendable     boolean          NOT NULL,
     price          double precision NOT NULL,
     room_number    integer          NOT NULL,
