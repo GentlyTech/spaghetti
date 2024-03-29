@@ -3,13 +3,16 @@ package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
+import ca.uottawa.csi2132.group196.spaghetti.Mappers.AddressMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +21,7 @@ public class AddressDao {
     private static final String INSERT_ADDRESS_SQL = "INSERT INTO addresses (alias, street, city, province, postal_code, country) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String INSERT_ADDRESS_RELATION_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain_addresses (chain_name, address_id) VALUES (?, ?)";
     private static final String INSERT_ADDRESS_RELATION_HOTEL_SQL = "INSERT INTO hotel_addresses (hotel_id, address_id) VALUES (?, ?)";
+    private static final String SELECT_ADDRESSES_FOR_HOTEL_CHAIN_SQL = "SELECT addressInst.* FROM hotel_chain_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.chain_name = ?";
 
     private final JdbcTemplate database;
 
@@ -75,7 +79,9 @@ public class AddressDao {
     }
 
     public List<Address> getAddressesForHotelChain(String chainName) {
-        return null;
+        AddressMapper mapper = new AddressMapper(database.getDataSource(), SELECT_ADDRESSES_FOR_HOTEL_CHAIN_SQL);
+        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
+        return mapper.execute(chainName);
     }
 
     public List<Address> getAddressesForHotel(int hotelId) {
