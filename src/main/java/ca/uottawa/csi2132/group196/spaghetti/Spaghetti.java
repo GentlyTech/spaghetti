@@ -1,6 +1,7 @@
 package ca.uottawa.csi2132.group196.spaghetti;
 
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.*;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
@@ -14,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @SpringBootApplication
 public class Spaghetti {
@@ -58,6 +60,8 @@ public class Spaghetti {
     @PostConstruct
     public void onStartup() {
         DatabasePopulator populator = new DatabasePopulator(serializer);
+        List<Amenity> hotelAmenities = List.of(populator.populateFromJsonFile("sampleData/HotelAmenities.json", Amenity[].class));
+        List<Amenity> roomAmenities = List.of(populator.populateFromJsonFile("sampleData/RoomAmenities.json", Amenity[].class));
 
         populator.populateFromJsonFile("sampleData/HotelChains.json", HotelChain[].class, data -> {
             for (HotelChain hotelChain : data) {
@@ -75,8 +79,9 @@ public class Spaghetti {
                 addressDao.insertAddressFromHotel(hotel);
                 amenityDao.insertAmenitiesFromHotel(hotel);
 
-                List<Room> rooms = new RoomGenerator(hotel).generateRooms(100);
+                List<Room> rooms = new RoomGenerator(hotel, roomAmenities).generateRooms(100);
                 // TODO insert rooms into database
+                Logger.getLogger("Init").info(serializer.toJson(rooms));
             }
         });
 
