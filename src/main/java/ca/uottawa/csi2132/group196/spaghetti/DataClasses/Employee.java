@@ -18,7 +18,7 @@ public class Employee {
     @MappedField
     private Address address = null;
 
-    @MappedField
+    @MappedField("sin")
     private String sinNumber = null;
 
     private List<Role> roles = null;

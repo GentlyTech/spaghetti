@@ -15,7 +15,7 @@ public class Address {
     @MappedField
     private String country = null;
 
-    @MappedField
+    @MappedField("postal_code")
     private String postalCode = null;
 
     @MappedField

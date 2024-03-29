@@ -12,7 +12,7 @@ public class Contact {
     @MappedField
     private String email = null;
 
-    @MappedField
+    @MappedField("phone_number")
     private String phoneNumber = null;
 
     public int getContactId() {
