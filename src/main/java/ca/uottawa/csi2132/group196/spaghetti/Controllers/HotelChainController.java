@@ -4,23 +4,16 @@ import ca.uottawa.csi2132.group196.spaghetti.DAOs.AddressDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.ContactDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.HotelChainDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.HotelDao;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Contact;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
-import ca.uottawa.csi2132.group196.spaghetti.Mappers.AddressMapper;
-import ca.uottawa.csi2132.group196.spaghetti.Mappers.ContactMapper;
-import ca.uottawa.csi2132.group196.spaghetti.Mappers.HotelChainMapper;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.Types;
 import java.util.List;
 
 @RestController
