@@ -11,9 +11,10 @@ import java.util.List;
 
 @Repository
 public class HotelChainDao {
-    private final String INSERT_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain (chain_name) VALUES (?)";
-    private final String SELECT_HOTEL_CHAIN_SQL = "SELECT * FROM hotel_chain WHERE chain_name = ?";
-    private final String SELECT_ALL_HOTEL_CHAIN_SQL = "SELECT * FROM hotel_chain";
+    private static final String INSERT_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain (chain_name) VALUES (?)";
+    private static final String SELECT_HOTEL_CHAIN_SQL = "SELECT * FROM hotel_chain WHERE chain_name = ?";
+    private static final String SELECT_ALL_HOTEL_CHAIN_SQL = "SELECT * FROM hotel_chain";
+    
     private final JdbcTemplate database;
 
     public HotelChainDao(JdbcTemplate database) {
