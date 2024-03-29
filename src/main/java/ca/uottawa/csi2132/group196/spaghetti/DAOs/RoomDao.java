@@ -20,12 +20,14 @@ public class RoomDao {
     private double damageFee = 0.0;
     private boolean extendable = false;
     private String occupancyType = null;
-    private ViewType viewType = ViewType.BORING;
+    private String viewType = "boring";
     private List<Amenity> amenities = null;
     private List<Problem> problems = null;
 
     private static final String INSERT_ROOM_SQL = "INSERT INTO room (hotelId, roomNumber, price, damageFee, extendable, occupancyType, viewType, amenities, problems) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ROOM_SQL = "SELECT * FROM room WHERE hotelId = ? AND roomNumber = ?";
+    private static final String SELECT_ROOMS_BY_HOTEL_SQL = "SELECT * FROM room WHERE hotelId = ?";
+    private static final String UPDATE_ROOMS_BY_HOTEL_SQL = "UPDATE room SET occ";
 
 
     public RoomDao(JdbcTemplate database){
@@ -36,11 +38,16 @@ public class RoomDao {
         database.update(INSERT_ROOM_SQL, room.getHotelId(), room.getRoomNumber(), room.getPrice(), room.getDamageFee(), room.isExtendable(), room.getOccupancyType(), room.getViewType(), room.getAmenities(), room.getProblems());
     }
 
-    public Room getRoom(int hotelId, int roomNumber) {
+    public Room getRoomByRoomNum(int hotelId, int roomNumber) {
         FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOM_SQL, Room.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "room_number"));
         return mapper.findObject(hotelId, roomNumber);
     }
 
+    public List<Room> getRoomsByHotel(int hotelId) {
+        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOMS_BY_HOTEL_SQL, Room.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
+        return mapper.execute(hotelId);
+    }
 }
