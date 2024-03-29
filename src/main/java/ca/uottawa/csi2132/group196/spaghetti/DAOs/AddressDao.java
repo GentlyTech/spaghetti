@@ -1,8 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.*;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
@@ -77,6 +75,14 @@ public class AddressDao {
         }
 
         return addressIds;
+    }
+
+    public int insertAddressFromCustomer(Customer customer) {
+        return -1;
+    }
+
+    public int insertAddressFromEmployee(Employee employee) {
+        return -1;
     }
 
     public List<Address> getAddressesForHotelChain(String chainName) {
