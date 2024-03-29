@@ -11,14 +11,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RoomGenerator {
     private final Hotel hotel;
-    private final Amenity amenities;
+    private final List<Amenity> amenities;
 
     public RoomGenerator(Hotel hotel) {
         this.hotel = hotel;
-        this.amenities = null;
+        if (hotel != null)
+            this.amenities = hotel.getAmenities();
     }
 
-    public RoomGenerator(Hotel hotel, Amenity amenities) {
+    public RoomGenerator(Hotel hotel, List<Amenity> amenities) {
         this.hotel = hotel;
         this.amenities = amenities;
     }
@@ -65,12 +66,17 @@ public class RoomGenerator {
                 room.setViewType("Mountain View");
             }
 
-            if (amenities == null) return rooms;
+            if (amenities == null) {
+                rooms.add(room);
+                continue;
+            }
 
             //amenities
             room.setAmenities(null); // TODO pick amenities
 
-            return rooms;
+            rooms.add(room);
         }
+
+        return rooms;
     }
 }
