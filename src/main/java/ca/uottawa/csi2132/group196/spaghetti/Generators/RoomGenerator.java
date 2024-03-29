@@ -4,10 +4,10 @@ import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class RoomGenerator {
     private final Hotel hotel;
@@ -15,8 +15,11 @@ public class RoomGenerator {
 
     public RoomGenerator(Hotel hotel) {
         this.hotel = hotel;
+
         if (hotel != null)
             this.amenities = hotel.getAmenities();
+        else
+            this.amenities = null;
     }
 
     public RoomGenerator(Hotel hotel, List<Amenity> amenities) {
@@ -30,33 +33,40 @@ public class RoomGenerator {
 
         for (int i = 0; i < numRooms; i++) {
             Room room = new Room();
+            // primary keys
+            room.setHotelId(hotel.getHotelId());
             room.setRoomNumber(i + 1);
 
-            //extendable
+            // extendable
             int int_random = rand.nextInt(2);
             room.setExtendable(int_random == 1);
 
-            //capacity
+            // capacity
             int capacity = rand.nextInt(10);
             room.setCapacity(capacity);
 
-            //price based on capacity
-            if (hotel.getRating() == 1) {
-                int int_random4 = ThreadLocalRandom.current().nextInt(100.00, 150.00);
-                room.setPrice(int_random4 + int_random4 * .50 * capacity);
-            } else if (hotel.getRating() == 2) {
-                int int_random4 = ThreadLocalRandom.current().nextInt(150.00, 200.00);
-                room.setPrice(int_random4 + int_random4 * .50 * capacity);
-            } else if (hotel.getRating() == 3) {
-                int int_random4 = ThreadLocalRandom.current().nextInt(200.00, 250.00);
-                room.setPrice(inroot_random4 + int_random4 * .50 * capacity);
-            } else if (hotel.getRating() == 4) {
-                int int_random4 = ThreadLocalRandom.current().nextInt(250.00, 400.00);
-                room.setPrice(int_random4 + int_random4 * .50 * capacity);
-            } else {
-                int int_random4 = ThreadLocalRandom.current().nextInt(400.00, 1000.00);
-                room.setPrice(int_random4 + int_random4 * .50 * capacity);
+            // price based on capacity
+            double price;
+            switch (hotel.getRating()) {
+                case 1:
+                    price = rand.nextInt(100, 150);
+                    break;
+                case 2:
+                    price = rand.nextInt(150, 200);
+                    break;
+                default:
+                case 3:
+                    price = rand.nextInt(200, 250);
+                    break;
+                case 4:
+                    price = rand.nextInt(250, 400);
+                    break;
+                case 5:
+                    price = rand.nextInt(400, 1000);
+                    break;
             }
+
+            room.setPrice(price);
 
             //viewtype
             int int_random3 = rand.nextInt(2);
@@ -72,7 +82,8 @@ public class RoomGenerator {
             }
 
             //amenities
-            room.setAmenities(null); // TODO pick amenities
+            int numAmenities = rand.nextInt(amenities.size());
+            room.setAmenities(new AmenityGenerator(amenities).generateAmenities(numAmenities));
 
             rooms.add(room);
         }
