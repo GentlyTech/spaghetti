@@ -46,4 +46,31 @@ public class DatabasePopulator {
             logger.warning(ex.toString());
         }
     }
+
+    public <T> T populateFromJsonFile(String path, Class<T> dataType) {
+        InputStream inputStream;
+        Reader reader;
+
+        try {
+            File file = new File(path);
+
+            if (file.exists()) {
+                inputStream = new FileInputStream(file);
+            } else {
+                Resource resource = new ClassPathResource(path);
+                if (!resource.exists()) {
+                    logger.warning(String.format("The file at '%s' was not found. Skipping...", path));
+                    return null;
+                }
+                inputStream = resource.getInputStream();
+            }
+            reader = new InputStreamReader(inputStream);
+
+            return serializer.fromJson(reader, dataType);
+
+        } catch (IOException ex) {
+            logger.warning(ex.toString());
+            return null;
+        }
+    }
 }
