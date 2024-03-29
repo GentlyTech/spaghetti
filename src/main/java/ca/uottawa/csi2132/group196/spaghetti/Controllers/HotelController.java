@@ -32,7 +32,7 @@ public class HotelController {
         this.hotelDao = hotelDao;
     }
 
-    @GetMapping({"/info/byChain/{chain_name}", "/info/byChain/{chain_name}/"})
+    @GetMapping("/info/byChain/{chain_name}")
     public String getHotelInfoByHotelChain(@PathVariable String chain_name) {
         List<Hotel> results = hotelDao.getHotelsByChainName(chain_name);
         for (int i = 0; i < results.size(); i++) {
@@ -45,7 +45,7 @@ public class HotelController {
         return serializer.toJson(results);
     }
 
-    @GetMapping({"/info/byId/{hotel_id}", "/info/byId/{hotel_id}/"})
+    @GetMapping("/info/byId/{hotel_id}")
     public String getHotelInfoByHotelId(@PathVariable String hotel_id) {
         Hotel result = hotelDao.getHotelById(hotel_id);
         
