@@ -3,6 +3,17 @@
     "customerId": -1,
     "creationDate": null,
     "name": "",
-    "idType": ""
+    "idType": "",
+    "bookings": [
+      {
+        "roomNumber": -1,
+        "customerId": -1,
+        "hotelId": -1,
+        "bookingStatus": "",
+        "checkInDate": null,
+        "checkOutDate": null,
+        "damageFee": 0.0
+      }
+    ]
   }
 ]
