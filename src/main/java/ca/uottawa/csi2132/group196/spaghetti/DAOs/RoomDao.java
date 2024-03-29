@@ -4,10 +4,12 @@ import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Types;
 import java.util.List;
 
+@Repository
 public class RoomDao {
     private static final String INSERT_ROOM_SQL = "INSERT INTO room (hotel_id, room_number, price, view_type, capacity, extendable) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ROOM_SQL = "SELECT * FROM room WHERE hotelId = ? AND roomNumber = ?";
