@@ -14,17 +14,17 @@ import java.util.List;
 public class RoomDao {
     private final JdbcTemplate database;
 
-    private int hotelId = -1;
-    private int roomNumber = -1;
-    private double price = 0.0;
-    private double damageFee = 0.0;
-    private boolean extendable = false;
-    private String occupancyType = null;
-    private String viewType = "boring";
-    private List<Amenity> amenities = null;
-    private List<Problem> problems = null;
+//    private int hotelId = -1;
+//    private int roomNumber = -1;
+//    private double price = 0.0;
+//    private double damageFee = 0.0;
+//    private boolean extendable = false;
+//    private String occupancyType = null;
+//    private String viewType = "boring";
+//    private List<Amenity> amenities = null;
+//    private List<Problem> problems = null;
 
-    private static final String INSERT_ROOM_SQL = "INSERT INTO room (hotelId, roomNumber, price, damageFee, extendable, occupancyType, viewType, amenities, problems) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_ROOM_SQL = "INSERT INTO room VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ROOM_SQL = "SELECT * FROM room WHERE hotelId = ? AND roomNumber = ?";
     private static final String SELECT_ROOMS_BY_HOTEL_SQL = "SELECT * FROM room WHERE hotelId = ?";
     private static final String UPDATE_ROOMS_BY_HOTEL_SQL = "UPDATE room SET occ";
@@ -35,7 +35,7 @@ public class RoomDao {
     }
 
     public void insertRoom(Room room) {
-        database.update(INSERT_ROOM_SQL, room.getHotelId(), room.getRoomNumber(), room.getPrice(), room.getDamageFee(), room.isExtendable(), room.getOccupancyType(), room.getViewType(), room.getAmenities(), room.getProblems());
+        database.update(INSERT_ROOM_SQL, room.getHotelId(), room.getRoomNumber(), room.getPrice(), room.isExtendable(), room.getOccupancyType(), room.getViewType(), room.getAmenities(), room.getProblems());
     }
 
     public Room getRoomByRoomNum(int hotelId, int roomNumber) {
