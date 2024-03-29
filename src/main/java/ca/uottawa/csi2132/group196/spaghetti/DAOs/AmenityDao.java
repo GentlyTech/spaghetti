@@ -26,6 +26,7 @@ public class AmenityDao {
 
     public void insertAmenitiesFromHotel(Hotel hotel) {
         List<Amenity> amenities = hotel.getAmenities();
+        if (amenities == null) return;
         for (Amenity amenity : amenities) {
             database.update(INSERT_AMENITY_HOTEL_SQL, hotel.getHotelId(), amenity.getName(), amenity.getDescription());
         }
@@ -33,6 +34,7 @@ public class AmenityDao {
 
     public void insertAmenitiesFromRoom(Room room) {
         List<Amenity> amenities = room.getAmenities();
+        if (amenities == null) return;
         for (Amenity amenity : amenities) {
             database.update(INSERT_AMENITY_ROOM_SQL, room.getHotelId(), room.getRoomNumber(), amenity.getName(), amenity.getDescription());
         }
