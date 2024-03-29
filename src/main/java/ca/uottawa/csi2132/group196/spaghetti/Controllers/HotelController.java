@@ -48,6 +48,9 @@ public class HotelController {
     @GetMapping({"/info/byId/{hotel_id}", "/info/byId/{hotel_id}/"})
     public String getHotelInfoByHotelId(@PathVariable String hotel_id) {
         Hotel result = hotelDao.getHotelById(hotel_id);
+        
+        if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        
         result.setAddresses(addressDao.getAddressesForHotel(result.getHotelId()));
         result.setContacts(contactDao.getContactsForHotel(result.getHotelId()));
         return serializer.toJson(result);
