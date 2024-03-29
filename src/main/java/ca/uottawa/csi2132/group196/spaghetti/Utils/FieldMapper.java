@@ -1,8 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.Utils;
 
 import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
-import org.springframework.beans.PropertyAccessor;
-import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.jdbc.object.MappingSqlQuery;
 
 import javax.sql.DataSource;
@@ -10,6 +8,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class FieldMapper<T> extends MappingSqlQuery<T> {
     Class<T> objectType;
@@ -24,12 +23,35 @@ public class FieldMapper<T> extends MappingSqlQuery<T> {
         try {
             T result = objectType.getDeclaredConstructor().newInstance();
 
-            PropertyAccessor accessor = PropertyAccessorFactory.forDirectFieldAccess(result);
-            Field[] fields = objectType.getFields();
+            Field[] fields = objectType.getDeclaredFields();
             for (Field field : fields) {
-                if (field.getAnnotation(MappedField.class) == null) continue;
+                field.setAccessible(true);
 
+                MappedField mappedFieldAnnotation = field.getAnnotation(MappedField.class);
+                if (mappedFieldAnnotation == null) continue;
 
+                String columnName = field.getName();
+                if (mappedFieldAnnotation.value().isEmpty()) {
+                    columnName = mappedFieldAnnotation.value();
+                }
+
+                String fieldType = field.getType().getTypeName();
+
+                if (fieldType.equals(String.class.getName())) {
+                    field.set(result, rs.getString(columnName));
+                } else if (fieldType.equals(Boolean.class.getName()) || fieldType.equals("boolean")) {
+                    field.set(result, rs.getBoolean(columnName));
+                } else if (fieldType.equals(Integer.class.getName()) || fieldType.equals("int")) {
+                    field.set(result, rs.getInt(columnName));
+                } else if (fieldType.equals(Double.class.getName()) || fieldType.equals("double")) {
+                    field.set(result, rs.getDouble(columnName));
+                } else if (fieldType.equals(Float.class.getName()) || fieldType.equals("float")) {
+                    field.set(result, rs.getFloat(columnName));
+                } else if (fieldType.equals(LocalDateTime.class.getName())) {
+                    field.set(result, rs.getDate(columnName));
+                } else {
+                    throw new UnsupportedOperationException(String.format("FieldMapper currently does not support the type '%s'", fieldType));
+                }
             }
 
             return result;
