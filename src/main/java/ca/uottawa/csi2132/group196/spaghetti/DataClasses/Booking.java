@@ -2,7 +2,7 @@ package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
 import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Booking {
     @MappedField("room_number")
@@ -18,10 +18,10 @@ public class Booking {
     private String bookingStatus;
 
     @MappedField("check_in_date")
-    private LocalDateTime checkInDate;
+    private LocalDate checkInDate;
 
     @MappedField("check_out_date")
-    private LocalDateTime checkOutDate;
+    private LocalDate checkOutDate;
     @MappedField("damage_fee")
     private double damageFee;
 
@@ -57,19 +57,19 @@ public class Booking {
         this.bookingStatus = bookingStatus;
     }
 
-    public LocalDateTime getCheckInDate() {
+    public LocalDate getCheckInDate() {
         return checkInDate;
     }
 
-    public void setCheckInDate(LocalDateTime checkInDate) {
+    public void setCheckInDate(LocalDate checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public LocalDateTime getCheckOutDate() {
+    public LocalDate getCheckOutDate() {
         return checkOutDate;
     }
 
-    public void setCheckOutDate(LocalDateTime checkOutDate) {
+    public void setCheckOutDate(LocalDate checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 
