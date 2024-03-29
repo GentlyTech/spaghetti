@@ -1,6 +1,7 @@
 package ca.uottawa.csi2132.group196.spaghetti.Controllers;
 
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.AddressDao;
+import ca.uottawa.csi2132.group196.spaghetti.DAOs.AmenityDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.ContactDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.HotelDao;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
@@ -21,13 +22,15 @@ public class HotelController {
     JdbcTemplate database;
     Gson serializer;
     AddressDao addressDao;
+    AmenityDao amenityDao;
     ContactDao contactDao;
     HotelDao hotelDao;
 
-    public HotelController(JdbcTemplate database, Gson serializer, AddressDao addressDao, ContactDao contactDao, HotelDao hotelDao) {
+    public HotelController(JdbcTemplate database, Gson serializer, AddressDao addressDao, AmenityDao amenityDao, ContactDao contactDao, HotelDao hotelDao) {
         this.database = database;
         this.serializer = serializer;
         this.addressDao = addressDao;
+        this.amenityDao = amenityDao;
         this.contactDao = contactDao;
         this.hotelDao = hotelDao;
     }
@@ -39,6 +42,7 @@ public class HotelController {
             Hotel hotel = results.get(i);
             hotel.setAddresses(addressDao.getAddressesForHotel(hotel.getHotelId()));
             hotel.setContacts(contactDao.getContactsForHotel(hotel.getHotelId()));
+            hotel.setAmenities(amenityDao.getAmenitiesForHotel(hotel.getHotelId()));
             results.set(i, hotel);
         }
         if (results.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -48,11 +52,12 @@ public class HotelController {
     @GetMapping("/info/byId/{hotel_id}")
     public String getHotelInfoByHotelId(@PathVariable String hotel_id) {
         Hotel result = hotelDao.getHotelById(hotel_id);
-        
+
         if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        
+
         result.setAddresses(addressDao.getAddressesForHotel(result.getHotelId()));
         result.setContacts(contactDao.getContactsForHotel(result.getHotelId()));
+        result.setAmenities(amenityDao.getAmenitiesForHotel(result.getHotelId()));
         return serializer.toJson(result);
     }
 
