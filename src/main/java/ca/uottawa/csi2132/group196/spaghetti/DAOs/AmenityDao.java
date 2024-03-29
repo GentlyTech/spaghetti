@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Types;
 import java.util.List;
 
+@Repository
 public class AmenityDao {
     private static final String INSERT_AMENITY_HOTEL_SQL = "INSERT INTO hotel_amenities (hotel_id, name, description) VALUES (?, ?, ?)";
     private static final String INSERT_AMENITY_ROOM_SQL = "INSERT INTO room_amenities (hotel_id, room_number, name, description) VALUES (?, ?, ?, ?, ?, ?)";
