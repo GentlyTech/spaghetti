@@ -5,15 +5,15 @@ import ca.uottawa.csi2132.group196.spaghetti.Types.ViewType;
 import java.util.List;
 
 public class Room {
-    private int hotelId;
-    private int roomNumber;
-    private double price;
-    private double damageFee;
-    private boolean extendable;
-    private String occupancyType;
-    private ViewType viewType;
-    private List<Amenity> amenities;
-    private List<Problem> problems;
+    private int hotelId = -1;
+    private int roomNumber = -1;
+    private double price = 0.0;
+    private double damageFee = 0.0;
+    private boolean extendable = false;
+    private String occupancyType = null;
+    private ViewType viewType = ViewType.BORING;
+    private List<Amenity> amenities = null;
+    private List<Problem> problems = null;
 
     public List<Amenity> getAmenities() {
         return amenities;
