@@ -35,8 +35,12 @@ public class HotelController {
     @GetMapping({"/info/byChain/{chain_name}", "/info/byChain/{chain_name}/"})
     public String getHotelInfoByHotelChain(@PathVariable String chain_name) {
         List<Hotel> results = hotelDao.getHotelsByChainName(chain_name);
-        // TODO get contacts
-        // TODO get addresses
+        for (int i = 0; i < results.size(); i++) {
+            Hotel hotel = results.get(i);
+            hotel.setAddresses(addressDao.getAddressesForHotel(hotel.getHotelId()));
+            hotel.setContacts(contactDao.getContactsForHotel(hotel.getHotelId()));
+            results.set(i, hotel);
+        }
         if (results.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return serializer.toJson(results);
     }
@@ -44,9 +48,8 @@ public class HotelController {
     @GetMapping({"/info/byId/{hotel_id}", "/info/byId/{hotel_id}/"})
     public String getHotelInfoByHotelId(@PathVariable String hotel_id) {
         Hotel result = hotelDao.getHotelById(hotel_id);
-        // TODO get contacts
-        // TODO get addresses
-        if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        result.setAddresses(addressDao.getAddressesForHotel(result.getHotelId()));
+        result.setContacts(contactDao.getContactsForHotel(result.getHotelId()));
         return serializer.toJson(result);
     }
 
