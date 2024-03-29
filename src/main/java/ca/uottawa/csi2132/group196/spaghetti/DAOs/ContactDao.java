@@ -22,7 +22,8 @@ public class ContactDao {
     private static final String INSERT_CONTACT_RELATION_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain_contacts (chain_name, contact_id) VALUES (?, ?)";
     private static final String INSERT_CONTACT_RELATION_HOTEL_SQL = "INSERT INTO hotel_contacts (hotel_id, contact_id) VALUES (?, ?)";
     private static final String SELECT_CONTACTS_FOR_HOTEL_CHAIN_SQL = "SELECT contactInst.* FROM hotel_chain_contacts contactRelInst LEFT JOIN contacts contactInst ON contactRelInst.contact_id = contactInst.contact_id WHERE contactRelInst.chain_name = ?";
-
+    private static final String SELECT_CONTACTS_FOR_HOTEL_SQL = "SELECT contactInst.* FROM hotel_contacts contactRelInst LEFT JOIN contacts contactInst ON contactRelInst.contact_id = contactInst.contact_id WHERE contactRelInst.hotel_id = ?";
+    
     private final JdbcTemplate database;
 
     public ContactDao(JdbcTemplate database) {
@@ -82,7 +83,9 @@ public class ContactDao {
     }
 
     public List<Contact> getContactsForHotel(int hotelId) {
-        return null;
+        ContactMapper mapper = new ContactMapper(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_SQL);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
+        return mapper.execute(hotelId);
     }
 
 }

@@ -22,6 +22,7 @@ public class AddressDao {
     private static final String INSERT_ADDRESS_RELATION_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain_addresses (chain_name, address_id) VALUES (?, ?)";
     private static final String INSERT_ADDRESS_RELATION_HOTEL_SQL = "INSERT INTO hotel_addresses (hotel_id, address_id) VALUES (?, ?)";
     private static final String SELECT_ADDRESSES_FOR_HOTEL_CHAIN_SQL = "SELECT addressInst.* FROM hotel_chain_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.chain_name = ?";
+    private static final String SELECT_ADDRESSES_FOR_HOTEL_SQL = "SELECT addressInst.* FROM hotel_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.hotel_id = ?;";
 
     private final JdbcTemplate database;
 
@@ -85,6 +86,8 @@ public class AddressDao {
     }
 
     public List<Address> getAddressesForHotel(int hotelId) {
-        return null;
+        AddressMapper mapper = new AddressMapper(database.getDataSource(), SELECT_ADDRESSES_FOR_HOTEL_SQL);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
+        return mapper.execute(hotelId);
     }
 }
