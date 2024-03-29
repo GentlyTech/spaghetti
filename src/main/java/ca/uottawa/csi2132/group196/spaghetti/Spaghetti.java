@@ -82,9 +82,7 @@ public class Spaghetti {
                 amenityDao.insertAmenitiesFromHotel(hotel);
 
                 List<Room> rooms = new RoomGenerator(hotel, roomAmenities).generateRooms(100);
-                for (Room room : rooms) {
-                    roomDao.insertRoom(room);
-                }
+                roomDao.insertRooms(rooms);
             }
         });
 
