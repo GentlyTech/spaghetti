@@ -87,7 +87,7 @@ public class AddressDao {
     }
 
     public Address getAddressForHotel(int hotelId) {
-        FieldMapper<Address> mapper = new FieldMapper(database.getDataSource(), SELECT_ADDRESSES_FOR_HOTEL_SQL, Address.class);
+        FieldMapper<Address> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ADDRESSES_FOR_HOTEL_SQL, Address.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.findObject(hotelId);
     }
