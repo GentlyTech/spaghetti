@@ -1,14 +1,24 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
 import ca.uottawa.csi2132.group196.spaghetti.Types.IDType;
 
 import java.time.LocalDateTime;
 
 public class Customer {
+    @MappedField("customer_id")
     private int customerId = -1;
+
+    @MappedField("creation_date")
     private LocalDateTime creationDate = null;
+
+    @MappedField("id_type")
     private IDType idType = IDType.NONE;
+
+    @MappedField
     private String name = null;
+
+    @MappedField
     private Address address = null;
 
     public Address getAddress() {

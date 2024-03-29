@@ -1,7 +1,12 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+
 public class Problem {
+    @MappedField
     private String caption;
+
+    @MappedField
     private String description;
 
     public String getCaption() {

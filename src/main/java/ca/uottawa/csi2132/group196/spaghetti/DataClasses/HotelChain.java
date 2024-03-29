@@ -1,12 +1,18 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+
 import java.util.List;
 
 public class HotelChain {
-
+    @MappedField("chain_name")
     private String chainName = null;
+
+    @MappedField("hotel_count")
     private int hotelCount = 0;
+
     private List<Address> addresses = null;
+
     private List<Contact> contacts = null;
 
     public String getChainName() {

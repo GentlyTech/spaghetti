@@ -1,7 +1,12 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+
 public class Role {
+    @MappedField
     private String name = null;
+
+    @MappedField
     private String description = null;
 
     public String getName() {

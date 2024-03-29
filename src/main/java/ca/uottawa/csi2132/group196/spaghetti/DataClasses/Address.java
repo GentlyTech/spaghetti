@@ -1,12 +1,27 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+
 public class Address {
+    @MappedField("address_id")
     private int addressId = -1;
+
+    @MappedField
     private String alias = null;
+
+    @MappedField
     private String city = null;
+
+    @MappedField
     private String country = null;
+
+    @MappedField
     private String postalCode = null;
+
+    @MappedField
     private String province = null;
+
+    @MappedField
     private String street = null;
 
     public int getAddressId() {

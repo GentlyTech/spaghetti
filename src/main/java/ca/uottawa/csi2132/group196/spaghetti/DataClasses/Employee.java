@@ -1,15 +1,27 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class Employee {
+    @MappedField("employee_id")
     private int employeeId = -1;
+
+    @MappedField("creation_date")
     private LocalDateTime creationDate = null;
+
+    @MappedField
     private String name = null;
+
+    @MappedField
     private Address address = null;
-    private List<Role> roles = null;
+
+    @MappedField
     private String sinNumber = null;
+
+    private List<Role> roles = null;
 
     public Address getAddress() {
         return address;

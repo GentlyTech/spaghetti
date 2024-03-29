@@ -1,18 +1,34 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
 import ca.uottawa.csi2132.group196.spaghetti.Types.ViewType;
 
 import java.util.List;
 
 public class Room {
+    @MappedField("hotel_id")
     private int hotelId = -1;
+
+    @MappedField("room_number")
     private int roomNumber = -1;
+
+    @MappedField
     private double price = 0.0;
+
+    @MappedField("damage_fee")
     private double damageFee = 0.0;
+
+    @MappedField
     private boolean extendable = false;
+
+    @MappedField("occupancy_type")
     private String occupancyType = null;
+
+    @MappedField("view_type")
     private ViewType viewType = ViewType.BORING;
+
     private List<Amenity> amenities = null;
+
     private List<Problem> problems = null;
 
     public List<Amenity> getAmenities() {
