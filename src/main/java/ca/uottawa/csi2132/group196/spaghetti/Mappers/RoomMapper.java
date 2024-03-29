@@ -52,11 +52,11 @@ public class RoomMapper extends MappingSqlQuery<Room> {
 
         }
 
-        try {
-            room.setViewType(ViewType.getView(rs.getInt("view_type")));
-        } catch (SQLException ignored) {
+//        try {
+//            room.setViewType(ViewType.getView(rs.getInt("view_type")));
+//        } catch (SQLException ignored) {
 
-        }
+//        }
 
         return room;
     }

@@ -4,8 +4,11 @@ import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Problem;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
 import ca.uottawa.csi2132.group196.spaghetti.Types.ViewType;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlParameterValue;
 
+import java.sql.Types;
 import java.util.List;
 
 public class RoomDao {
@@ -33,8 +36,11 @@ public class RoomDao {
         database.update(INSERT_ROOM_SQL, room.getHotelId(), room.getRoomNumber(), room.getPrice(), room.getDamageFee(), room.isExtendable(), room.getOccupancyType(), room.getViewType(), room.getAmenities(), room.getProblems());
     }
 
-    public void getRoom(int hotelId, int roomNumber) {
-
+    public Room getRoom(int hotelId, int roomNumber) {
+        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOM_SQL, Room.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "room_number"));
+        return mapper.findObject(hotelId, roomNumber);
     }
 
 }
