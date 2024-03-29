@@ -37,14 +37,11 @@ CREATE TABLE IF NOT EXISTS public.hotel_addresses
 
 CREATE TABLE IF NOT EXISTS public.hotel_amenities
 (
-    hotel_id     integer NOT NULL,
-    amenity_name text    NOT NULL,
+    hotel_id    integer NOT NULL,
+    description text,
+    name        text    NOT NULL,
     CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id)
         REFERENCES public.hotel (hotel_id)
-        ON DELETE CASCADE
-        ON UPDATE NO ACTION,
-    CONSTRAINT amenity_name_fk FOREIGN KEY (amenity_name)
-        REFERENCES public.amenities (name)
         ON DELETE CASCADE
         ON UPDATE NO ACTION
 );
