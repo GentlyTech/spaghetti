@@ -1,7 +1,7 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
-import ca.uottawa.csi2132.group196.spaghetti.Mappers.HotelMapper;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -19,7 +19,7 @@ public class HotelDao {
     private static final String INSERT_HOTEL_SQL = "INSERT INTO hotel (hotel_name, rating, owner) VALUES (?, ?, ?)";
     private static final String SELECT_HOTEL_BY_ID_SQL = "SELECT * FROM hotel WHERE hotel_id = ?";
     private static final String SELECT_HOTEL_BY_CHAIN_SQL = "SELECT * FROM hotel WHERE owner = ?";
-    
+
     private final JdbcTemplate database;
 
     public HotelDao(JdbcTemplate database) {
@@ -45,7 +45,7 @@ public class HotelDao {
     }
 
     public List<Hotel> getHotelsByChainName(String chainName) {
-        HotelMapper mapper = new HotelMapper(database.getDataSource(), SELECT_HOTEL_BY_CHAIN_SQL);
+        FieldMapper<Hotel> mapper = new FieldMapper<>(database.getDataSource(), SELECT_HOTEL_BY_CHAIN_SQL, Hotel.class);
         mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
         return mapper.execute(chainName);
     }
@@ -55,7 +55,7 @@ public class HotelDao {
     }
 
     public Hotel getHotelById(int hotelId) {
-        HotelMapper mapper = new HotelMapper(database.getDataSource(), SELECT_HOTEL_BY_ID_SQL);
+        FieldMapper<Hotel> mapper = new FieldMapper<>(database.getDataSource(), SELECT_HOTEL_BY_ID_SQL, Hotel.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.findObject(hotelId);
     }

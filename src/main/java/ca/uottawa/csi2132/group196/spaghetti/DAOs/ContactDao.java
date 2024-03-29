@@ -3,7 +3,7 @@ package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Contact;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
-import ca.uottawa.csi2132.group196.spaghetti.Mappers.ContactMapper;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -23,7 +23,7 @@ public class ContactDao {
     private static final String INSERT_CONTACT_RELATION_HOTEL_SQL = "INSERT INTO hotel_contacts (hotel_id, contact_id) VALUES (?, ?)";
     private static final String SELECT_CONTACTS_FOR_HOTEL_CHAIN_SQL = "SELECT contactInst.* FROM hotel_chain_contacts contactRelInst LEFT JOIN contacts contactInst ON contactRelInst.contact_id = contactInst.contact_id WHERE contactRelInst.chain_name = ?";
     private static final String SELECT_CONTACTS_FOR_HOTEL_SQL = "SELECT contactInst.* FROM hotel_contacts contactRelInst LEFT JOIN contacts contactInst ON contactRelInst.contact_id = contactInst.contact_id WHERE contactRelInst.hotel_id = ?";
-    
+
     private final JdbcTemplate database;
 
     public ContactDao(JdbcTemplate database) {
@@ -77,13 +77,13 @@ public class ContactDao {
     }
 
     public List<Contact> getContactsForHotelChain(String chainName) {
-        ContactMapper mapper = new ContactMapper(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_CHAIN_SQL);
+        FieldMapper<Contact> mapper = new FieldMapper<>(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_CHAIN_SQL, Contact.class);
         mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
         return mapper.execute(chainName);
     }
 
     public List<Contact> getContactsForHotel(int hotelId) {
-        ContactMapper mapper = new ContactMapper(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_SQL);
+        FieldMapper<Contact> mapper = new FieldMapper<>(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_SQL, Contact.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.execute(hotelId);
     }

@@ -1,14 +1,26 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+
 import java.util.List;
 
 public class Hotel {
+    @MappedField("hotel_id")
     private int hotelId = -1;
+
+    @MappedField
     private int rating = -1;
+
+    @MappedField
     private String hotelName = null;
+
+    @MappedField
     private String owner = null;
+
     private List<Address> addresses = null;
+
     private List<Contact> contacts = null;
+
     private List<Amenity> amenities = null;
 
     public List<Amenity> getAmenities() {

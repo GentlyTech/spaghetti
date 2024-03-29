@@ -3,7 +3,7 @@ package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
-import ca.uottawa.csi2132.group196.spaghetti.Mappers.AmenityMapper;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.stereotype.Repository;
@@ -39,13 +39,13 @@ public class AmenityDao {
     }
 
     public List<Amenity> getAmenitiesForHotel(int hotelId) {
-        AmenityMapper mapper = new AmenityMapper(database.getDataSource(), SELECT_AMENITY_HOTEL_SQL);
+        FieldMapper<Amenity> mapper = new FieldMapper<>(database.getDataSource(), SELECT_AMENITY_HOTEL_SQL, Amenity.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.execute(hotelId);
     }
 
     public List<Amenity> getAmenitiesForRoom(int hotelId, int roomNumber) {
-        AmenityMapper mapper = new AmenityMapper(database.getDataSource(), SELECT_AMENITY_ROOM_SQL);
+        FieldMapper<Amenity> mapper = new FieldMapper<>(database.getDataSource(), SELECT_AMENITY_ROOM_SQL, Amenity.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "room_number"));
         return mapper.execute(hotelId, roomNumber);
