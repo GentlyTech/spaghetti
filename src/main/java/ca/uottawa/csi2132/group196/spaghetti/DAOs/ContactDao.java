@@ -21,7 +21,7 @@ public class ContactDao {
     private static final String INSERT_CONTACT_SQL = "INSERT INTO contacts (name, email, phone_number) VALUES (?, ?, ?)";
     private static final String INSERT_CONTACT_RELATION_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain_contacts (chain_name, contact_id) VALUES (?, ?)";
     private static final String INSERT_CONTACT_RELATION_HOTEL_SQL = "INSERT INTO hotel_contacts (hotel_id, contact_id) VALUES (?, ?)";
-    private static final String SELECT_CONTACTS_FOR_HOTEL_CHAIN = "SELECT contactInst.* FROM hotel_chain_contacts contactRelInst LEFT JOIN contacts contactInst ON contactRelInst.contact_id = contactInst.contact_id WHERE contactRelInst.chain_name = ?";
+    private static final String SELECT_CONTACTS_FOR_HOTEL_CHAIN_SQL = "SELECT contactInst.* FROM hotel_chain_contacts contactRelInst LEFT JOIN contacts contactInst ON contactRelInst.contact_id = contactInst.contact_id WHERE contactRelInst.chain_name = ?";
 
     private final JdbcTemplate database;
 
@@ -76,7 +76,7 @@ public class ContactDao {
     }
 
     public List<Contact> getContactsForHotelChain(String chainName) {
-        ContactMapper mapper = new ContactMapper(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_CHAIN);
+        ContactMapper mapper = new ContactMapper(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_CHAIN_SQL);
         mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
         return mapper.execute(chainName);
     }
