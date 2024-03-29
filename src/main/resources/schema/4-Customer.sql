@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS public.customer
 (
     customer_id   serial    NOT NULL,
     creation_date timestamp NOT NULL,
-    id_type       text      NOT NULL,
+    id_type       smallint      NOT NULL,
     name          text      NOT NULL,
     CONSTRAINT customer_pk PRIMARY KEY (customer_id)
 );
