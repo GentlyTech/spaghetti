@@ -1,0 +1,21 @@
+[
+  {
+    "employeeId": -1,
+    "creationDate": null,
+    "name": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "province": "",
+      "postalCode": "",
+      "country": ""
+    },
+    "sinNumber": "",
+    "roles": [
+      {
+        "name": "",
+        "description": ""
+      }
+    ]
+  }
+]
