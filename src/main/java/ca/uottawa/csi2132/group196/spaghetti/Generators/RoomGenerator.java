@@ -40,7 +40,7 @@ public class RoomGenerator {
                 room.setPrice(int_random4+int_random4*.50*capacity);
             } else if (hotel.getRating() == 3) {
                 int int_random4 = ThreadLocalRandom.current().nextInt(200.00, 250.00);
-                room.setPrice(int_random4+int_random4*.50*capacity);
+                room.setPrice(inroot_random4+int_random4*.50*capacity);
             } else if (hotel.getRating() == 4) {
                 int int_random4 = ThreadLocalRandom.current().nextInt(250.00, 400.00);
                 room.setPrice(int_random4+int_random4*.50*capacity);
@@ -57,18 +57,21 @@ public class RoomGenerator {
                 room.setViewType("Mountain View");
             }
  
-            //amenties
+            //amenities
             //code for randomly choose from list is from Baeldung
             Random rand = new Random();
-            List<Amentities> baseList = Lists.newArrayList("TV", "Air Conditioner", "Fridge", "Jacuzzi");
-            
+            List<Amenities> baseList = Lists.newArrayList("TV", "Air Conditioner", "Fridge", "Jacuzzi");
+            List<Amenities> amenities = new List<Amenities>();
             int numberOfElements = rand.nextInt(baselist.size());;
 
             for (int j = 0; j < numberOfElements; i++) {
                 int randomIndex = rand.nextInt(givenList.size());
                 String randomElement = givenList.get(randomIndex);
                 givenList.remove(randomIndex); //removes element for no repeats
+                amenities.add(randomElement);
             }
+            room.setAmenities(amenities);
+
         }
 
         System.out.println(CustomSerializer.getCustomSerializer().toJson(rooms));
