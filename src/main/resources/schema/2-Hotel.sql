@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS public.hotel_addresses
 
 CREATE TABLE IF NOT EXISTS public.hotel_amenities
 (
-    hotel_id    integer NOT NULL,
-    name        text    NOT NULL,
+    hotel_id    integer     NOT NULL,
+    name        text UNIQUE NOT NULL,
     description text,
     CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id)
         REFERENCES public.hotel (hotel_id)
