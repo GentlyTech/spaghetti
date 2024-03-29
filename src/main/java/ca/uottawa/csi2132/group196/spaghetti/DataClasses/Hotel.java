@@ -11,7 +11,7 @@ public class Hotel {
     @MappedField
     private int rating = -1;
 
-    @MappedField
+    @MappedField("hotel_name")
     private String hotelName = null;
 
     @MappedField
