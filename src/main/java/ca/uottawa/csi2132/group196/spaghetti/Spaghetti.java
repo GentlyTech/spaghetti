@@ -18,18 +18,30 @@ public class Spaghetti {
 
     AddressDao addressDao;
     AmenityDao amenityDao;
+    BookingDao bookingDao;
     ContactDao contactDao;
+    CustomerDao customerDao;
+    EmployeeDao employeeDao;
     HotelChainDao hotelChainDao;
     HotelDao hotelDao;
+    ProblemDao problemDao;
+    RoleDao roleDao;
+    UserDao userDao;
 
-    public Spaghetti(JdbcTemplate database, Gson serializer, AddressDao addressDao, AmenityDao amenityDao, ContactDao contactDao, HotelChainDao hotelChainDao, HotelDao hotelDao) {
+    public Spaghetti(JdbcTemplate database, Gson serializer, AddressDao addressDao, AmenityDao amenityDao, BookingDao bookingDao, ContactDao contactDao, CustomerDao customerDao, EmployeeDao employeeDao, HotelChainDao hotelChainDao, HotelDao hotelDao, ProblemDao problemDao, RoleDao roleDao, UserDao userDao) {
         this.database = database;
         this.serializer = serializer;
         this.addressDao = addressDao;
         this.amenityDao = amenityDao;
+        this.bookingDao = bookingDao;
         this.contactDao = contactDao;
+        this.customerDao = customerDao;
+        this.employeeDao = employeeDao;
         this.hotelChainDao = hotelChainDao;
         this.hotelDao = hotelDao;
+        this.problemDao = problemDao;
+        this.roleDao = roleDao;
+        this.userDao = userDao;
     }
 
     public static void main(String[] args) {
