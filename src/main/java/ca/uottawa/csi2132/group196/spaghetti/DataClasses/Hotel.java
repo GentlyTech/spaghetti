@@ -9,6 +9,15 @@ public class Hotel {
     private String owner = null;
     private List<Address> addresses = null;
     private List<Contact> contacts = null;
+    private List<Amenity> amenities = null;
+
+    public List<Amenity> getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(List<Amenity> amenities) {
+        this.amenities = amenities;
+    }
 
     public int getHotelId() {
         return hotelId;
