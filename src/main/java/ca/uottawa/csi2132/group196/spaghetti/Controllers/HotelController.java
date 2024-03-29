@@ -40,7 +40,7 @@ public class HotelController {
         List<Hotel> results = hotelDao.getHotelsByChainName(chain_name);
         for (int i = 0; i < results.size(); i++) {
             Hotel hotel = results.get(i);
-            hotel.setAddresses(addressDao.getAddressesForHotel(hotel.getHotelId()));
+            hotel.setAddress(addressDao.getAddressForHotel(hotel.getHotelId()));
             hotel.setContacts(contactDao.getContactsForHotel(hotel.getHotelId()));
             hotel.setAmenities(amenityDao.getAmenitiesForHotel(hotel.getHotelId()));
             results.set(i, hotel);
@@ -55,7 +55,7 @@ public class HotelController {
 
         if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        result.setAddresses(addressDao.getAddressesForHotel(result.getHotelId()));
+        result.setAddress(addressDao.getAddressForHotel(result.getHotelId()));
         result.setContacts(contactDao.getContactsForHotel(result.getHotelId()));
         result.setAmenities(amenityDao.getAmenitiesForHotel(result.getHotelId()));
         return serializer.toJson(result);

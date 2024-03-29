@@ -16,12 +16,17 @@ public class Hotel {
 
     @MappedField
     private String owner = null;
-
-    private List<Address> addresses = null;
-
+    private Address address = null;
     private List<Contact> contacts = null;
-
     private List<Amenity> amenities = null;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public List<Amenity> getAmenities() {
         return amenities;
@@ -61,14 +66,6 @@ public class Hotel {
 
     public void setOwner(String owner) {
         this.owner = owner;
-    }
-
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
     }
 
     public List<Contact> getContacts() {

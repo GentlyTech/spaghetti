@@ -63,18 +63,13 @@ public class AddressDao {
         return addressIds;
     }
 
-    public int[] insertAddressFromHotel(Hotel hotel) {
-        List<Address> addresses = hotel.getAddresses();
-        int[] addressIds = new int[addresses.size()];
+    public int insertAddressFromHotel(Hotel hotel) {
+        Address address = hotel.getAddress();
 
-        for (int i = 0; i < addresses.size(); i++) {
-            Address address = addresses.get(i);
-            int addressId = insertAddress(address);
-            database.update(INSERT_ADDRESS_RELATION_HOTEL_SQL, hotel.getHotelId(), addressId);
-            addressIds[i] = addressId;
-        }
+        int addressId = insertAddress(address);
+        database.update(INSERT_ADDRESS_RELATION_HOTEL_SQL, hotel.getHotelId(), addressId);
 
-        return addressIds;
+        return addressId;
     }
 
     public int insertAddressFromCustomer(Customer customer) {
@@ -91,9 +86,9 @@ public class AddressDao {
         return mapper.execute(chainName);
     }
 
-    public List<Address> getAddressesForHotel(int hotelId) {
+    public Address getAddressForHotel(int hotelId) {
         FieldMapper<Address> mapper = new FieldMapper(database.getDataSource(), SELECT_ADDRESSES_FOR_HOTEL_SQL, Address.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
-        return mapper.execute(hotelId);
+        return mapper.findObject(hotelId);
     }
 }
