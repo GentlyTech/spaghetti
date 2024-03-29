@@ -3,13 +3,16 @@ package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Contact;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
+import ca.uottawa.csi2132.group196.spaghetti.Mappers.ContactMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +21,7 @@ public class ContactDao {
     private final String INSERT_CONTACT_SQL = "INSERT INTO contacts (name, email, phone_number) VALUES (?, ?, ?)";
     private final String INSERT_CONTACT_RELATION_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain_contacts (chain_name, contact_id) VALUES (?, ?)";
     private final String INSERT_CONTACT_RELATION_HOTEL_SQL = "INSERT INTO hotel_contacts (hotel_id, contact_id) VALUES (?, ?)";
+    private final String SELECT_CONTACTS_FOR_HOTEL_CHAIN = "SELECT contactInst.* FROM hotel_chain_contacts contactRelInst LEFT JOIN contacts contactInst ON contactRelInst.contact_id = contactInst.contact_id WHERE contactRelInst.chain_name = ?";
 
     private final JdbcTemplate database;
 
@@ -53,7 +57,7 @@ public class ContactDao {
             database.update(INSERT_CONTACT_RELATION_HOTEL_CHAIN_SQL, hotelChain.getChainName(), contactId);
             contactIds[i] = contactId;
         }
-        
+
         return contactIds;
     }
 
@@ -70,9 +74,11 @@ public class ContactDao {
 
         return contactIds;
     }
-    
+
     public List<Contact> getContactsForHotelChain(String chainName) {
-        return null;
+        ContactMapper mapper = new ContactMapper(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_CHAIN);
+        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
+        return mapper.execute(chainName);
     }
 
     public List<Contact> getContactsForHotel(int hotelId) {
