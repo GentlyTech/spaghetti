@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class AmenityDao {
     private static final String INSERT_AMENITY_HOTEL_SQL = "INSERT INTO hotel_amenities (hotel_id, name, description) VALUES (?, ?, ?)";
-    private static final String INSERT_AMENITY_ROOM_SQL = "INSERT INTO room_amenities (hotel_id, room_number, name, description) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_AMENITY_ROOM_SQL = "INSERT INTO room_amenities (hotel_id, room_number, name, description) VALUES (?, ?, ?, ?)";
     private static final String SELECT_AMENITY_HOTEL_SQL = "SELECT * FROM hotel_amenities WHERE hotel_id = ?";
     private static final String SELECT_AMENITY_ROOM_SQL = "SELECT * FROM room_amenities WHERE hotel_id = ? AND room_number = ?";
 
