@@ -2,32 +2,61 @@
   {
     "chainName": "Hilton",
     "addresses": [
+      {
+        "alias": "Headquarters",
+        "street": "7930 Jones Branch Drive",
+        "city": "McLean",
+        "province": "VA",
+        "postalCode": "22102",
+        "country": "United States"
+      }
     ],
     "contacts": [
       {
         "name": "Customer Service",
-        "email": null,
-        "phoneNumber": "18009974058"
+        "email": "ir@hilton.com",
+        "phoneNumber": "1-800-4445-8667"
       }
     ]
   },
   {
-    "chainName": "Walt Disney",
+    "chainName": "Best Western",
     "addresses": [
+      {
+        "alias": "Headquarters",
+        "street": "6201 N 24TH Pkwy",
+        "city": "Phoenix",
+        "province": "AZ",
+        "postalCode": "85016",
+        "country": "United States"
+      }
     ],
     "contacts": [
       {
-        "name": "Disney Resort Hotel Reservations",
-        "email": null,
-        "phoneNumber": "14079391936"
+        "name": "Booking Service",
+        "email": "bookingservice@bestwestern.com",
+        "phoneNumber": "1-800-780-7234"
       }
     ]
   },
   {
     "chainName": "Hyatt",
     "addresses": [
+      {
+        "alias": "Headquarters",
+        "street": "150 North Riverside",
+        "city": "Chicago",
+        "province": "IL",
+        "postalCode": "60606",
+        "country": "United States"
+      }
     ],
     "contacts": [
+      {
+        "name": "Customer Service",
+        "email": "worldofhyatt@hyatt.com",
+        "phoneNumber": "1-888-344-9288"
+      }
     ]
   },
   {
@@ -35,7 +64,7 @@
     "addresses": [
       {
         "alias": "Headquarters",
-        "street": "7707 Woodmont Ave",
+        "street": "7750 Wisconsin Ave",
         "city": "Bethesda",
         "province": "MD",
         "postalCode": "20814",
@@ -45,8 +74,8 @@
     "contacts": [
       {
         "name": "Customer Service (US and Canada)",
-        "email": null,
-        "phoneNumber": "18006277468"
+        "email": "privacy@marriott.com",
+        "phoneNumber": "1-800-535-4028"
       },
       {
         "name": "Customer Service (Australia)",
@@ -56,10 +85,23 @@
     ]
   },
   {
-    "chainName": "Travelodge",
+    "chainName": "Choice hotels",
     "addresses": [
+      {
+        "alias": "Headquarters",
+        "street": "1 Choice Hotels Circle, Suite 400",
+        "city": "Rockville",
+        "province": "MD",
+        "postalCode": "20850",
+        "country": "United States"
+      }
     ],
     "contacts": [
+      {
+        "name": "Customer Service",
+        "email": "privacy@choicehotels.com",
+        "phoneNumber": "1-301-592-5056"
+      }
     ]
   }
 ]

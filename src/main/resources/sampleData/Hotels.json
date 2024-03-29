@@ -1,51 +1,876 @@
 [
   {
     "rating": 4,
+    "hotelName": "Hilton Orlando",
+    "owner": "Hilton",
+    "addresses": [
+      {
+        "street": "6001 Destination Pkwy",
+        "city": "Orlando",
+        "province": "FL",
+        "postalCode": "32819",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hiltonorlando@hilton.com",
+        "phoneNumber": "1-407-313-4300"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Las Vegas Hilton at Resorts World",
+    "owner": "Hilton",
+    "addresses": [
+      {
+        "street": "999 Resorts World Ave",
+        "city": "Las Vegas",
+        "province": "NV",
+        "postalCode": "89109",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hiltonlasvegas@hilton.com",
+        "phoneNumber": "1-702-676-7000"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hilton Vancouver Downtown",
+    "owner": "Hilton",
+    "addresses": [
+      {
+        "street": "433 Robson Street",
+        "city": "Vancouver",
+        "province": "BC",
+        "postalCode": "V6B6L9",
+        "country": "Canada"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "reservations@hiltonvancouverdowntown.com",
+        "phoneNumber": "1-604-602-1999"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hilton Toronto",
+    "owner": "Hilton",
+    "addresses": [
+      {
+        "street": "145 Richmond St W",
+        "city": "Toronto",
+        "province": "ON",
+        "postalCode": "M5H2L2",
+        "country": "Canada"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hiltontoronto@hilton.com",
+        "phoneNumber": "1-416-869-3456"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hilton Boston Park Plaza",
+    "owner": "Hilton",
+    "addresses": [
+      {
+        "street": "50 Park Plaza",
+        "city": "Boston",
+        "province": "MA",
+        "postalCode": "02116",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hiltonboston@hilton.com",
+        "phoneNumber": "1-617-426-2000"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hilton Los Angeles Airport",
+    "owner": "Hilton",
+    "addresses": [
+      {
+        "street": "5711 W Century Blvd",
+        "city": "Los Angeles",
+        "province": "CA",
+        "postalCode": "90045",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hiltonlosangeles@hilton.com",
+        "phoneNumber": "1-310-410-4000"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hilton San Francisco Union Square",
+    "owner": "Hilton",
+    "addresses": [
+      {
+        "street": "333 O'Farrell St",
+        "city": "San Francisco",
+        "province": "CA",
+        "postalCode": "94102",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hiltonsanfrancisco@hilton.com",
+        "phoneNumber": "1-415-771-1400"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Hilton Seattle",
+    "owner": "Hilton",
+    "addresses": [
+      {
+        "street": "1301 6th Avenue",
+        "city": "Seattle",
+        "province": "WA",
+        "postalCode": "98101",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hiltonseattle@hilton.com",
+        "phoneNumber": "1-206-624-0500"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Hilton Garden Inn Las Vegas Strip South",
+    "owner": "Hilton",
+    "addresses": [
+      {
+        "street": "7830 S Las Vegas Blvd",
+        "city": "Las Vegas",
+        "province": "NV",
+        "postalCode": "89123",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hiltongardeninnlasvegasstripsouth@hilton.com",
+        "phoneNumber": "1-702-453-7830"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Miami Marriott Biscayne Bay",
+    "owner": "Marriott",
+    "addresses": [
+      {
+        "street": "1633 N Bayshore Dr",
+        "city": "Miami",
+        "province": "FL",
+        "postalCode": "33132",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "miamimarriottbiscaynebay@marriott.com",
+        "phoneNumber": "1-305-374-3900"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "New York Marriott Marquis",
+    "owner": "Marriott",
+    "addresses": [
+      {
+        "street": "1535 Broadway",
+        "city": "New York",
+        "province": "NY",
+        "postalCode": "10036",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "newyorkmarriottmarquis@marriott.com",
+        "phoneNumber": "1-212-398-1900"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "New Orleans Marriott",
+    "owner": "Marriott",
+    "addresses": [
+      {
+        "street": "555 Canal St",
+        "city": "New Orleans",
+        "province": "LA",
+        "postalCode": "70130",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "neworleansmarriott@marriott.com",
+        "phoneNumber": "1-504-581-1000"
+      }
+    ]
+  },
+  {
+    "rating": 4,
     "hotelName": "Ottawa Marriott Hotel",
     "owner": "Marriott",
     "addresses": [
       {
-        "street": "100 Kent St",
+        "street": "100 Kent Stree",
         "city": "Ottawa",
         "province": "ON",
         "postalCode": "K1P5R7",
         "country": "Canada"
       }
     ],
-    "amenities": [
+    "contacts": [
       {
-        "name": "Free Wi-Fi",
-        "description": "Complementary fast and unlimited Wi-Fi for all your internet surfing needs."
+        "name": "Reception",
+        "email": "ottawamarriotthotel@marriott.com",
+        "phoneNumber": "1-613-238-1122"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Baltimore Marriott Waterfront",
+    "owner": "Marriott",
+    "addresses": [
+      {
+        "street": "700 Aliceanna St",
+        "city": "Baltimore",
+        "province": "MD",
+        "postalCode": "21202",
+        "country": "United States"
       }
     ],
     "contacts": [
       {
         "name": "Reception",
-        "email": null,
-        "phoneNumber": "16132381122"
+        "email": "baltimoremarriottwaterfront@marriott.com",
+        "phoneNumber": "1-410-385-3000"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Baltimore Marriott Inner Harbor at Camden Yards",
+    "owner": "Marriott",
+    "addresses": [
+      {
+        "street": "110 S Eutaw St",
+        "city": "Baltimore",
+        "province": "MD",
+        "postalCode": "21201",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "baltimoremarriottinnerhabor@marriott.com",
+        "phoneNumber": "1-410-962-0202"
       }
     ]
   },
   {
     "rating": 4,
-    "hotelName": "Sheraton Vancouver Wall Centre",
+    "hotelName": "San Juan Marriott Resort & Stellaris Casino",
     "owner": "Marriott",
     "addresses": [
-    ],
-    "amenities": [
+      {
+        "street": "1309 Ashford Ave",
+        "city": "San Juan",
+        "province": null,
+        "postalCode": "00907",
+        "country": "Puerto Rico"
+      }
     ],
     "contacts": [
+      {
+        "name": "Reception",
+        "email": "sanjuanmarriottresort@marriott.com",
+        "phoneNumber": "1-888-817-2033"
+      }
     ]
   },
   {
     "rating": 4,
-    "hotelName": "Hilton Garden Inn Ottawa Downtown",
-    "owner": "Hilton",
+    "hotelName": "Waikiki Beach Marriott Resort & Spa",
+    "owner": "Marriott",
     "addresses": [
-    ],
-    "amenities": [
+      {
+        "street": "2552 Kalākaua Ave",
+        "city": "Honolulu",
+        "province": "HI",
+        "postalCode": "96815",
+        "country": "United States"
+      }
     ],
     "contacts": [
+      {
+        "name": "Reception",
+        "email": "waikikibeachmarriott@marriott.com",
+        "phoneNumber": "1-808-922-6611"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Orlando World Center Marriott",
+    "owner": "Marriott",
+    "addresses": [
+      {
+        "street": "8701 World Center Dr",
+        "city": "Orlando",
+        "province": "FL",
+        "postalCode": "32821",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "orlandowolrdcentermarriott@marriott.com",
+        "phoneNumber": "1-407-239-4200"
+      }
+    ]
+  },
+  {
+    "rating": 2,
+    "hotelName": "Best Western Grant Park Hotel",
+    "owner": "Best Western",
+    "addresses": [
+      {
+        "street": "1100 S Michigan Ave",
+        "city": "Chicago",
+        "province": "IL",
+        "postalCode": "60605",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "bestwesterngrantparkhotel@bestwestern.com",
+        "phoneNumber": "1-312-922-2900"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Best Western Plus Carlton Plaza Hotel",
+    "owner": "Best Western",
+    "addresses": [
+      {
+        "street": "642 Johnson St",
+        "city": "Victoria",
+        "province": "BC",
+        "postalCode": "V8W1M6",
+        "country": "Canada"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "bestwesternpluscarltonplazahotel@bestwestern.com",
+        "phoneNumber": "1-250-388-5513"
+      }
+    ]
+  },
+  {
+    "rating": 2,
+    "hotelName": "Best Western Red Coach Inn",
+    "owner": "Best Western",
+    "addresses": [
+      {
+        "street": "700 Eddy St",
+        "city": "San Francisco",
+        "province": "CA",
+        "postalCode": "94109",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "bestwesternredcoachinn@bestwestern.com",
+        "phoneNumber": "1-415-771-2100"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Best Western Plus Pioneer Square Hotel Downtown",
+    "owner": "Best Western",
+    "addresses": [
+      {
+        "street": "77 Yesler Wy",
+        "city": "Seattle",
+        "province": "WA",
+        "postalCode": "98104",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "bestwesternpluspioneersquarehoteldowntown@bestwestern.com",
+        "phoneNumber": "1-206-340-1234"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Best Western Plus Boston Hotel",
+    "owner": "Best Western",
+    "addresses": [
+      {
+        "street": "891 Massachusetts Ave",
+        "city": "Boston",
+        "province": "MA",
+        "postalCode": "02118",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "bestwesternplusbostonhotel@bestwestern.com",
+        "phoneNumber": "1-617-989-1000"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Best Western Premier Empire State Hotel",
+    "owner": "Best Western",
+    "addresses": [
+      {
+        "street": "16 E 30th St",
+        "city": "New York",
+        "province": "NY",
+        "postalCode": "10016",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "bestwesternpremierempirestatehotel@bestwestern.com",
+        "phoneNumber": "1-6212-576-9000"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Best Western Premier Herald Square",
+    "owner": "Best Western",
+    "addresses": [
+      {
+        "street": "50 W 36th St",
+        "city": "New York",
+        "province": "NY",
+        "postalCode": "10018",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "bestwesternpremierheraldsquare@bestwestern.com",
+        "phoneNumber": "1-212-776-1024"
+      }
+    ]
+  },
+  {
+    "rating": 2,
+    "hotelName": "Best Western The Plaza Hotel",
+    "owner": "Best Western",
+    "addresses": [
+      {
+        "street": "3253 N Nimitz Hwy",
+        "city": "Honolulu",
+        "province": "HI",
+        "postalCode": "96819",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "bestwesterntheplazahotel@bestwestern.com",
+        "phoneNumber": "1-808-836-3636"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Best Western The Plaza Hotel",
+    "owner": "Hyatt",
+    "addresses": [
+      {
+        "street": "151 E Wacker Dr",
+        "city": "Chicago",
+        "province": "IL",
+        "postalCode": "60606",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hyattregencychicago@hyatt.com",
+        "phoneNumber": "1-312-565-1234"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hyatt Centric Chicago Magnificent Mile",
+    "owner": "Hyatt",
+    "addresses": [
+      {
+        "street": "633 N St Clair St",
+        "city": "Chicago",
+        "province": "IL",
+        "postalCode": "60611",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hyattcentricchicagomagnificentmile@hyatt.com",
+        "phoneNumber": "1-312-787-1234"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hyatt Regency New Orleans",
+    "owner": "Hyatt",
+    "addresses": [
+      {
+        "street": "601 Loyola Ave",
+        "city": "New Orleans",
+        "province": "LA",
+        "postalCode": "70113",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hyattregencyneworleans@hyatt.com",
+        "phoneNumber": "1-504-561-1234"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hyatt Regency Toronto",
+    "owner": "Hyatt",
+    "addresses": [
+      {
+        "street": "601 Loyola Ave",
+        "city": "Toronto",
+        "province": "ON",
+        "postalCode": "M5V1J9",
+        "country": "Canada"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hyattregencytoronto@hyatt.com",
+        "phoneNumber": "1-416-343-1234"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hyatt Regency Miami",
+    "owner": "Hyatt",
+    "addresses": [
+      {
+        "street": "400 SE 2nd Ave",
+        "city": "Miami",
+        "province": "FL",
+        "postalCode": "33131",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hyattregencymiami@hyatt.com",
+        "phoneNumber": "1-305-358-1234"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Hyatt Place San Juan",
+    "owner": "Hyatt",
+    "addresses": [
+      {
+        "street": "580 Av. Manuel Fernández Juncos",
+        "city": "San Juan",
+        "province": null,
+        "postalCode": "00907",
+        "country": "Puerto Rico"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hyattplacesanjuan@hyatt.com",
+        "phoneNumber": "1-787-721-3000"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hyatt Regency Baltimore Inner Harbor",
+    "owner": "Hyatt",
+    "addresses": [
+      {
+        "street": "300 Light St",
+        "city": "Baltimore",
+        "province": "MD",
+        "postalCode": "21202",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hyattregencybaltimoreinnerharbor@hyatt.com",
+        "phoneNumber": "1-410-528-1234"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Hyatt Regency Seattle",
+    "owner": "Hyatt",
+    "addresses": [
+      {
+        "street": "808 Howell St",
+        "city": "Seattle",
+        "province": "WA",
+        "postalCode": "98101",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "hyattregencyseattle@hyatt.com",
+        "phoneNumber": "1-206-973-1234"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Comfort Inn & Suites Henderson - Las Vegas",
+    "addresses": [
+      {
+        "street": "475 Marks St",
+        "city": "Las Vegas",
+        "province": "NV",
+        "postalCode": "89014",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "comfortinnandsuitesherndersonlasvegas@choicehotels.com",
+        "phoneNumber": "1-702-387-6500"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Quality Inn & Suites Downtown Vancouver",
+    "addresses": [
+      {
+        "street": "1221 Granville St",
+        "city": "Vancouver",
+        "province": "BC",
+        "postalCode": "V6Z1B6",
+        "country": "Canada"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "qualityinnandsuitesdowntownvancouver@choicehotels.com",
+        "phoneNumber": "1-778-907-2918"
+      }
+    ]
+  },
+  {
+    "rating": 2,
+    "hotelName": "Comfort Inn Los Angeles near Hollywood",
+    "addresses": [
+      {
+        "street": "2717 W Sunset Blvd",
+        "city": "Los Angeles",
+        "province": "CA",
+        "postalCode": "90026",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "comfortinnlosangeles@choicehotels.com",
+        "phoneNumber": "1-213-413-8222"
+      }
+    ]
+  },
+  {
+    "rating": 2,
+    "hotelName": "Econo Lodge Downtown",
+    "addresses": [
+      {
+        "street": "475 Rideau St",
+        "city": "Ottawa",
+        "province": "ON",
+        "postalCode": "K1N5Z3",
+        "country": "Canada"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "econolodgedowntown@choicehotels.com",
+        "phoneNumber": "1-613-789-3781"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Quality Inn Downtown Inner Harbour",
+    "addresses": [
+      {
+        "street": "850 Blanshard St",
+        "city": "Victoria",
+        "province": "BC",
+        "postalCode": "V8W2H2",
+        "country": "Canada"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "qualityinndowntowninnerharbour@choicehotels.com",
+        "phoneNumber": "1-778-562-5363"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Comfort Inn International Dr",
+    "addresses": [
+      {
+        "street": "8134 International Dr",
+        "city": "Orlando",
+        "province": "FL",
+        "postalCode": "32819",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "comfortinninterationaldr@choicehotels.com",
+        "phoneNumber": "1-407-313-4000"
+      }
+    ]
+  },
+  {
+    "rating": 3,
+    "hotelName": "Quality Inn & Suites Near the Theme Parks",
+    "addresses": [
+      {
+        "street": "5635 Windhover Dr",
+        "city": "Orlando",
+        "province": "FL",
+        "postalCode": "32819",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "qualityinnandsuitesnearthethemeparks@choicehotels.com",
+        "phoneNumber": "1-689-698-9483"
+      }
+    ]
+  },
+  {
+    "rating": 4,
+    "hotelName": "Cambria Hotel New Orleans Downtown Warehouse District",
+    "addresses": [
+      {
+        "street": "632 Tchoupitoulas St",
+        "city": "New Orleans",
+        "province": "LA",
+        "postalCode": "70130",
+        "country": "United States"
+      }
+    ],
+    "contacts": [
+      {
+        "name": "Reception",
+        "email": "cambirahotelneworleansdowntown@choicehotels.com",
+        "phoneNumber": "1-504-524-7770"
+      }
     ]
   }
 ]
