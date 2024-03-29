@@ -23,4 +23,8 @@ public class AmenityGenerator {
         }
         return chosenAmenities;
     }
+    
+    public List<Amenity> generateAmenities() {
+        return generateAmenities(random.nextInt(amenities.size()));
+    }
 }

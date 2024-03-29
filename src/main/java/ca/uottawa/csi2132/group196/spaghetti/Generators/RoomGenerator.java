@@ -82,8 +82,7 @@ public class RoomGenerator {
             }
 
             //amenities
-            int numAmenities = rand.nextInt(amenities.size());
-            room.setAmenities(new AmenityGenerator(amenities).generateAmenities(numAmenities));
+            room.setAmenities(new AmenityGenerator(amenities).generateAmenities());
 
             rooms.add(room);
         }
