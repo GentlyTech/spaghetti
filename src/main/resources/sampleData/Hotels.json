@@ -174,15 +174,13 @@
     "rating": 5,
     "hotelName": "Conrad New York Downtown",
     "owner": "Hilton",
-    "addresses": [
-      {
-        "street": "102 North End Ave",
-        "city": "New York",
-        "province": "NY",
-        "postalCode": "10282",
-        "country": "United States"
-      }
-    ],
+    "address": {
+      "street": "102 North End Ave",
+      "city": "New York",
+      "province": "NY",
+      "postalCode": "10282",
+      "country": "United States"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -214,15 +212,13 @@
     "rating": 4,
     "hotelName": "JW Marriott Marquis Miami",
     "owner": "Marriott",
-    "addresses": [
-      {
-        "street": "255 Biscayne Blvd Way",
-        "city": "Miami",
-        "province": "FL",
-        "postalCode": "33131",
-        "country": "United States"
-      }
-    ],
+    "address": {
+      "street": "255 Biscayne Blvd Way",
+      "city": "Miami",
+      "province": "FL",
+      "postalCode": "33131",
+      "country": "United States"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -387,15 +383,13 @@
     "rating": 5,
     "hotelName": "The Ritz-Carlton, Toronto",
     "owner": "Marriott",
-    "addresses": [
-      {
-        "street": "181 Wellington St W",
-        "city": "Toronto",
-        "province": "ON",
-        "postalCode": "M5V3G7",
-        "country": "Canada"
-      }
-    ],
+    "address": {
+      "street": "181 Wellington St W",
+      "city": "Toronto",
+      "province": "ON",
+      "postalCode": "M5V3G7",
+      "country": "Canada"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -598,15 +592,13 @@
     "rating": 5,
     "hotelName": "Park Hyatt Chicago",
     "owner": "Hyatt",
-    "addresses": [
-      {
-        "street": "800 N Michigan Ave",
-        "city": "Chicago",
-        "province": "IL",
-        "postalCode": "60611",
-        "country": "United States"
-      }
-    ],
+    "address": {
+      "street": "800 N Michigan Ave",
+      "city": "Chicago",
+      "province": "IL",
+      "postalCode": "60611",
+      "country": "United States"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -733,15 +725,13 @@
     "rating": 3,
     "hotelName": "Comfort Inn & Suites Henderson - Las Vegas",
     "owner": "Choice Hotels",
-    "addresses": [
-      {
-        "street": "475 Marks St",
-        "city": "Las Vegas",
-        "province": "NV",
-        "postalCode": "89014",
-        "country": "United States"
-      }
-    ],
+    "address": {
+      "street": "475 Marks St",
+      "city": "Las Vegas",
+      "province": "NV",
+      "postalCode": "89014",
+      "country": "United States"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -754,15 +744,13 @@
     "rating": 1,
     "hotelName": "Quality Inn & Suites Downtown Vancouver",
     "owner": "Choice Hotels",
-    "addresses": [
-      {
-        "street": "1221 Granville St",
-        "city": "Vancouver",
-        "province": "BC",
-        "postalCode": "V6Z1B6",
-        "country": "Canada"
-      }
-    ],
+    "address": {
+      "street": "1221 Granville St",
+      "city": "Vancouver",
+      "province": "BC",
+      "postalCode": "V6Z1B6",
+      "country": "Canada"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -775,15 +763,13 @@
     "rating": 2,
     "hotelName": "Comfort Inn Los Angeles near Hollywood",
     "owner": "Choice Hotels",
-    "addresses": [
-      {
-        "street": "2717 W Sunset Blvd",
-        "city": "Los Angeles",
-        "province": "CA",
-        "postalCode": "90026",
-        "country": "United States"
-      }
-    ],
+    "address": {
+      "street": "2717 W Sunset Blvd",
+      "city": "Los Angeles",
+      "province": "CA",
+      "postalCode": "90026",
+      "country": "United States"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -796,15 +782,13 @@
     "rating": 2,
     "hotelName": "Econo Lodge Downtown",
     "owner": "Choice Hotels",
-    "addresses": [
-      {
-        "street": "475 Rideau St",
-        "city": "Ottawa",
-        "province": "ON",
-        "postalCode": "K1N5Z3",
-        "country": "Canada"
-      }
-    ],
+    "address": {
+      "street": "475 Rideau St",
+      "city": "Ottawa",
+      "province": "ON",
+      "postalCode": "K1N5Z3",
+      "country": "Canada"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -817,15 +801,13 @@
     "rating": 3,
     "hotelName": "Quality Inn Downtown Inner Harbour",
     "owner": "Choice Hotels",
-    "addresses": [
-      {
-        "street": "850 Blanshard St",
-        "city": "Victoria",
-        "province": "BC",
-        "postalCode": "V8W2H2",
-        "country": "Canada"
-      }
-    ],
+    "address": {
+      "street": "850 Blanshard St",
+      "city": "Victoria",
+      "province": "BC",
+      "postalCode": "V8W2H2",
+      "country": "Canada"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -838,15 +820,13 @@
     "rating": 1,
     "hotelName": "Comfort Inn International Dr",
     "owner": "Choice Hotels",
-    "addresses": [
-      {
-        "street": "8134 International Dr",
-        "city": "Orlando",
-        "province": "FL",
-        "postalCode": "32819",
-        "country": "United States"
-      }
-    ],
+    "address": {
+      "street": "8134 International Dr",
+      "city": "Orlando",
+      "province": "FL",
+      "postalCode": "32819",
+      "country": "United States"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -859,15 +839,13 @@
     "rating": 1,
     "hotelName": "Quality Inn & Suites Near the Theme Parks",
     "owner": "Choice Hotels",
-    "addresses": [
-      {
-        "street": "5635 Windhover Dr",
-        "city": "Orlando",
-        "province": "FL",
-        "postalCode": "32819",
-        "country": "United States"
-      }
-    ],
+    "address": {
+      "street": "5635 Windhover Dr",
+      "city": "Orlando",
+      "province": "FL",
+      "postalCode": "32819",
+      "country": "United States"
+    },
     "contacts": [
       {
         "name": "Reception",
@@ -880,15 +858,13 @@
     "rating": 4,
     "hotelName": "Cambria Hotel New Orleans Downtown Warehouse District",
     "owner": "Choice Hotels",
-    "addresses": [
-      {
-        "street": "632 Tchoupitoulas St",
-        "city": "New Orleans",
-        "province": "LA",
-        "postalCode": "70130",
-        "country": "United States"
-      }
-    ],
+    "address": {
+      "street": "632 Tchoupitoulas St",
+      "city": "New Orleans",
+      "province": "LA",
+      "postalCode": "70130",
+      "country": "United States"
+    },
     "contacts": [
       {
         "name": "Reception",
