@@ -12,7 +12,8 @@ public class RoomGenerator {
         List<Room> rooms = new LinkedList<>();
 
         for (int i = 0; i < NUM_ROOMS; i++) {
-
+            Room room = new Room();
+            room.setRoomNumber(i + 1);
         }
 
         System.out.println(CustomSerializer.getCustomSerializer().toJson(rooms));
