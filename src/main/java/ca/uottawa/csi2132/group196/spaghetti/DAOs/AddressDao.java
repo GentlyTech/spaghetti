@@ -49,7 +49,7 @@ public class AddressDao {
         return key.intValue();
     }
 
-    public int[] insertAddressFromHotelChain(HotelChain hotelChain) {
+    public int[] insertAddressesFromHotelChain(HotelChain hotelChain) {
         List<Address> addresses = hotelChain.getAddresses();
         int[] addressIds = new int[addresses.size()];
 

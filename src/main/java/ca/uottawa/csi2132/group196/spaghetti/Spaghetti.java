@@ -59,7 +59,7 @@ public class Spaghetti {
             for (HotelChain hotelChain : data) {
                 hotelChainDao.insertHotelChain(hotelChain);
                 contactDao.insertContactsFromHotelChain(hotelChain);
-                addressDao.insertAddressFromHotelChain(hotelChain);
+                addressDao.insertAddressesFromHotelChain(hotelChain);
             }
         });
 
