@@ -36,6 +36,19 @@ public class HotelController {
         this.roomDao = roomDao;
     }
 
+    @GetMapping("/info")
+    public String getHotelInfoForAll() {
+        List<Hotel> results = hotelDao.getAllHotels();
+        for (int i = 0; i < results.size(); i++) {
+            Hotel hotel = results.get(i);
+            hotel.setAddress(addressDao.getAddressForHotel(hotel.getHotelId()));
+            hotel.setContacts(contactDao.getContactsForHotel(hotel.getHotelId()));
+            hotel.setAmenities(amenityDao.getAmenitiesForHotel(hotel.getHotelId()));
+            results.set(i, hotel);
+        }
+        return serializer.toJson(results);
+    }
+    
     @GetMapping("/info/byChain/{chain_name}")
     public String getHotelInfoByHotelChain(@PathVariable String chain_name) {
         List<Hotel> results = hotelDao.getHotelsByChainName(chain_name);
@@ -63,7 +76,7 @@ public class HotelController {
     }
 
     @PostMapping("/info/byLocation")
-    public String getHotelIdsByLocation(@RequestBody Address address) {
+    public String getHotelInfoByLocation(@RequestBody Address address) {
         List<Hotel> results = hotelDao.getHotelsByAddress(address);
 
         for (int i = 0; i < results.size(); i++) {
