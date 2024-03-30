@@ -1,11 +1,10 @@
 package ca.uottawa.csi2132.group196.spaghetti.Controllers;
 
-import ca.uottawa.csi2132.group196.spaghetti.DAOs.AddressDao;
-import ca.uottawa.csi2132.group196.spaghetti.DAOs.AmenityDao;
-import ca.uottawa.csi2132.group196.spaghetti.DAOs.ContactDao;
-import ca.uottawa.csi2132.group196.spaghetti.DAOs.HotelDao;
+import ca.uottawa.csi2132.group196.spaghetti.DAOs.*;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Booking;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,16 +20,20 @@ public class HotelController {
     Gson serializer;
     AddressDao addressDao;
     AmenityDao amenityDao;
+    BookingDao bookingDao;
     ContactDao contactDao;
     HotelDao hotelDao;
+    RoomDao roomDao;
 
-    public HotelController(JdbcTemplate database, Gson serializer, AddressDao addressDao, AmenityDao amenityDao, ContactDao contactDao, HotelDao hotelDao) {
+    public HotelController(JdbcTemplate database, Gson serializer, AddressDao addressDao, AmenityDao amenityDao, BookingDao bookingDao, ContactDao contactDao, HotelDao hotelDao, RoomDao roomDao) {
         this.database = database;
         this.serializer = serializer;
         this.addressDao = addressDao;
         this.amenityDao = amenityDao;
+        this.bookingDao = bookingDao;
         this.contactDao = contactDao;
         this.hotelDao = hotelDao;
+        this.roomDao = roomDao;
     }
 
     @GetMapping("/info/byChain/{chain_name}")
@@ -59,10 +62,6 @@ public class HotelController {
         return serializer.toJson(result);
     }
 
-    public String getHotelIdsByHotelName() {
-        return null;
-    }
-
     @PostMapping("/info/byLocation")
     public String getHotelIdsByLocation(@RequestBody Address address) {
         List<Hotel> results = hotelDao.getHotelsByAddress(address);
@@ -76,5 +75,12 @@ public class HotelController {
         }
 
         return serializer.toJson(results);
+    }
+
+    @PostMapping("/checkRoom/{hotel_id}/{room_number}")
+    public String checkRoomAvailability(@RequestBody Booking booking, @PathVariable String hotel_id, @PathVariable String room_number) {
+        Room room = roomDao.getRoomByRoomNum(hotel_id, room_number);
+        if (room == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        return serializer.toJson(!bookingDao.isBooked(booking.getCheckInDate(), booking.getCheckOutDate(), room));
     }
 }
