@@ -15,7 +15,7 @@
       {
         "name": "Customer Service",
         "email": "ir@hilton.com",
-        "phoneNumber": "1-800-4445-8667"
+        "phoneNumber": "180044458667"
       }
     ]
   },
@@ -35,7 +35,7 @@
       {
         "name": "Booking Service",
         "email": "bookingservice@bestwestern.com",
-        "phoneNumber": "1-800-780-7234"
+        "phoneNumber": "18007807234"
       }
     ]
   },
@@ -55,7 +55,7 @@
       {
         "name": "Customer Service",
         "email": "worldofhyatt@hyatt.com",
-        "phoneNumber": "1-888-344-9288"
+        "phoneNumber": "18883449288"
       }
     ]
   },
@@ -75,7 +75,7 @@
       {
         "name": "Customer Service (US and Canada)",
         "email": "privacy@marriott.com",
-        "phoneNumber": "1-800-535-4028"
+        "phoneNumber": "18005354028"
       },
       {
         "name": "Customer Service (Australia)",
@@ -100,7 +100,7 @@
       {
         "name": "Customer Service",
         "email": "privacy@choicehotels.com",
-        "phoneNumber": "1-301-592-5056"
+        "phoneNumber": "13015925056"
       }
     ]
   }
