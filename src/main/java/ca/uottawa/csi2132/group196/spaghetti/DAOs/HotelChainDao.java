@@ -32,9 +32,8 @@ public class HotelChainDao {
         return mapper.execute();
     }
 
-    public List<HotelChain> getAllHotelChainNames() {
-        FieldMapper<HotelChain> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ALL_HOTEL_CHAIN_NAMES_SQL, HotelChain.class);
-        return mapper.execute();
+    public List<String> getAllHotelChainNames() {
+        return database.queryForList(SELECT_ALL_HOTEL_CHAIN_NAMES_SQL, String.class);
     }
 
     public HotelChain getHotelChainByChainName(String chainName) {

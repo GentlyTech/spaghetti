@@ -64,7 +64,6 @@ public class HotelChainController {
 
     @GetMapping("/info/chainNames")
     public String getHotelChains(){
-        List<HotelChain> res = hotelChainDao.getAllHotelChainNames();
-        return serializer.toJson(res);
+        return serializer.toJson(hotelChainDao.getAllHotelChainNames());
     }
 }
