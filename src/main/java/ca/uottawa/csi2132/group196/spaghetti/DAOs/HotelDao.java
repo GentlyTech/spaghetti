@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.List;
@@ -23,7 +25,8 @@ public class HotelDao {
     private static final String SELECT_HOTEL_BY_CHAIN_SQL = "SELECT * FROM hotel WHERE owner = ?";
     private static final String SELECT_HOTELS_BY_ADDRESS_SQL = "SELECT hotelInst.* FROM addresses addressInst LEFT JOIN hotel_addresses hotelRelInst ON addressInst.address_id = hotelRelInst.address_id LEFT JOIN hotel hotelInst ON hotelRelInst.hotel_id = hotelInst.hotel_id WHERE LOWER(addressInst.street) LIKE LOWER(?) OR LOWER(addressInst.city) LIKE LOWER(?) OR LOWER(addressInst.province) LIKE LOWER(?) OR LOWER(addressInst.postal_code) LIKE LOWER(?) OR LOWER(addressInst.country) LIKE LOWER(?)";
     private static final String COUNT_HOTEL_BY_CHAIN_SQL = "SELECT COUNT(*) FROM hotel WHERE owner = ?";
-    
+    private static final String SELECT_ALL_CITIES_WITH_HOTEL_SQL = "SELECT DISTINCT addresses.city FROM addresses, hotel_addresses  WHERE addresses.address_id = hotel_addresses.address_id";
+
     private final JdbcTemplate database;
 
     public HotelDao(JdbcTemplate database) {
@@ -88,5 +91,9 @@ public class HotelDao {
         } catch (NumberFormatException ignored) {
             return null;
         }
+    }
+
+    public List<String> getCities() throws SQLException {
+        return database.queryForList(SELECT_ALL_CITIES_WITH_HOTEL_SQL, String.class);
     }
 }

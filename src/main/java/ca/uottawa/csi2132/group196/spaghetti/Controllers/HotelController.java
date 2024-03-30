@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -95,5 +96,10 @@ public class HotelController {
         Room room = roomDao.getRoomByRoomNum(hotel_id, room_number);
         if (room == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return serializer.toJson(!bookingDao.isBooked(booking.getCheckInDate(), booking.getCheckOutDate(), room));
+    }
+
+    @GetMapping("/info/cities")
+    public String getCities() throws SQLException {
+        return serializer.toJson(hotelDao.getCities());
     }
 }
