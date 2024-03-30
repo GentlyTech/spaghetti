@@ -20,6 +20,7 @@ public class Customer {
 
     @MappedField
     private Address address = null;
+    
     private List<Booking> bookings = null;
 
     public List<Booking> getBookings() {
