@@ -10,8 +10,8 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.Types;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -54,9 +54,9 @@ public class BookingDao {
         database.update(UPDATE_BOOKING_STATUS_SQL, newStatus, booking.getHotelId(), booking.getCustomerId(), booking.getCustomerId());
     }
 
-    public Boolean isBooked(Date checkInDate, Date checkOutDate, Room room) {
+    public Boolean isBooked(LocalDate checkInDate, LocalDate checkOutDate, Room room) {
 
-        Date today = new Date(System.currentTimeMillis());
+        //Date today = new Date(System.currentTimeMillis());
 
         // get all rooms from hotels booked
         //String SELECT_BOOKINGS_BY_HOTEL_ROOM =  "SELECT * FROM booking WHERE hotel.hotel_id = booking.hotel_id AND room.room_number = booking.room_number";
