@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.SqlParameterValue;
 
 import java.awt.print.Book;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Types;
 import java.util.List;
@@ -27,6 +28,7 @@ public class BookingDao {
     private static final String INSERT_BOOKING_SQL = "INSERT INTO booking VALUES (?, ?, ?, ?)";
     private static final String UPDATE_BOOKING_STATUS_SQL = "UPDATE booking SET booking_status = ? WHERE hotel_id = ? AND customer_id = ? AND room_number = ?";
     private static final String SELECT_BOOKINGS_BY_HOTEL_ROOM = "SELECT * FROM booking WHERE booking.hotel_id = ? AND booking.room_number = ?";
+    private static final String BOOKING_EXISTS_COUNT_SQL = "SELECT COUNT(*) FROM booking WHERE (booking.hotel_id = ? AND booking.room_number = ?) AND EXISTS(SELECT * FROM booking WHERE check_in_date > ? AND check_out_date > ?)";
 
 
     public BookingDao(JdbcTemplate database) {
@@ -57,21 +59,20 @@ public class BookingDao {
 
     public Boolean isBooked(Date checkIn, Date checkOut, Hotel hotel, Room room) {
 
+        Date today = new Date(System.currentTimeMillis());
 
         // get all rooms from hotels booked
-        // SELECT * FROM booking WHERE hotel.hotel_id = booking.hotel_id AND room.room_number = booking.room_number
+        //String SELECT_BOOKINGS_BY_HOTEL_ROOM =  "SELECT * FROM booking WHERE hotel.hotel_id = booking.hotel_id AND room.room_number = booking.room_number";
 
-        //SELECT * FROM booking WHERE check_in_date > TODAY AND check_out_date > TODAY
+        // get all bookings that are in the future
+        //String FUTURE_BOOKINGS_SQL = "SELECT * FROM booking WHERE check_in_date > TODAY AND check_out_date > TODAY";
         //SELECT COUNT(HOTEL_ID) FORM booking WHERE
 
+        //String sql = STR."SELECT COUNT(*) FROM booking WHERE (booking.hotel_id =  \{hotel.getHotelId()} + AND booking.room_number = \{room.getRoomNumber()}) AND EXISTS(SELECT * FROM booking WHERE check_in_date > \{today} AND check_out_date > \{today})";
 
+//        return database.execute(sql) != 0;
 
-//        if (checkIn.before(new java.util.Date())  || checkOut.before(new java.util.Date())) {
-//            return false;
-//        } else if () {
-//
-//        }
-//
+        //TODO: FIGURE OUT HOW TO RUN AGGREGATE QUERY.
         return false;
     }
 
