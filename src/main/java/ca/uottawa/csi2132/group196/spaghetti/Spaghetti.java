@@ -5,8 +5,9 @@ import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
+import ca.uottawa.csi2132.group196.spaghetti.Generators.AmenityGenerator;
 import ca.uottawa.csi2132.group196.spaghetti.Generators.RoomGenerator;
-import ca.uottawa.csi2132.group196.spaghetti.Utils.DatabasePopulator;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.ResourceLoader;
 import com.google.gson.Gson;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -15,7 +16,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @SpringBootApplication
 public class Spaghetti {
@@ -61,11 +61,11 @@ public class Spaghetti {
      */
     @PostConstruct
     public void onStartup() {
-        DatabasePopulator populator = new DatabasePopulator(serializer);
-        List<Amenity> hotelAmenities = List.of(populator.populateFromJsonFile("sampleData/HotelAmenities.json", Amenity[].class));
-        List<Amenity> roomAmenities = List.of(populator.populateFromJsonFile("sampleData/RoomAmenities.json", Amenity[].class));
+        ResourceLoader loader = new ResourceLoader(serializer);
+        List<Amenity> hotelAmenities = List.of(loader.loadFromJsonFile("sampleData/HotelAmenities.json", Amenity[].class));
+        List<Amenity> roomAmenities = List.of(loader.loadFromJsonFile("sampleData/RoomAmenities.json", Amenity[].class));
 
-        populator.populateFromJsonFile("sampleData/HotelChains.json", HotelChain[].class, data -> {
+        loader.loadFromJsonFile("sampleData/HotelChains.json", HotelChain[].class, data -> {
             for (HotelChain hotelChain : data) {
                 hotelChainDao.insertHotelChain(hotelChain);
                 contactDao.insertContactsFromHotelChain(hotelChain);
@@ -73,12 +73,16 @@ public class Spaghetti {
             }
         });
 
-        populator.populateFromJsonFile("sampleData/Hotels.json", Hotel[].class, data -> {
+        loader.loadFromJsonFile("sampleData/Hotels.json", Hotel[].class, data -> {
             for (Hotel hotel : data) {
+                if (hotel.getAmenities() == null || hotel.getAmenities().isEmpty()) {
+                    hotel.setAmenities(new AmenityGenerator(hotelAmenities).generateAmenities());
+                }
+                
                 int hotelId = hotelDao.insertHotel(hotel);
                 hotel.setHotelId(hotelId);
                 contactDao.insertContactsFromHotel(hotel);
-                addressDao.insertAddressFromHotel(hotel);
+                addressDao.insertAddressFromHotel(hotel);                
                 amenityDao.insertAmenitiesFromHotel(hotel);
 
                 List<Room> rooms = new RoomGenerator(hotel, roomAmenities).generateRooms(100);

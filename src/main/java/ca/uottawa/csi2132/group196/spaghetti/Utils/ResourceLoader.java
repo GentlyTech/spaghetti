@@ -8,23 +8,23 @@ import java.io.*;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-public class DatabasePopulator {
+public class ResourceLoader {
     Gson serializer;
     Logger logger;
 
-    public DatabasePopulator(Gson serializer) {
+    public ResourceLoader(Gson serializer) {
         this.serializer = serializer;
         this.logger = Logger.getLogger(this.getClass().getSimpleName());
     }
 
-    public <T> void populateFromJsonFile(String path, Class<T> dataType, Consumer<T> callback) {
-        T data = populateFromJsonFile(path, dataType);
+    public <T> void loadFromJsonFile(String path, Class<T> dataType, Consumer<T> callback) {
+        T data = loadFromJsonFile(path, dataType);
         if (callback != null) {
             callback.accept(data);
         }
     }
 
-    public <T> T populateFromJsonFile(String path, Class<T> dataType) {
+    public <T> T loadFromJsonFile(String path, Class<T> dataType) {
         InputStream inputStream;
         Reader reader;
 
