@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public class RoomDao {
     private static final String INSERT_ROOM_SQL = "INSERT INTO room (hotel_id, room_number, price, view_type, capacity, extendable) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String SELECT_ROOM_SQL = "SELECT * FROM room WHERE hotelId = ? AND roomNumber = ?";
-    private static final String SELECT_ROOMS_BY_HOTEL_SQL = "SELECT * FROM room WHERE hotelId = ?";
+    private static final String SELECT_ROOM_SQL = "SELECT * FROM room WHERE hotel_id = ? AND room_number = ?";
+    private static final String SELECT_ROOMS_BY_HOTEL_SQL = "SELECT * FROM room WHERE hotel_id = ?";
     private static final String UPDATE_ROOMS_BY_HOTEL_SQL = "";
 
     private final JdbcTemplate database;
