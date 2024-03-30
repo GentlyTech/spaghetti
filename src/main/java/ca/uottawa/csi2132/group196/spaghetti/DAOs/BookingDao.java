@@ -68,7 +68,7 @@ public class BookingDao {
         //String FUTURE_BOOKINGS_SQL = "SELECT * FROM booking WHERE check_in_date > TODAY AND check_out_date > TODAY";
         //SELECT COUNT(HOTEL_ID) FORM booking WHERE
 
-        String sql = STR."SELECT COUNT(*) FROM booking WHERE (booking.hotel_id =  \{hotel.getHotelId()} + AND booking.room_number = \{room.getRoomNumber()}) AND EXISTS(SELECT * FROM booking WHERE check_in_date > \{today} AND check_out_date > \{today})";
+        //String sql = STR."SELECT COUNT(*) FROM booking WHERE (booking.hotel_id =  \{hotel.getHotelId()} + AND booking.room_number = \{room.getRoomNumber()}) AND EXISTS(SELECT * FROM booking WHERE check_in_date > \{today} AND check_out_date > \{today})";
 
 //        return database.execute(sql) != 0;
 
