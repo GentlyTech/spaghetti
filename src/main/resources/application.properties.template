@@ -1,0 +1,15 @@
+# This is a sample properties file.
+# Add and remove options as you need (though at a minimum, these options should be specified).
+# When you're ready to apply the changes, rename this file to application.properties (remove the .template part).
+
+# The URL to the database host (e.g. jdbc:postgresql://localhost/spaghetti)
+spring.datasource.url=
+
+# Specifies the database driver to use. You can leave this unchanged if you're using PostgreSQL.
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# The username that will be used to connect to the database.
+spring.datasource.username=
+
+# The password for the user specified above.
+spring.datasource.password=
