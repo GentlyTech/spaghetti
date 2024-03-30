@@ -13,3 +13,11 @@ spring.datasource.username=
 
 # The password for the user specified above.
 spring.datasource.password=
+
+# === If you wanted to automatically initialize the schema, uncomment the following lines. === #
+
+# Specifies the locations to look for schema (e.g. classpath:init.sql,classpath:schema/*.sql)
+#spring.sql.init.schema-locations=
+
+# Tells spring whether to initialize the schema on startup (in production you probably don't want the schema to be recreated each time).
+#spring.sql.init.mode=always
