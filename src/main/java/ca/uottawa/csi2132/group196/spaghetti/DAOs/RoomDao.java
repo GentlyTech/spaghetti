@@ -46,6 +46,15 @@ public class RoomDao {
         return mapper.findObject(hotelId, roomNumber);
     }
 
+    public Room getRoomByRoomNum(String hotelId, String roomNumber) {
+        try {
+            return getRoomByRoomNum(Integer.parseInt(hotelId), Integer.parseInt(roomNumber));
+        }
+        catch (NumberFormatException ignored) {
+            return null;
+        }
+    }
+
     public List<Room> getRoomsByHotel(int hotelId) {
         FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOMS_BY_HOTEL_SQL, Room.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
