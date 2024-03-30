@@ -1,5 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,6 +15,7 @@ public class HotelChainDao {
     private static final String INSERT_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain (chain_name) VALUES (?)";
     private static final String SELECT_HOTEL_CHAIN_SQL = "SELECT * FROM hotel_chain WHERE chain_name = ?";
     private static final String SELECT_ALL_HOTEL_CHAIN_SQL = "SELECT * FROM hotel_chain";
+    private static final String SELECT_ALL_HOTEL_CHAIN_NAMES_SQL = "SELECT DISTINCT chain_name FROM hotel_chain";
 
     private final JdbcTemplate database;
 
@@ -27,6 +29,11 @@ public class HotelChainDao {
 
     public List<HotelChain> getAllHotelChains() {
         FieldMapper<HotelChain> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ALL_HOTEL_CHAIN_SQL, HotelChain.class);
+        return mapper.execute();
+    }
+
+    public List<HotelChain> getAllHotelChainNames() {
+        FieldMapper<HotelChain> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ALL_HOTEL_CHAIN_NAMES_SQL, HotelChain.class);
         return mapper.execute();
     }
 
