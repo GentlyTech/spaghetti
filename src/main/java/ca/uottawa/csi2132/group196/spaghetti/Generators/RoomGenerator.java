@@ -31,6 +31,27 @@ public class RoomGenerator {
         Random rand = new Random();
         List<Room> rooms = new LinkedList<>();
 
+        // base price based on rating
+        double basePrice;
+        switch (hotel.getRating()) {
+            case 1:
+                basePrice = rand.nextInt(100, 150);
+                break;
+            case 2:
+                basePrice = rand.nextInt(150, 200);
+                break;
+            default:
+            case 3:
+                basePrice = rand.nextInt(200, 250);
+                break;
+            case 4:
+                basePrice = rand.nextInt(250, 400);
+                break;
+            case 5:
+                basePrice = rand.nextInt(400, 1000);
+                break;
+        }
+
         for (int i = 0; i < numRooms; i++) {
             Room room = new Room();
             // primary keys
@@ -45,28 +66,8 @@ public class RoomGenerator {
             int capacity = rand.nextInt(1, 10);
             room.setCapacity(capacity);
 
-            // price based on capacity
-            double price;
-            switch (hotel.getRating()) {
-                case 1:
-                    price = rand.nextInt(100, 150);
-                    break;
-                case 2:
-                    price = rand.nextInt(150, 200);
-                    break;
-                default:
-                case 3:
-                    price = rand.nextInt(200, 250);
-                    break;
-                case 4:
-                    price = rand.nextInt(250, 400);
-                    break;
-                case 5:
-                    price = rand.nextInt(400, 1000);
-                    break;
-            }
-
-            room.setPrice(price);
+            // also base price based on capacity now (each additional person increases price by 40%)
+            room.setPrice(basePrice + basePrice * (capacity - 1) * 0.4);
 
             //viewtype
             int viewType = rand.nextInt(2);

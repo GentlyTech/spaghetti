@@ -14,7 +14,10 @@ import java.util.List;
 public class RoomDao {
     private static final String INSERT_ROOM_SQL = "INSERT INTO room (hotel_id, room_number, price, view_type, capacity, extendable) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ROOM_SQL = "SELECT * FROM room WHERE hotel_id = ? AND room_number = ?";
-    private static final String SELECT_ROOMS_BY_HOTEL_SQL = "SELECT * FROM room WHERE hotel_id = ?";
+
+    // don't include room number in this query since room number makes the return value very long
+    private static final String SELECT_ROOMS_BY_HOTEL_SQL = "SELECT DISTINCT hotel_id, price, view_type, capacity, extendable FROM room WHERE hotel_id = ?";
+    private static final String SELECT_DISTINCT_ROOMS_SQL = "SELECT * FROM room WHERE hotel_id = ?";
     private static final String UPDATE_ROOMS_BY_HOTEL_SQL = "";
 
     private final JdbcTemplate database;
@@ -57,6 +60,12 @@ public class RoomDao {
 
     public List<Room> getRoomsByHotel(int hotelId) {
         FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOMS_BY_HOTEL_SQL, Room.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
+        return mapper.execute(hotelId);
+    }
+
+    public List<Room> getDistinctRoomsByHotel(int hotelId) {
+        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_DISTINCT_ROOMS_SQL, Room.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.execute(hotelId);
     }
