@@ -14,8 +14,6 @@ public class CustomerController {
     Gson serializer;
     CustomerDao customerDao;
 
-
-
     public CustomerController(JdbcTemplate database, Gson serializer, CustomerDao customerDao) {
         this.database = database;
         this.serializer = serializer;

@@ -18,6 +18,8 @@ public class RoomDao {
     // don't include room number in this query since room number makes the return value very long
     private static final String SELECT_ROOMS_BY_HOTEL_SQL = "SELECT DISTINCT hotel_id, price, view_type, capacity, extendable FROM room WHERE hotel_id = ?";
     private static final String SELECT_DISTINCT_ROOMS_SQL = "SELECT * FROM room WHERE hotel_id = ?";
+
+    private static final String SELECT_ROOMS_BY_CHAIN = "SELECT * FROM room LEFT JOIN hotel on room.hotel_id = hotel.hotel_id WHERE hotel.owner = ?";
     private static final String UPDATE_ROOMS_BY_HOTEL_SQL = "";
 
     private final JdbcTemplate database;
@@ -59,7 +61,7 @@ public class RoomDao {
     }
 
     public List<Room> getRoomsByHotel(int hotelId) {
-        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOMS_BY_HOTEL_SQL, Room.class);
+        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_DISTINCT_ROOMS_SQL, Room.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.execute(hotelId);
     }
@@ -68,5 +70,11 @@ public class RoomDao {
         FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_DISTINCT_ROOMS_SQL, Room.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.execute(hotelId);
+    }
+
+    public List<Room> getRoomsByChain(String chainName) {
+        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOMS_BY_CHAIN, Room.class);
+        mapper.declareParameter(new SqlParameterValue(Types.VARCHAR, chainName));
+        return mapper.execute(chainName);
     }
 }

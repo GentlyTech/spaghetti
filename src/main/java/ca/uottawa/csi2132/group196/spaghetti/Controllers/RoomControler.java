@@ -23,9 +23,14 @@ public class RoomControler {
         this.roomDao = roomDao;
     }
 
-    @GetMapping("/info/{hotelId}")
+    @GetMapping("/info/byHotelId/{hotelId}")
     public String getRoomsInHotel(@PathVariable int hotelId){
         return serializer.toJson(roomDao.getRoomsByHotel(hotelId));
+    }
+
+    @GetMapping("/info/byChain/{chainName}")
+    public String getRoomsInHotelChain(@PathVariable String chainName) {
+        return serializer.toJson(roomDao.getRoomsByChain(chainName));
     }
 
 }
