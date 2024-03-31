@@ -1,6 +1,5 @@
 [
   {
-    "creationDate": null,
     "name": "Some Person",
     "address": {
       "street": "69 This Street",
@@ -18,7 +17,6 @@
     ]
   },
   {
-    "creationDate": null,
     "name": "Some Other Person",
     "address": {
       "street": "420 That Street",
