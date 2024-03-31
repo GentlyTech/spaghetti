@@ -10,7 +10,7 @@ public class Customer {
     private int customerId = -1;
 
     @MappedField("creation_date")
-    private LocalDateTime creationDate = null;
+    private String creationDate = null;
 
     @MappedField("id_type")
     private String idType = null;
@@ -20,7 +20,7 @@ public class Customer {
 
     @MappedField
     private Address address = null;
-    
+
     private List<Booking> bookings = null;
 
     public List<Booking> getBookings() {
@@ -48,11 +48,15 @@ public class Customer {
     }
 
     public LocalDateTime getCreationDate() {
-        return creationDate;
+        return LocalDateTime.parse(creationDate);
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+    
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate.toString();
     }
 
     public String getIdType() {

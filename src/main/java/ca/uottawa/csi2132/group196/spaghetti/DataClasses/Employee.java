@@ -10,7 +10,7 @@ public class Employee {
     private int employeeId = -1;
 
     @MappedField("creation_date")
-    private LocalDateTime creationDate = null;
+    private String creationDate = null;
 
     @MappedField
     private String name = null;
@@ -48,11 +48,15 @@ public class Employee {
     }
 
     public LocalDateTime getCreationDate() {
-        return creationDate;
+        return LocalDateTime.parse(this.creationDate);
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
+        this.creationDate = creationDate.toString();
     }
 
     public String getName() {

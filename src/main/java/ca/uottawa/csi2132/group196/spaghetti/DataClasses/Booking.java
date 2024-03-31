@@ -18,10 +18,10 @@ public class Booking {
     private String bookingStatus;
 
     @MappedField("check_in_date")
-    private LocalDate checkInDate;
+    private String checkInDate;
 
     @MappedField("check_out_date")
-    private LocalDate checkOutDate;
+    private String checkOutDate;
     @MappedField("damage_fee")
     private double damageFee;
 
@@ -58,19 +58,27 @@ public class Booking {
     }
 
     public LocalDate getCheckInDate() {
-        return checkInDate;
+        return LocalDate.parse(this.checkInDate);
     }
 
-    public void setCheckInDate(LocalDate checkInDate) {
+    public void setCheckInDate(String checkInDate) {
         this.checkInDate = checkInDate;
     }
 
+    public void setCheckInDate(LocalDate checkInDate) {
+        this.checkInDate = checkInDate.toString();
+    }
+
     public LocalDate getCheckOutDate() {
-        return checkOutDate;
+        return LocalDate.parse(this.checkOutDate);
+    }
+
+    public void setCheckOutDate(String checkOutDate) {
+        this.checkOutDate = checkOutDate;
     }
 
     public void setCheckOutDate(LocalDate checkOutDate) {
-        this.checkOutDate = checkOutDate;
+        this.checkOutDate = checkOutDate.toString();
     }
 
     public double getDamageFee() {
