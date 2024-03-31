@@ -6,6 +6,7 @@ import ca.uottawa.csi2132.group196.spaghetti.DAOs.RoomDao;
 import com.google.gson.Gson;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class RoomControler {
     }
 
     @GetMapping("/info/{hotelId}")
-    public String getRoomsInHotel(int hotelId){
+    public String getRoomsInHotel(@PathVariable int hotelId){
         return serializer.toJson(roomDao.getRoomsByHotel(hotelId));
     }
 
