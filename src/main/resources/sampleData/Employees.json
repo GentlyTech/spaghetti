@@ -1,20 +1,37 @@
 [
   {
-    "employeeId": -1,
     "creationDate": null,
-    "name": "",
+    "name": "Some Person",
     "address": {
-      "street": "",
-      "city": "",
-      "province": "",
-      "postalCode": "",
-      "country": ""
+      "street": "69 This Street",
+      "city": "Muffin",
+      "province": "Mainland",
+      "postalCode": "PMB714",
+      "country": "Null Island"
     },
-    "sinNumber": "",
+    "sinNumber": "563156894",
     "roles": [
       {
-        "name": "",
-        "description": ""
+        "name": "Manager",
+        "description": "Manages the entire hotel."
+      }
+    ]
+  },
+  {
+    "creationDate": null,
+    "name": "Some Other Person",
+    "address": {
+      "street": "420 That Street",
+      "city": "Muffin",
+      "province": "Mainland",
+      "postalCode": "PMB765",
+      "country": "Null Island"
+    },
+    "sinNumber": "543715981",
+    "roles": [
+      {
+        "name": "Housekeeper",
+        "description": "Maintains hotel facilities."
       }
     ]
   }
