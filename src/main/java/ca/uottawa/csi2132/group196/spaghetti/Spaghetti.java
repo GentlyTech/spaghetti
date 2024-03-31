@@ -1,10 +1,7 @@
 package ca.uottawa.csi2132.group196.spaghetti;
 
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.*;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Amenity;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.HotelChain;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.*;
 import ca.uottawa.csi2132.group196.spaghetti.Generators.AmenityGenerator;
 import ca.uottawa.csi2132.group196.spaghetti.Generators.RoomGenerator;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.ResourceLoader;
@@ -78,15 +75,23 @@ public class Spaghetti {
                 if (hotel.getAmenities() == null || hotel.getAmenities().isEmpty()) {
                     hotel.setAmenities(new AmenityGenerator(hotelAmenities).generateAmenities());
                 }
-                
+
                 int hotelId = hotelDao.insertHotel(hotel);
                 hotel.setHotelId(hotelId);
                 contactDao.insertContactsFromHotel(hotel);
-                addressDao.insertAddressFromHotel(hotel);                
+                addressDao.insertAddressFromHotel(hotel);
                 amenityDao.insertAmenitiesFromHotel(hotel);
 
                 List<Room> rooms = new RoomGenerator(hotel, roomAmenities).generateRooms(100);
                 roomDao.insertRooms(rooms);
+            }
+        });
+
+        loader.loadFromJsonFile("sampleData/Employees.json", Employee[].class, data -> {
+            for (Employee employee : data) {
+                int employeeId = employeeDao.insertEmployee(employee);
+                employee.setEmployeeId(employeeId);
+                addressDao.insertAddressFromEmployee(employee);
             }
         });
 
