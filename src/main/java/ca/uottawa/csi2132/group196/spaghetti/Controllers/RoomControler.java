@@ -33,4 +33,8 @@ public class RoomControler {
         return serializer.toJson(roomDao.getRoomsByChain(chainName));
     }
 
+    @GetMapping("/info/byCity/{city}")
+    public String getRoomsInCity(@PathVariable String city) {
+        return serializer.toJson(roomDao.getRoomsByCity(city));
+    }
 }
