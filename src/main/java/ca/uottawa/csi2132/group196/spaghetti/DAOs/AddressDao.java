@@ -19,6 +19,8 @@ public class AddressDao {
     private static final String INSERT_ADDRESS_SQL = "INSERT INTO addresses (alias, street, city, province, postal_code, country) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String INSERT_ADDRESS_RELATION_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain_addresses (chain_name, address_id) VALUES (?, ?)";
     private static final String INSERT_ADDRESS_RELATION_HOTEL_SQL = "INSERT INTO hotel_addresses (hotel_id, address_id) VALUES (?, ?)";
+    private static final String INSERT_ADDRESS_RELATION_CUSTOMER_SQL = "INSERT INTO customer_addresses (customer_id, address_id) VALUES (?, ?)";
+    private static final String INSERT_ADDRESS_RELATION_EMPLOYEE_SQL = "INSERT INTO employee_addresses (employee_id, address_id) VALUES (?, ?)";
     private static final String SELECT_ADDRESSES_FOR_HOTEL_CHAIN_SQL = "SELECT addressInst.* FROM hotel_chain_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.chain_name = ?";
     private static final String SELECT_ADDRESSES_FOR_HOTEL_SQL = "SELECT addressInst.* FROM hotel_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.hotel_id = ?;";
 
@@ -73,11 +75,21 @@ public class AddressDao {
     }
 
     public int insertAddressFromCustomer(Customer customer) {
-        return -1;
+        Address address = customer.getAddress();
+
+        int addressId = insertAddress(address);
+        database.update(INSERT_ADDRESS_RELATION_CUSTOMER_SQL, customer.getCustomerId(), addressId);
+
+        return addressId;
     }
 
     public int insertAddressFromEmployee(Employee employee) {
-        return -1;
+        Address address = employee.getAddress();
+
+        int addressId = insertAddress(address);
+        database.update(INSERT_ADDRESS_RELATION_EMPLOYEE_SQL, employee.getEmployeeId(), addressId);
+
+        return addressId;
     }
 
     public List<Address> getAddressesForHotelChain(String chainName) {
@@ -90,5 +102,9 @@ public class AddressDao {
         FieldMapper<Address> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ADDRESSES_FOR_HOTEL_SQL, Address.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.findObject(hotelId);
+    }
+
+    public void updateCustomerAddress(int customerId, Address address) {
+
     }
 }
