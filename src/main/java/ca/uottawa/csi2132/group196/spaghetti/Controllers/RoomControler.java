@@ -37,4 +37,9 @@ public class RoomControler {
     public String getRoomsInCity(@PathVariable String city) {
         return serializer.toJson(roomDao.getRoomsByCity(city));
     }
+
+    @GetMapping("/info/byCapacity/{capacity}")
+    public String getRoomsByCapacity(@PathVariable int capacity) {
+        return serializer.toJson(roomDao.getRoomsByCapacity(capacity));
+    }
 }
