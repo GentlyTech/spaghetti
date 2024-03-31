@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS public.room
     CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id)
         REFERENCES public.hotel (hotel_id)
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS public.room_amenities
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS public.room_amenities
     CONSTRAINT room_fk FOREIGN KEY (room_number, hotel_id)
         REFERENCES public.room (room_number, hotel_id)
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS public.room_problems
@@ -34,5 +34,5 @@ CREATE TABLE IF NOT EXISTS public.room_problems
     CONSTRAINT room_fk FOREIGN KEY (room_number, hotel_id)
         REFERENCES public.room (room_number, hotel_id)
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
 );
