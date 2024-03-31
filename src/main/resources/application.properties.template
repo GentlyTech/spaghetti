@@ -15,7 +15,7 @@ spring.datasource.username=
 spring.datasource.password=
 
 # Specifies the locations to look for schema
-spring.sql.init.schema-locations=classpath:init.sql,classpath:schema/*.sql,classpath:views.sql
+spring.sql.init.schema-locations=classpath:init.sql,classpath:schema/*.sql,classpath:views.sql,classpath:triggers.sql
 
 # Tells spring whether to initialize the schema on startup automatically
 spring.sql.init.mode=always
