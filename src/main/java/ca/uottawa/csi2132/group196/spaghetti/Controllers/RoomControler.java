@@ -42,4 +42,9 @@ public class RoomControler {
     public String getRoomsByCapacity(@PathVariable int capacity) {
         return serializer.toJson(roomDao.getRoomsByCapacity(capacity));
     }
+
+    @GetMapping("/info/byPrice/{minPrice}/{maxPrice}")
+    public String getHotelsByPriceRange(@PathVariable int minPrice, @PathVariable int maxPrice) {
+        return serializer.toJson(roomDao.getRoomsByPrice(minPrice, maxPrice));
+    }
 }
