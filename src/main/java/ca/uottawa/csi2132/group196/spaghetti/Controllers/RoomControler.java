@@ -1,12 +1,10 @@
 package ca.uottawa.csi2132.group196.spaghetti.Controllers;
 
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.RoomDao;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.RoomQuery;
 import com.google.gson.Gson;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/room")
@@ -44,5 +42,10 @@ public class RoomControler {
     @GetMapping("/info/byPrice/{minPrice}/{maxPrice}")
     public String getHotelsByPriceRange(@PathVariable int minPrice, @PathVariable int maxPrice) {
         return serializer.toJson(roomDao.getRoomsByPrice(minPrice, maxPrice));
+    }
+    
+    @PostMapping("/query")
+    public String queryRooms(@RequestBody RoomQuery query) {
+        return serializer.toJson(roomDao.getRoomsByQuery(query));
     }
 }
