@@ -21,16 +21,6 @@ public class Customer {
     @MappedField
     private Address address = null;
 
-    private List<Booking> bookings = null;
-
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
-    }
-
     public Address getAddress() {
         return address;
     }

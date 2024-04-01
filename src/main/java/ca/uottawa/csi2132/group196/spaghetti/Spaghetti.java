@@ -103,16 +103,7 @@ public class Spaghetti {
                 customer.setCustomerId(customerId);
                 addressDao.insertAddressFromCustomer(customer);
                 
-                List<Booking> bookings = customer.getBookings();
-                Map<Integer, Integer> hotelIdCache = new HashMap<>();
                 
-                for (int i = 0; i < bookings.size(); i++) {
-                    Booking booking = bookings.get(i);
-                    booking.setCustomerId(customerId);
-                    
-                    
-                    bookings.set(i, booking);
-                }
                 
                 //bookingDao.insertBookings(bookings);
             }
