@@ -39,7 +39,7 @@ public class EmployeeDao {
         if (employeeId == null) return -1;
         return employeeId.intValue();
     }
-    
+
     public Employee getEmployee(int employeeId) {
         FieldMapper<Employee> mapper = new FieldMapper<>(database.getDataSource(), SELECT_EMPLOYEE_SQL, Employee.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "employee_id"));

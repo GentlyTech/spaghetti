@@ -34,7 +34,7 @@ public class ProblemDao {
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "caption"));
         return mapper.findObject(hotelId, roomNumber, caption);
     }
-    
+
     public List<Problem> getProblemsWithRoom(int hotelId, int roomNumber) {
         FieldMapper<Problem> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ALL_PROBLEMS_SQL, Problem.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
@@ -45,10 +45,10 @@ public class ProblemDao {
     public void updateProblem(int hotelId, int roomNumber, String caption, Problem updatedProblem) {
         Problem originalProblem = getProblem(hotelId, roomNumber, caption);
         if (updatedProblem.getDescription() == null) updatedProblem.setDescription(originalProblem.getDescription());
-        
+
         database.update(UPDATE_PROBLEM_SQL, hotelId, roomNumber, updatedProblem.getCaption(), updatedProblem.getDescription());
     }
-    
+
     public void deleteProblem(int hotelId, int roomNumber, String caption) {
         database.update(DELETE_PROBLEM_SQL, hotelId, roomNumber, caption);
     }

@@ -1,6 +1,5 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Customer;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

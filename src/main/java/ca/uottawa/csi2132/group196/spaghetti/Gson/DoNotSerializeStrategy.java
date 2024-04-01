@@ -8,7 +8,7 @@ public class DoNotSerializeStrategy implements ExclusionStrategy {
     public boolean shouldSkipField(FieldAttributes field) {
         return field.getAnnotation(DoNotSerialize.class) != null;
     }
-    
+
     @Override
     public boolean shouldSkipClass(Class<?> cls) {
         return cls.getAnnotation(DoNotSerialize.class) != null;

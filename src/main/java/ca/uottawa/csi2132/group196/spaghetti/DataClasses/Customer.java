@@ -54,7 +54,7 @@ public class Customer {
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
-    
+
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate.toString();
     }

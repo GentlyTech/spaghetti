@@ -63,7 +63,7 @@ public class HotelChainController {
     }
 
     @GetMapping("/info/chainNames")
-    public String getHotelChains(){
+    public String getHotelChains() {
         return serializer.toJson(hotelChainDao.getAllHotelChainNames());
     }
 }

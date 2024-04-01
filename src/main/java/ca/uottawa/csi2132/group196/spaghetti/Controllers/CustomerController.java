@@ -1,10 +1,10 @@
 package ca.uottawa.csi2132.group196.spaghetti.Controllers;
 
-import ca.uottawa.csi2132.group196.spaghetti.DAOs.*;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Customer;
+import ca.uottawa.csi2132.group196.spaghetti.DAOs.CustomerDao;
 import com.google.gson.Gson;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/customer")

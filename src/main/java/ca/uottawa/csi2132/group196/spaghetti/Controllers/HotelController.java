@@ -49,7 +49,7 @@ public class HotelController {
         }
         return serializer.toJson(results);
     }
-    
+
     @GetMapping("/info/byChain/{chain_name}")
     public String getHotelInfoByHotelChain(@PathVariable String chain_name) {
         List<Hotel> results = hotelDao.getHotelsByChainName(chain_name);

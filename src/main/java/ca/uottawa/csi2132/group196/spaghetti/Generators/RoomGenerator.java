@@ -4,7 +4,6 @@ import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Amenity;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;

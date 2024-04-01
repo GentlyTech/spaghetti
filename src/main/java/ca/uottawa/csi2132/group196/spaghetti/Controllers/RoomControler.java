@@ -1,7 +1,5 @@
 package ca.uottawa.csi2132.group196.spaghetti.Controllers;
 
-import ca.uottawa.csi2132.group196.spaghetti.DAOs.AddressDao;
-import ca.uottawa.csi2132.group196.spaghetti.DAOs.ContactDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.RoomDao;
 import com.google.gson.Gson;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,7 +22,7 @@ public class RoomControler {
     }
 
     @GetMapping("/info/byHotelId/{hotelId}")
-    public String getRoomsInHotel(@PathVariable int hotelId){
+    public String getRoomsInHotel(@PathVariable int hotelId) {
         return serializer.toJson(roomDao.getRoomsByHotel(hotelId));
     }
 
