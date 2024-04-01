@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS public.customer_addresses
     address_id  integer NOT NULL,
     CONSTRAINT customer_id_fk FOREIGN KEY (customer_id) REFERENCES public.customer (customer_id)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION,
+        ON UPDATE CASCADE,
     CONSTRAINT address_id_fk FOREIGN KEY (address_id) REFERENCES public.addresses (address_id)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
 );

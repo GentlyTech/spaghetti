@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS public.hotel_chain_contacts
     contact_id integer NOT NULL,
     CONSTRAINT chain_name_fk FOREIGN KEY (chain_name) REFERENCES public.hotel_chain (chain_name)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION,
+        ON UPDATE CASCADE,
     CONSTRAINT contact_id_fk FOREIGN KEY (contact_id) REFERENCES public.contacts (contact_id)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS public.hotel_chain_addresses
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS public.hotel_chain_addresses
     address_id integer NOT NULL,
     CONSTRAINT chain_name_fk FOREIGN KEY (chain_name) REFERENCES public.hotel_chain (chain_name)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION,
+        ON UPDATE CASCADE,
     CONSTRAINT address_id_fk FOREIGN KEY (address_id) REFERENCES public.addresses (address_id)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
 );

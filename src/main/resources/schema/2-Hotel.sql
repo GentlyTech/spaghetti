@@ -17,10 +17,10 @@ CREATE TABLE IF NOT EXISTS public.hotel_contacts
     contact_id integer NOT NULL,
     CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id) REFERENCES public.hotel (hotel_id)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION,
+        ON UPDATE CASCADE,
     CONSTRAINT contact_id_fk FOREIGN KEY (contact_id) REFERENCES public.contacts (contact_id)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS public.hotel_addresses
@@ -29,10 +29,10 @@ CREATE TABLE IF NOT EXISTS public.hotel_addresses
     address_id integer NOT NULL,
     CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id) REFERENCES public.hotel (hotel_id)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION,
+        ON UPDATE CASCADE,
     CONSTRAINT address_id_fk FOREIGN KEY (address_id) REFERENCES public.addresses (address_id)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS public.hotel_amenities
@@ -43,5 +43,5 @@ CREATE TABLE IF NOT EXISTS public.hotel_amenities
     CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id)
         REFERENCES public.hotel (hotel_id)
         ON DELETE CASCADE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
 );
