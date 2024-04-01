@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Types;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -35,6 +36,17 @@ public class BookingDao {
 
     public void insertBooking(Booking booking) {
         database.update(INSERT_BOOKING_SQL, booking.getRoomNumber(), booking.getCustomerId(), booking.getHotelId(), booking.getBookingStatus(), booking.getCheckInDate(), booking.getCheckOutDate(), booking.getDamageFee());
+    }
+
+    public void insertBookings(List<Booking> bookings) {
+        List<Object[]> batch = new ArrayList<>(bookings.size());
+        for (Booking booking : bookings) {
+            Object[] values = new Object[]{
+                    booking.getRoomNumber(), booking.getCustomerId(), booking.getHotelId(), booking.getBookingStatus(), booking.getCheckInDate(), booking.getCheckOutDate(), booking.getDamageFee()
+            };
+            batch.add(values);
+        }
+        database.batchUpdate(INSERT_BOOKING_SQL, batch);
     }
 
     public List<Booking> getBookingsByCustomer(Customer customer) {
