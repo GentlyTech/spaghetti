@@ -54,27 +54,10 @@ public class BookingDao {
         database.update(UPDATE_BOOKING_STATUS_SQL, newStatus, booking.getHotelId(), booking.getCustomerId(), booking.getCustomerId());
     }
 
-    public Boolean isBooked(LocalDate checkInDate, LocalDate checkOutDate, Room room) {
-
-        //Date today = new Date(System.currentTimeMillis());
-
-        // get all rooms from hotels booked
-        //String SELECT_BOOKINGS_BY_HOTEL_ROOM =  "SELECT * FROM booking WHERE hotel.hotel_id = booking.hotel_id AND room.room_number = booking.room_number";
-
-        // get all bookings that are in the future
-        //String FUTURE_BOOKINGS_SQL = "SELECT * FROM booking WHERE check_in_date > TODAY AND check_out_date > TODAY";
-        //SELECT COUNT(HOTEL_ID) FORM booking WHERE
-
-        //String sql = STR."SELECT COUNT(*) FROM booking WHERE (booking.hotel_id =  \{hotel.getHotelId()} + AND booking.room_number = \{room.getRoomNumber()}) AND EXISTS(SELECT * FROM booking WHERE check_in_date > \{today} AND check_out_date > \{today})";
-
-        // return database.execute(sql) != 0;
-
-        //TODO: FIGURE OUT HOW TO RUN AGGREGATE QUERY.
-
+    public boolean isBooked(LocalDate checkInDate, LocalDate checkOutDate, Room room) {
         Integer bookingCount = database.queryForObject(BOOKING_EXISTS_COUNT_SQL, Integer.class, room.getHotelId(), room.getRoomNumber(), checkInDate, checkOutDate);
         if (bookingCount == null) return false;
         return bookingCount > 0;
     }
-
 
 }
