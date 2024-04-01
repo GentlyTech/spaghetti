@@ -5,11 +5,15 @@ import ca.uottawa.csi2132.group196.spaghetti.DataClasses.RoomQuery;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class RoomDao {
@@ -25,13 +29,15 @@ public class RoomDao {
     private static final String SELECT_ROOMS_BY_CAPACITY_SQL = "SELECT * FROM room WHERE capacity = ?";
     private static final String SELECT_ROOMS_BY_PRICE_SQL = "SELECT * FROM room WHERE price > ? AND price < ?";
     private static final String SELECT_ROOMS_BY_QUERY_SQL = "SELECT * FROM room WHERE price > ? AND price < ?";
-    private static final String UPDATE_ROOMS_BY_HOTEL_SQL = "";
+    private static final String SELECT_FULL_QUERY_ROOMS_SQL = "SELECT * FROM giga_map WHERE (:price IS NULL OR price = :price) AND (:chain_name IS NULL OR owner = :chain_name) AND (:hotel_name IS NULL OR hotel_name = :hotel_name) AND (:location IS NULL OR (LOWER(street) LIKE LOWER(:location) OR LOWER(city) LIKE LOWER(:location) OR LOWER(province) LIKE LOWER(:location) OR LOWER(postal_code) LIKE LOWER(:location) OR LOWER(country) LIKE LOWER(:location))) AND (:rating IS NULL OR rating = :rating) AND (:capacity IS NULL OR capacity = :capacity)";
 
     private final JdbcTemplate database;
+    private final NamedParameterJdbcTemplate namedDatabase;
 
 
-    public RoomDao(JdbcTemplate database) {
-        this.database = database;
+    public RoomDao(DataSource dataSource) {
+        this.database = new JdbcTemplate(dataSource);
+        this.namedDatabase = new NamedParameterJdbcTemplate(dataSource);
     }
 
     public void insertRoom(Room room) {
@@ -100,8 +106,27 @@ public class RoomDao {
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, max));
         return mapper.execute(min, max);
     }
-    
+
     public List<Room> getRoomsByQuery(RoomQuery query) {
-        return null;
+        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_FULL_QUERY_ROOMS_SQL, Room.class);
+        
+        Map<String, Object> params = new HashMap<>();
+        params.put("price", query.getPrice());
+        params.put("chain_name", query.getChainName());
+        params.put("hotel_name", query.getHotelName());
+        params.put("location", query.getLocation());
+        params.put("rating", query.getRating());
+        params.put("capacity", query.getCapacity());
+
+        return namedDatabase.query(SELECT_FULL_QUERY_ROOMS_SQL, params, (resultSet, rowNum) -> {
+            Room room = new Room();
+            room.setHotelId(resultSet.getInt("hotel_id"));
+            room.setRoomNumber(resultSet.getInt("room_number"));
+            room.setCapacity(resultSet.getInt("capacity"));
+            room.setPrice(resultSet.getDouble("price"));
+            room.setExtendable(resultSet.getBoolean("extendable"));
+            room.setViewType(resultSet.getString("view_type"));
+            return room;
+        });
     }
 }
