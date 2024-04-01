@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class CustomerDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         database.update(connection -> {
-            PreparedStatement statement = connection.prepareStatement(INSERT_CUSTOMER_SQL);
+            PreparedStatement statement = connection.prepareStatement(INSERT_CUSTOMER_SQL, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getIdType());
             return statement;
