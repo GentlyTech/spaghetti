@@ -1,6 +1,6 @@
 [
   {
-    "name": "Some Person",
+    "name": "Some Employee",
     "address": {
       "street": "69 This Street",
       "city": "Muffin",
@@ -17,7 +17,7 @@
     ]
   },
   {
-    "name": "Some Other Person",
+    "name": "Some Other Employee",
     "address": {
       "street": "420 That Street",
       "city": "Muffin",

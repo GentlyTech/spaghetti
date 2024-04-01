@@ -1,9 +1,36 @@
 [
   {
-    "customerId": -1,
-    "creationDate": null,
-    "name": "",
-    "idType": "",
+    "name": "Some Customer",
+    "idType": "Driver's License",
+    "address": {
+      "street": "84 Noughta Street",
+      "city": "Pancake",
+      "province": "Mainland",
+      "postalCode": "PMF95B",
+      "country": "Null Island"
+    },
+    "bookings": [
+      {
+        "roomNumber": -1,
+        "customerId": -1,
+        "hotelId": -1,
+        "bookingStatus": "",
+        "checkInDate": null,
+        "checkOutDate": null,
+        "damageFee": 0.0
+      }
+    ]
+  },
+  {
+    "name": "Some Other Customer",
+    "idType": "Passport",
+    "address": {
+      "street": "4 Isa Street",
+      "city": "Pancake",
+      "province": "Mainland",
+      "postalCode": "PMF46A",
+      "country": "Null Island"
+    },
     "bookings": [
       {
         "roomNumber": -1,
