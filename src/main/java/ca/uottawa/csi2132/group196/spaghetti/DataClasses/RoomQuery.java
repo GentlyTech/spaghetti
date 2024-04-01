@@ -7,7 +7,7 @@ public class RoomQuery {
     private String checkOutDate;
     private String hotelName;
     private String location;
-    private String rating;
+    private int rating;
     private int capacity;
 
     public double getPrice() {
@@ -58,11 +58,11 @@ public class RoomQuery {
         this.location = location;
     }
 
-    public String getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
