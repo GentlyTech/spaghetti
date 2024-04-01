@@ -29,7 +29,7 @@ public class RoomDao {
     private static final String SELECT_ROOMS_BY_CAPACITY_SQL = "SELECT * FROM room WHERE capacity = ?";
     private static final String SELECT_ROOMS_BY_PRICE_SQL = "SELECT * FROM room WHERE price > ? AND price < ?";
     private static final String SELECT_ROOMS_BY_QUERY_SQL = "SELECT * FROM room WHERE price > ? AND price < ?";
-    private static final String SELECT_FULL_QUERY_ROOMS_SQL = "SELECT * FROM giga_map WHERE (:price IS NULL OR price = :price) AND (:chain_name IS NULL OR owner = :chain_name) AND (:hotel_name IS NULL OR hotel_name = :hotel_name) AND (:location IS NULL OR (LOWER(street) LIKE LOWER(:location) OR LOWER(city) LIKE LOWER(:location) OR LOWER(province) LIKE LOWER(:location) OR LOWER(postal_code) LIKE LOWER(:location) OR LOWER(country) LIKE LOWER(:location))) AND (:rating IS NULL OR rating = :rating) AND (:capacity IS NULL OR capacity = :capacity)";
+    private static final String SELECT_FULL_QUERY_ROOMS_SQL = "SELECT * FROM giga_map WHERE (:price::decimal < 0.0 OR price = :price) AND (:chain_name::text IS NULL OR owner = :chain_name) AND (:hotel_name::text IS NULL OR hotel_name = :hotel_name) AND (:location::text IS NULL OR (LOWER(street) LIKE LOWER(:location) OR LOWER(city) LIKE LOWER(:location) OR LOWER(province) LIKE LOWER(:location) OR LOWER(postal_code) LIKE LOWER(:location) OR LOWER(country) LIKE LOWER(:location))) AND (:rating < 0 OR rating = :rating) AND (:capacity < 0 OR capacity = :capacity)";
 
     private final JdbcTemplate database;
     private final NamedParameterJdbcTemplate namedDatabase;
