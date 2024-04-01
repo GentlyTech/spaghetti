@@ -1,7 +1,6 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.RoomQuery;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.*;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
@@ -107,9 +106,7 @@ public class RoomDao {
         return mapper.execute(min, max);
     }
 
-    public List<Room> getRoomsByQuery(RoomQuery query) {
-        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_FULL_QUERY_ROOMS_SQL, Room.class);
-        
+    public List<RoomQueryResult> getRoomsByQuery(RoomQuery query) {
         Map<String, Object> params = new HashMap<>();
         params.put("price", query.getPrice());
         params.put("chain_name", query.getChainName());
@@ -119,6 +116,7 @@ public class RoomDao {
         params.put("capacity", query.getCapacity());
 
         return namedDatabase.query(SELECT_FULL_QUERY_ROOMS_SQL, params, (resultSet, rowNum) -> {
+            RoomQueryResult result = new RoomQueryResult();
             Room room = new Room();
             room.setHotelId(resultSet.getInt("hotel_id"));
             room.setRoomNumber(resultSet.getInt("room_number"));
@@ -126,7 +124,22 @@ public class RoomDao {
             room.setPrice(resultSet.getDouble("price"));
             room.setExtendable(resultSet.getBoolean("extendable"));
             room.setViewType(resultSet.getString("view_type"));
-            return room;
+
+            Address address = new Address();
+            address.setStreet(resultSet.getString("street"));
+            address.setCity(resultSet.getString("city"));
+            address.setProvince(resultSet.getString("province"));
+            address.setPostalCode(resultSet.getString("postal_code"));
+            address.setCountry(resultSet.getString("country"));
+
+            Hotel hotel = new Hotel();
+            hotel.setHotelId(resultSet.getInt("hotel_id"));
+            hotel.setHotelName(resultSet.getString("hotel_name"));
+            hotel.setAddress(address);
+            hotel.setOwner(resultSet.getString("owner"));
+            hotel.setRating(resultSet.getInt("rating"));
+            
+            return result;
         });
     }
 }

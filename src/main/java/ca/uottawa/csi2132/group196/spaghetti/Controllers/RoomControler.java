@@ -5,6 +5,7 @@ import ca.uottawa.csi2132.group196.spaghetti.DAOs.ProblemDao;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.RoomDao;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.RoomQuery;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.RoomQueryResult;
 import com.google.gson.Gson;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -56,15 +57,17 @@ public class RoomControler {
     
     @PostMapping("/query")
     public String queryRooms(@RequestBody RoomQuery query) {
-        List<Room> rooms = roomDao.getRoomsByQuery(query);
+        List<RoomQueryResult> results = roomDao.getRoomsByQuery(query);
         
-        for (int i = 0; i < rooms.size(); i++) {
-            Room room = rooms.get(i);
+        for (int i = 0; i < results.size(); i++) {
+            RoomQueryResult result = results.get(i);
+            Room room = result.getRoom();
             room.setAmenities(amenityDao.getAmenitiesForRoom(room.getHotelId(), room.getRoomNumber()));
             room.setProblems(problemDao.getProblemsWithRoom(room.getHotelId(), room.getRoomNumber()));
-            rooms.set(i, room);
+            result.setRoom(room);
+            results.set(i, result);
         }
         
-        return serializer.toJson(rooms);
+        return serializer.toJson(results);
     }
 }
