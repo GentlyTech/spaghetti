@@ -3,6 +3,7 @@ package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +22,8 @@ public class RoomDao {
 
     private static final String SELECT_ROOMS_BY_CHAIN = "SELECT * FROM room LEFT JOIN hotel on room.hotel_id = hotel.hotel_id WHERE hotel.owner = ?";
     private static final String SELECT_ROOMS_BY_CITY_SQL = "SELECT * FROM addresses, hotel_addresses, room WHERE addresses.address_id = hotel_addresses.address_id AND hotel_addresses.hotel_id = room.hotel_id AND addresses.city = ?";
+    private static final String SELECT_ROOMS_BY_CAPACITY_SQL = "SELECT * FROM room WHERE capacity = ?";
+    private static final String SELECT_ROOMS_BY_PRICE_SQL = "SELECT * FROM room WHERE price > ? AND price < ?";
     private static final String UPDATE_ROOMS_BY_HOTEL_SQL = "";
 
     private final JdbcTemplate database;
@@ -83,5 +86,18 @@ public class RoomDao {
         FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOMS_BY_CITY_SQL, Room.class);
         mapper.declareParameter(new SqlParameterValue(Types.VARCHAR, city));
         return mapper.execute(city);
+    }
+
+    public List<Room> getRoomsByCapacity(int capacity) {
+        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOMS_BY_CAPACITY_SQL, Room.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, capacity));
+        return mapper.execute(capacity);
+    }
+
+    public List<Room> getRoomsByPrice(int min, int max) {
+        FieldMapper<Room> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ROOMS_BY_PRICE_SQL, Room.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, min));
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, max));
+        return mapper.execute(min, max);
     }
 }
