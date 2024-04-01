@@ -1,7 +1,7 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
 public class RoomQuery {
-    double price;
+    private double price;
     private String chainName;
     private String checkInDate;
     private String checkOutDate;
