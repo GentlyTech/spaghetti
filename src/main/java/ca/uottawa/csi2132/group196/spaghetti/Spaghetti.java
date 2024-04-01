@@ -12,7 +12,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 public class Spaghetti {
@@ -92,6 +94,27 @@ public class Spaghetti {
                 int employeeId = employeeDao.insertEmployee(employee);
                 employee.setEmployeeId(employeeId);
                 addressDao.insertAddressFromEmployee(employee);
+            }
+        });
+
+        loader.loadFromJsonFile("sampleData/Customers.json", Customer[].class, data -> {
+            for (Customer customer : data) {
+                int customerId = customerDao.insertCustomer(customer);
+                customer.setCustomerId(customerId);
+                addressDao.insertAddressFromCustomer(customer);
+                
+                List<Booking> bookings = customer.getBookings();
+                Map<Integer, Integer> hotelIdCache = new HashMap<>();
+                
+                for (int i = 0; i < bookings.size(); i++) {
+                    Booking booking = bookings.get(i);
+                    booking.setCustomerId(customerId);
+                    
+                    
+                    bookings.set(i, booking);
+                }
+                
+                //bookingDao.insertBookings(bookings);
             }
         });
 
