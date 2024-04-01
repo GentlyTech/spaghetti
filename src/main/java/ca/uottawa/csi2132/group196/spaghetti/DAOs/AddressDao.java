@@ -22,7 +22,10 @@ public class AddressDao {
     private static final String INSERT_ADDRESS_RELATION_CUSTOMER_SQL = "INSERT INTO customer_addresses (customer_id, address_id) VALUES (?, ?)";
     private static final String INSERT_ADDRESS_RELATION_EMPLOYEE_SQL = "INSERT INTO employee_addresses (employee_id, address_id) VALUES (?, ?)";
     private static final String SELECT_ADDRESSES_FOR_HOTEL_CHAIN_SQL = "SELECT addressInst.* FROM hotel_chain_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.chain_name = ?";
-    private static final String SELECT_ADDRESSES_FOR_HOTEL_SQL = "SELECT addressInst.* FROM hotel_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.hotel_id = ?;";
+    private static final String SELECT_ADDRESSES_FOR_HOTEL_SQL = "SELECT addressInst.* FROM hotel_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.hotel_id = ?";
+    private static final String SELECT_ADDRESS_FOR_CUSTOMER_SQL = "SELECT addressInst.* FROM customer_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.customer_id = ?";
+    private static final String SELECT_ADDRESS_FOR_EMPLOYEE_SQL = "SELECT addressInst.* FROM employee_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.employee_id = ?";
+    private static final String UPDATE_ADDRESS_FOR_CUSTOMER_SQL = "UPDATE addresses SET alias = ?, street = ?, city = ?, province = ?, postal_code = ?, country = ? WHERE address_id = ?";
 
     private final JdbcTemplate database;
 
@@ -104,7 +107,22 @@ public class AddressDao {
         return mapper.findObject(hotelId);
     }
 
-    public void updateCustomerAddress(int customerId, Address address) {
+    public Address getAddressForCustomer(int customerId) {
+        FieldMapper<Address> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ADDRESS_FOR_CUSTOMER_SQL, Address.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "customer_id"));
+        return mapper.findObject(customerId);
+    }
 
+    public Address getAddressForEmployee(int employeeId) {
+        FieldMapper<Address> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ADDRESS_FOR_EMPLOYEE_SQL, Address.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "employee_id"));
+        return mapper.findObject(employeeId);
+    }
+
+    public void updateCustomerAddress(int customerId, Address address) {
+        Address existingAddress = getAddressForCustomer(customerId);
+        if (existingAddress == null) return;
+
+        database.update(UPDATE_ADDRESS_FOR_CUSTOMER_SQL, address.getAlias(), address.getStreet(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry(), existingAddress.getAddressId());
     }
 }
