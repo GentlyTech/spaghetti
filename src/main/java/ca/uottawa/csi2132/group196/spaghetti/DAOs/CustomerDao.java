@@ -4,9 +4,13 @@ import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Customer;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.Types;
+import java.util.Map;
 
 @Repository
 public class CustomerDao {
@@ -21,8 +25,21 @@ public class CustomerDao {
         this.database = database;
     }
 
-    public void insertCustomer(Customer customer) {
-        database.update(INSERT_CUSTOMER_SQL, customer.getName(), customer.getAddress());
+    public int insertCustomer(Customer customer) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        database.update(connection -> {
+            PreparedStatement statement = connection.prepareStatement(INSERT_CUSTOMER_SQL);
+            statement.setString(1, customer.getName());
+            statement.setString(2, customer.getIdType());
+            return statement;
+        }, keyHolder);
+
+        Map<String, Object> keys = keyHolder.getKeys();
+        if (keys == null) return -1;
+        Number key = (Number) keys.get("customer_id");
+        if (key == null) return -1;
+        return key.intValue();
     }
 
     public Customer getCustomerById(int customerId) {
