@@ -124,6 +124,8 @@ public class RoomDao {
             room.setPrice(resultSet.getDouble("price"));
             room.setExtendable(resultSet.getBoolean("extendable"));
             room.setViewType(resultSet.getString("view_type"));
+            
+            result.setRoom(room);
 
             Address address = new Address();
             address.setStreet(resultSet.getString("street"));
@@ -138,6 +140,8 @@ public class RoomDao {
             hotel.setAddress(address);
             hotel.setOwner(resultSet.getString("owner"));
             hotel.setRating(resultSet.getInt("rating"));
+            
+            result.setHotel(hotel);
             
             return result;
         });
