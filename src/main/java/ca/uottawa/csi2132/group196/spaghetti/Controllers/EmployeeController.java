@@ -20,13 +20,13 @@ public class EmployeeController {
     }
 
     @PostMapping("/register")
-    public String registerEmployee(@RequestBody Employee employee) {
-        return null;
+    public void registerEmployee(@RequestBody Employee employee) {
+        employeeDao.insertEmployee(employee);
     }
 
-    @PutMapping("/update/{employeeId}")
-    public String updateEmployee(@PathVariable int employeeId, @RequestBody Employee employee) {
-        return null;
+    @PostMapping("/update")
+    public void updateEmployee(@RequestBody Employee updatedEmployee) {
+        employeeDao.updateEmployee(updatedEmployee);
     }
 
     @DeleteMapping("/delete/{employeeId}")

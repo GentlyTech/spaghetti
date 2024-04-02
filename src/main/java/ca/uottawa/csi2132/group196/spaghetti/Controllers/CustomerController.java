@@ -20,13 +20,13 @@ public class CustomerController {
     }
     
     @PostMapping("/register")
-    public String registerCustomer(@RequestBody Customer customer) {
-        return null;
+    public void registerCustomer(@RequestBody Customer customer) {
+        customerDao.insertCustomer(customer);
     }
     
-    @PutMapping("/update/{customerId}")
-    public String updateCustomer(@PathVariable int customerId, @RequestBody Customer customer) {
-        return null;
+    @PostMapping("/update")
+    public void updateCustomer(@RequestBody Customer updatedCustomer) {
+        customerDao.updateCustomer(updatedCustomer);
     }
 
     @DeleteMapping("/delete/{customerId}")

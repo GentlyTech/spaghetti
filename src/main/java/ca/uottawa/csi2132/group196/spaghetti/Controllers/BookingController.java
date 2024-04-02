@@ -27,13 +27,19 @@ public class BookingController {
     }
 
     @PostMapping("/book")
-    public String insertBooking(@RequestBody Booking booking) {
-        return null;
+    public void insertBooking(@RequestBody Booking booking) {
+        bookingDao.insertBooking(booking);
     }
 
     @PostMapping("/update")
-    public String updateBooking(@RequestBody BookingUpdateQuery query) {
-        return null;
+    public void updateBooking(@RequestBody BookingUpdateQuery query) {
+        if (query == null) return;
+        BookingId id = query.getBookingId();
+        if (id == null) return;
+        Booking booking = query.getUpdatedBooking();
+        if (booking == null) return;
+        
+        bookingDao.updateBooking(id.getRoomNumber(), id.getCustomerId(), id.getHotelId(), id.getCheckInDate(), id.getCheckOutDate(), booking);
     }
 
     @DeleteMapping("/delete")
