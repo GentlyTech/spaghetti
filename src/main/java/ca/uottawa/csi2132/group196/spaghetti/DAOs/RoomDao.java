@@ -22,13 +22,14 @@ public class RoomDao {
     // don't include room number in this query since room number makes the return value very long
     private static final String SELECT_ROOMS_BY_HOTEL_SQL = "SELECT DISTINCT hotel_id, price, view_type, capacity, extendable FROM room WHERE hotel_id = ?";
     private static final String SELECT_DISTINCT_ROOMS_SQL = "SELECT * FROM room WHERE hotel_id = ?";
-
     private static final String SELECT_ROOMS_BY_CHAIN = "SELECT * FROM room LEFT JOIN hotel on room.hotel_id = hotel.hotel_id WHERE hotel.owner = ?";
     private static final String SELECT_ROOMS_BY_CITY_SQL = "SELECT * FROM addresses, hotel_addresses, room WHERE addresses.address_id = hotel_addresses.address_id AND hotel_addresses.hotel_id = room.hotel_id AND addresses.city = ?";
     private static final String SELECT_ROOMS_BY_CAPACITY_SQL = "SELECT * FROM room WHERE capacity = ?";
     private static final String SELECT_ROOMS_BY_PRICE_SQL = "SELECT * FROM room WHERE price > ? AND price < ?";
     private static final String SELECT_ROOMS_BY_QUERY_SQL = "SELECT * FROM room WHERE price > ? AND price < ?";
     private static final String SELECT_FULL_QUERY_ROOMS_SQL = "SELECT * FROM giga_map WHERE (:price::decimal < 0.0 OR price = :price) AND (COALESCE(:chain_name, '') = '' OR owner = :chain_name) AND (COALESCE(:hotel_name, '') = '' OR hotel_name = :hotel_name) AND (COALESCE(:location, '') = '' OR (LOWER(street) LIKE LOWER(:location) OR LOWER(city) LIKE LOWER(:location) OR LOWER(province) LIKE LOWER(:location) OR LOWER(postal_code) LIKE LOWER(:location) OR LOWER(country) LIKE LOWER(:location))) AND (:rating < 0 OR rating = :rating) AND (:capacity < 0 OR capacity = :capacity)";
+    private static final String UPDATE_ROOM_SQL = "UPDATE room SET hotel_id = ?, room_number = ?, price = ?, view_type = ?, capacity = ?, extendable = ? WHERE hotel_id = ? AND room_number = ?";
+    private static final String DELETE_ROOM_SQL = "DELETE FROM room WHERE hotel_id = ? AND room_number = ?";
 
     private final JdbcTemplate database;
     private final NamedParameterJdbcTemplate namedDatabase;
@@ -124,7 +125,7 @@ public class RoomDao {
             room.setPrice(resultSet.getDouble("price"));
             room.setExtendable(resultSet.getBoolean("extendable"));
             room.setViewType(resultSet.getString("view_type"));
-            
+
             result.setRoom(room);
 
             Address address = new Address();
@@ -140,10 +141,20 @@ public class RoomDao {
             hotel.setAddress(address);
             hotel.setOwner(resultSet.getString("owner"));
             hotel.setRating(resultSet.getInt("rating"));
-            
+
             result.setHotel(hotel);
-            
+
             return result;
         });
+    }
+
+    public void updateRoom(int originalHotelId, int originalRoomNumber, Room room) {
+        Room originalRoom = getRoomByRoomNum(originalHotelId, originalRoomNumber);
+        room.fillFromInstance(originalRoom);
+        database.update(UPDATE_ROOM_SQL, room.getHotelId(), room.getRoomNumber(), room.getPrice(), room.getViewType(), room.getCapacity(), room.isExtendable(), originalHotelId, originalRoomNumber);
+    }
+
+    public void deleteRoom(int hotelId, int roomNumber) {
+        database.update(DELETE_ROOM_SQL, hotelId, roomNumber);
     }
 }

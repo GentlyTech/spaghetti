@@ -1,26 +1,34 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.Autofill;
 import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.AutoFillableClass;
 
 import java.util.List;
 
 
-public class Room {
+public class Room extends AutoFillableClass<Room> {
+    @Autofill
     @MappedField("hotel_id")
     private int hotelId = -1;
 
+    @Autofill
     @MappedField("room_number")
     private int roomNumber = -1;
 
+    @Autofill
     @MappedField
     private double price = 0.0;
 
+    @Autofill
     @MappedField
     private boolean extendable = false;
 
+    @Autofill
     @MappedField
     private int capacity = -1;
 
+    @Autofill
     @MappedField("view_type")
     private String viewType = null;
 
