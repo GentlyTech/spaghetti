@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.booking
     check_in_date  date,
     check_out_date date,
     damage_fee     double precision,
-    CONSTRAINT booking_pk PRIMARY KEY (room_number, customer_id, hotel_id),
+    CONSTRAINT booking_pk PRIMARY KEY (room_number, customer_id, hotel_id, check_in_date, check_out_date),
     CONSTRAINT customer_id_fk FOREIGN KEY (customer_id)
         REFERENCES public.customer (customer_id)
         ON UPDATE NO ACTION
