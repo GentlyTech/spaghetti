@@ -23,4 +23,8 @@ public enum BookingStatus {
     public static BookingStatus generateRandom() {
         return BookingStatus.values()[random.nextInt(BookingStatus.values().length)];
     }
+
+    public static BookingStatus generateRandomActive() {
+        return BookingStatus.values()[random.nextInt(BookingStatus.values().length) % 2];
+    }
 }

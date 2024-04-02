@@ -40,7 +40,7 @@ public class BookingGenerator {
                 booking.setCheckInDate(checkInDate);
                 booking.setCheckOutDate(checkOutDate);
                 
-                booking.setBookingStatus(BookingStatus.generateRandom().getValue());
+                booking.setBookingStatus(BookingStatus.generateRandomActive().getValue());
 
                 bookings.add(booking);
             }
