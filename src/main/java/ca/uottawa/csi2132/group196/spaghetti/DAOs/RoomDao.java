@@ -1,6 +1,8 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.*;
+import ca.uottawa.csi2132.group196.spaghetti.RestSchemas.RoomQuery;
+import ca.uottawa.csi2132.group196.spaghetti.RestSchemas.RoomQueryResult;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;

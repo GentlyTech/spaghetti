@@ -1,4 +1,4 @@
-package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
+package ca.uottawa.csi2132.group196.spaghetti.RestSchemas;
 
 public class RoomQuery {
     private Double price = -1.0;

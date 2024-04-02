@@ -1,4 +1,7 @@
-package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
+package ca.uottawa.csi2132.group196.spaghetti.RestSchemas;
+
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
 
 public class RoomQueryResult {
     private Room room;
