@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BookingGenerator {
-    private static final int MAX_DEFAULT_BOOKINGS = 10;
+    private static final int MAX_DEFAULT_BOOKINGS = 20;
     private final Random random = new Random();
 
     private final List<Customer> customers;
@@ -49,6 +49,6 @@ public class BookingGenerator {
     }
 
     public List<Booking> generateBookings() {
-        return generateBookings(random.nextInt(MAX_DEFAULT_BOOKINGS));
+        return generateBookings(random.nextInt(1, MAX_DEFAULT_BOOKINGS));
     }
 }
