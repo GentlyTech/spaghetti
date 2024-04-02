@@ -21,8 +21,11 @@ public class ContactDao {
     private static final String INSERT_CONTACT_SQL = "INSERT INTO contacts (name, email, phone_number) VALUES (?, ?, ?)";
     private static final String INSERT_CONTACT_RELATION_HOTEL_CHAIN_SQL = "INSERT INTO hotel_chain_contacts (chain_name, contact_id) VALUES (?, ?)";
     private static final String INSERT_CONTACT_RELATION_HOTEL_SQL = "INSERT INTO hotel_contacts (hotel_id, contact_id) VALUES (?, ?)";
+    private static final String SELECT_CONTACT_BY_ID_SQL = "SELECT * FROM contacts WHERE contact_id = ?";
     private static final String SELECT_CONTACTS_FOR_HOTEL_CHAIN_SQL = "SELECT contactInst.* FROM hotel_chain_contacts contactRelInst LEFT JOIN contacts contactInst ON contactRelInst.contact_id = contactInst.contact_id WHERE contactRelInst.chain_name = ?";
     private static final String SELECT_CONTACTS_FOR_HOTEL_SQL = "SELECT contactInst.* FROM hotel_contacts contactRelInst LEFT JOIN contacts contactInst ON contactRelInst.contact_id = contactInst.contact_id WHERE contactRelInst.hotel_id = ?";
+    private static final String UPDATE_CONTACT_SQL = "UPDATE contacts SET name = ?, email = ?, phone_number = ? WHERE contact_id = ?";
+    private static final String DELETE_CONTACT_SQL = "DELETE FROM contacts WHERE contact_id = ?";
 
     private final JdbcTemplate database;
 
@@ -76,6 +79,12 @@ public class ContactDao {
         return contactIds;
     }
 
+    public Contact getContactById(int contactId) {
+        FieldMapper<Contact> mapper = new FieldMapper<>(database.getDataSource(), SELECT_CONTACT_BY_ID_SQL, Contact.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "contact_id"));
+        return mapper.findObject(contactId);
+    }
+
     public List<Contact> getContactsForHotelChain(String chainName) {
         FieldMapper<Contact> mapper = new FieldMapper<>(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_CHAIN_SQL, Contact.class);
         mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
@@ -86,6 +95,19 @@ public class ContactDao {
         FieldMapper<Contact> mapper = new FieldMapper<>(database.getDataSource(), SELECT_CONTACTS_FOR_HOTEL_SQL, Contact.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.execute(hotelId);
+    }
+    
+    private void updateContact(int contactId, Contact updatedContact) {
+        if (updatedContact == null) return;
+        Contact originalContact = getContactById(contactId);
+        if (originalContact == null)return;
+        
+        updatedContact.fillFromInstance(originalContact);
+        database.update(UPDATE_CONTACT_SQL, updatedContact.getName(), updatedContact.getEmail(), updatedContact.getPhoneNumber(), originalContact.getContactId());
+    }
+    
+    public void deleteContact(int contactId) {
+        database.update(DELETE_CONTACT_SQL, contactId);
     }
 
 }
