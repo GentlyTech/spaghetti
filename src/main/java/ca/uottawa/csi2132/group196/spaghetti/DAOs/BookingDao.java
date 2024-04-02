@@ -17,12 +17,10 @@ import java.util.List;
 
 @Repository
 public class BookingDao {
-
-
     private static final String SELECT_BOOKING_BY_HOTEL_ROOM_SQL = "SELECT * FROM booking WHERE room_id = ? AND hotel_id = ?";
     private static final String SELECT_BOOKINGS_BY_CUSTOMER_SQL = "SELECT * FROM booking WHERE customer_id = ?";
     private static final String SELECT_BOOKING_BY_CUSTOMER_HOTEL_SQL = "SELECT * FROM booking WHERE customer_id = ? AND hotel_id = ?";
-    private static final String INSERT_BOOKING_SQL = "INSERT INTO booking VALUES (?, ?, ?, ?)";
+    private static final String INSERT_BOOKING_SQL = "INSERT INTO booking (room_number, customer_id, hotel_id, booking_status, check_in_date, check_out_date, damage_fee) VALUES (?, ?, ?, ?, ? , ?, ?)";
     private static final String UPDATE_BOOKING_STATUS_SQL = "UPDATE booking SET booking_status = ? WHERE hotel_id = ? AND customer_id = ? AND room_number = ?";
     private static final String SELECT_BOOKINGS_BY_HOTEL_ROOM = "SELECT * FROM booking WHERE booking.hotel_id = ? AND booking.room_number = ?";
     private static final String BOOKING_EXISTS_COUNT_SQL = "SELECT COUNT(*) FROM booking WHERE (booking.hotel_id = ? AND booking.room_number = ?) AND EXISTS(SELECT * FROM booking WHERE check_in_date > ? AND check_out_date > ?)";
