@@ -1,7 +1,7 @@
 package ca.uottawa.csi2132.group196.spaghetti.RestSchemas;
 
 public class RoomQuery {
-    private Double price = -1.0;
+    private Double[] priceRange = null;
 
     private String chainName = null;
 
@@ -17,16 +17,12 @@ public class RoomQuery {
 
     private Integer capacity = -1;
 
-    public Double getPrice() {
-        return price;
+    public Double[] getPriceRange() {
+        return priceRange;
     }
 
-    public void setPrice(Double price) {
-        if (price == null) {
-            this.price = -1.0;
-            return;
-        }
-        this.price = price;
+    public void setPriceRange(Double[] priceRange) {
+        this.priceRange = priceRange;
     }
 
     public String getChainName() {
