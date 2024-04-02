@@ -1,22 +1,20 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 public class RoomQuery {
     private Double price = -1.0;
-    
+
     private String chainName = null;
-    
+
     private String checkInDate = null;
-    
+
     private String checkOutDate = null;
-    
+
     private String hotelName = null;
-    
+
     private String location = null;
-    
+
     private Integer rating = -1;
-    
+
     private Integer capacity = -1;
 
     public Double getPrice() {
