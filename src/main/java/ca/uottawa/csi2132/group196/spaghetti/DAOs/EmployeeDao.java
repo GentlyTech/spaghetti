@@ -17,6 +17,8 @@ import java.util.Map;
 public class EmployeeDao {
     private static final String INSERT_EMPLOYEE_SQL = "INSERT INTO employee (name, sin) VALUES (?, ?)";
     private static final String SELECT_EMPLOYEE_SQL = "SELECT * FROM employee WHERE employee_id = ?";
+    private static final String UPDATE_EMPLOYEE_SQL = "UPDATE employee SET name = ?, sin = ? WHERE employee_id = ?";
+    private static final String DELETE_EMPLOYEE_SQL = "DELETE FROM employee WHERE employee_id = ?";
 
     private final JdbcTemplate database;
 
@@ -44,5 +46,13 @@ public class EmployeeDao {
         FieldMapper<Employee> mapper = new FieldMapper<>(database.getDataSource(), SELECT_EMPLOYEE_SQL, Employee.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "employee_id"));
         return mapper.findObject(employeeId);
+    }
+    
+    public void updateEmployee(Employee employee) {
+        database.update(UPDATE_EMPLOYEE_SQL, employee.getName(), employee.getSinNumber());
+    }
+
+    public void deleteEmployee(int employeeId) {
+        database.update(DELETE_EMPLOYEE_SQL, employeeId);
     }
 }
