@@ -21,11 +21,13 @@ public class AddressDao {
     private static final String INSERT_ADDRESS_RELATION_HOTEL_SQL = "INSERT INTO hotel_addresses (hotel_id, address_id) VALUES (?, ?)";
     private static final String INSERT_ADDRESS_RELATION_CUSTOMER_SQL = "INSERT INTO customer_addresses (customer_id, address_id) VALUES (?, ?)";
     private static final String INSERT_ADDRESS_RELATION_EMPLOYEE_SQL = "INSERT INTO employee_addresses (employee_id, address_id) VALUES (?, ?)";
+    private static final String SELECT_ADDRESS_BY_ID_SQL = "SELECT * FROM addresses WHERE address_id = ?";
     private static final String SELECT_ADDRESSES_FOR_HOTEL_CHAIN_SQL = "SELECT addressInst.* FROM hotel_chain_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.chain_name = ?";
-    private static final String SELECT_ADDRESSES_FOR_HOTEL_SQL = "SELECT addressInst.* FROM hotel_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.hotel_id = ?";
+    private static final String SELECT_ADDRESS_FOR_HOTEL_SQL = "SELECT addressInst.* FROM hotel_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.hotel_id = ?";
     private static final String SELECT_ADDRESS_FOR_CUSTOMER_SQL = "SELECT addressInst.* FROM customer_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.customer_id = ?";
     private static final String SELECT_ADDRESS_FOR_EMPLOYEE_SQL = "SELECT addressInst.* FROM employee_addresses addressRelInst LEFT JOIN addresses addressInst ON addressRelInst.address_id = addressInst.address_id WHERE addressRelInst.employee_id = ?";
-    private static final String UPDATE_ADDRESS_FOR_CUSTOMER_SQL = "UPDATE addresses SET alias = ?, street = ?, city = ?, province = ?, postal_code = ?, country = ? WHERE address_id = ?";
+    private static final String UPDATE_ADDRESS_SQL = "UPDATE addresses SET alias = ?, street = ?, city = ?, province = ?, postal_code = ?, country = ? WHERE address_id = ?";
+    private static final String DELETE_ADDRESS_SQL = "DELETE FROM addresses WHERE address_id = ?";
 
     private final JdbcTemplate database;
 
@@ -95,14 +97,20 @@ public class AddressDao {
         return addressId;
     }
 
+    public Address getAddressById(int addressId) {
+        FieldMapper<Address> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ADDRESS_BY_ID_SQL, Address.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "address_id"));
+        return mapper.findObject(addressId);
+    }
+
     public List<Address> getAddressesForHotelChain(String chainName) {
         FieldMapper<Address> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ADDRESSES_FOR_HOTEL_CHAIN_SQL, Address.class);
         mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "chain_name"));
         return mapper.execute(chainName);
     }
-
+    
     public Address getAddressForHotel(int hotelId) {
-        FieldMapper<Address> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ADDRESSES_FOR_HOTEL_SQL, Address.class);
+        FieldMapper<Address> mapper = new FieldMapper<>(database.getDataSource(), SELECT_ADDRESS_FOR_HOTEL_SQL, Address.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.findObject(hotelId);
     }
@@ -118,11 +126,31 @@ public class AddressDao {
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "employee_id"));
         return mapper.findObject(employeeId);
     }
+    
+    private void updateAddress(Address updatedAddress, Address existingAddress) {
+        if (updatedAddress == null || existingAddress == null) return;
 
+        updatedAddress.fillFromInstance(existingAddress);
+        database.update(UPDATE_ADDRESS_SQL, updatedAddress.getAlias(), updatedAddress.getStreet(), updatedAddress.getCity(), updatedAddress.getProvince(), updatedAddress.getPostalCode(), updatedAddress.getCountry(), existingAddress.getAddressId());
+    }
+    
     public void updateCustomerAddress(int customerId, Address address) {
-        Address existingAddress = getAddressForCustomer(customerId);
-        if (existingAddress == null) return;
+        updateAddress(address, getAddressForCustomer(customerId));
+    }
 
-        database.update(UPDATE_ADDRESS_FOR_CUSTOMER_SQL, address.getAlias(), address.getStreet(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry(), existingAddress.getAddressId());
+    public void updateEmployeeAddress(int employeeId, Address address) {
+        updateAddress(address, getAddressForEmployee(employeeId));
+    }
+
+    public void updateHotelAddress(int hotelId, Address address) {
+        updateAddress(address, getAddressForHotel(hotelId));
+    }
+
+    public void updateHotelChainAddress(int addressId, Address address) {
+        updateAddress(address, getAddressById(addressId));
+    }
+    
+    public void deleteAddress(int addressId) {
+        database.update(DELETE_ADDRESS_SQL, addressId);
     }
 }
