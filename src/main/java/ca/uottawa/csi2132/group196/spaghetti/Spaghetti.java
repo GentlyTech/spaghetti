@@ -3,6 +3,7 @@ package ca.uottawa.csi2132.group196.spaghetti;
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.*;
 import ca.uottawa.csi2132.group196.spaghetti.DataClasses.*;
 import ca.uottawa.csi2132.group196.spaghetti.Generators.AmenityGenerator;
+import ca.uottawa.csi2132.group196.spaghetti.Generators.BookingGenerator;
 import ca.uottawa.csi2132.group196.spaghetti.Generators.RoomGenerator;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.ResourceLoader;
 import com.google.gson.Gson;
@@ -12,9 +13,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
 public class Spaghetti {
@@ -63,17 +64,19 @@ public class Spaghetti {
         ResourceLoader loader = new ResourceLoader(serializer);
         List<Amenity> hotelAmenities = List.of(loader.loadFromJsonFile("sampleData/HotelAmenities.json", Amenity[].class));
         List<Amenity> roomAmenities = List.of(loader.loadFromJsonFile("sampleData/RoomAmenities.json", Amenity[].class));
+        List<Customer> customers = Arrays.asList(loader.loadFromJsonFile("sampleData/Customers.json", Customer[].class));
+        List<Room> rooms = new LinkedList<>();
 
-        loader.loadFromJsonFile("sampleData/HotelChains.json", HotelChain[].class, data -> {
-            for (HotelChain hotelChain : data) {
+        loader.loadFromJsonFile("sampleData/HotelChains.json", HotelChain[].class, hotelChains -> {
+            for (HotelChain hotelChain : hotelChains) {
                 hotelChainDao.insertHotelChain(hotelChain);
                 contactDao.insertContactsFromHotelChain(hotelChain);
                 addressDao.insertAddressesFromHotelChain(hotelChain);
             }
         });
 
-        loader.loadFromJsonFile("sampleData/Hotels.json", Hotel[].class, data -> {
-            for (Hotel hotel : data) {
+        loader.loadFromJsonFile("sampleData/Hotels.json", Hotel[].class, hotels -> {
+            for (Hotel hotel : hotels) {
                 if (hotel.getAmenities() == null || hotel.getAmenities().isEmpty()) {
                     hotel.setAmenities(new AmenityGenerator(hotelAmenities).generateAmenities());
                 }
@@ -84,30 +87,29 @@ public class Spaghetti {
                 addressDao.insertAddressFromHotel(hotel);
                 amenityDao.insertAmenitiesFromHotel(hotel);
 
-                List<Room> rooms = new RoomGenerator(hotel, roomAmenities).generateRooms(100);
-                roomDao.insertRooms(rooms);
+                List<Room> _rooms = new RoomGenerator(hotel, roomAmenities).generateRooms(100);
+                rooms.addAll(_rooms);
+                roomDao.insertRooms(_rooms);
             }
         });
 
-        loader.loadFromJsonFile("sampleData/Employees.json", Employee[].class, data -> {
-            for (Employee employee : data) {
+        loader.loadFromJsonFile("sampleData/Employees.json", Employee[].class, employees -> {
+            for (Employee employee : employees) {
                 int employeeId = employeeDao.insertEmployee(employee);
                 employee.setEmployeeId(employeeId);
                 addressDao.insertAddressFromEmployee(employee);
             }
         });
 
-        loader.loadFromJsonFile("sampleData/Customers.json", Customer[].class, data -> {
-            for (Customer customer : data) {
-                int customerId = customerDao.insertCustomer(customer);
-                customer.setCustomerId(customerId);
-                addressDao.insertAddressFromCustomer(customer);
-                
-                
-                
-                //bookingDao.insertBookings(bookings);
-            }
-        });
+        for (int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            int customerId = customerDao.insertCustomer(customer);
+            customer.setCustomerId(customerId);
+            addressDao.insertAddressFromCustomer(customer);
+            customers.set(i, customer);
+        }
+
+        bookingDao.insertBookings(new BookingGenerator(customers, rooms).generateBookings());
 
     }
 
