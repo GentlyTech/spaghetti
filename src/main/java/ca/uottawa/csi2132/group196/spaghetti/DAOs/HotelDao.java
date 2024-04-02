@@ -26,6 +26,7 @@ public class HotelDao {
     private static final String COUNT_HOTEL_BY_CHAIN_SQL = "SELECT COUNT(*) FROM hotel WHERE owner = ?";
     private static final String SELECT_ALL_CITIES_WITH_HOTEL_SQL = "SELECT DISTINCT addresses.city FROM addresses, hotel_addresses  WHERE addresses.address_id = hotel_addresses.address_id";
     private static final String UPDATE_HOTEL_SQL = "UPDATE hotel SET hotel_name = ?, rating = ?, owner = ? WHERE hotel_id = ?";
+    private static final String DELETE_HOTEL_SQL = "DELETE FROM hotel WHERE hotel_id = ?";
 
     private final JdbcTemplate database;
 

@@ -15,6 +15,7 @@ public class HotelChainDao {
     private static final String SELECT_HOTEL_CHAIN_SQL = "SELECT * FROM hotel_chain WHERE chain_name = ?";
     private static final String SELECT_ALL_HOTEL_CHAIN_SQL = "SELECT * FROM hotel_chain";
     private static final String SELECT_ALL_HOTEL_CHAIN_NAMES_SQL = "SELECT DISTINCT chain_name FROM hotel_chain";
+    private static final String DELETE_HOTEL_CHAIN_SQL = "DELETE FROM hotel_chain WHERE chain_name = ?";
 
     private final JdbcTemplate database;
 

@@ -11,9 +11,9 @@ CREATE TABLE IF NOT EXISTS public.booking
     CONSTRAINT customer_id_fk FOREIGN KEY (customer_id)
         REFERENCES public.customer (customer_id)
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
+        ON DELETE CASCADE,
     CONSTRAINT room_fk FOREIGN KEY (room_number, hotel_id)
         REFERENCES public.room (room_number, hotel_id)
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
 );
