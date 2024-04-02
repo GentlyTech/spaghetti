@@ -18,16 +18,36 @@ Before building/starting the backend, make sure you have a DBMS user created for
 the `application.properties.template` file, fill out the empty fields as outlined, and rename the file
 to `application.properties`. This file is located in the resources folder (`src/main/resources`).
 
-### Running Directly From Source
+### IntelliJ IDEA
+
+The easiest way to run the backend is probably through the IDE.
+
+If you're reading this README file in IntelliJ IDEA, you can simply start the application by clicking the play button below:
+
+`Spaghetti`
+
+If the button above didn't work, simply open the **Spaghetti** class and click on the "Run" button that appears beside the following line:
+
+```java
+    public static void main(String[] args) {...}
+```
+
+(located at `src/main/java/ca/uottawa/csi2132/group196/spaghetti/Spaghetti.java`)
+
+### Command Line
+
+Alternatively, if you don't have IntelliJ IDEA installed or don't feel like running it through that, you can do it through the command line.
+
+#### Running Directly From Source
 In the project root (where the `build.gradle` file is), run the following command:
 
 ```shell
 gradle bootRun
 ```
 
-### Running From Jar
+#### Running From Jar
 
-Alternatively, you can build a jar with
+You can also build a jar with
 
 ```shell
 gradle bootJar
