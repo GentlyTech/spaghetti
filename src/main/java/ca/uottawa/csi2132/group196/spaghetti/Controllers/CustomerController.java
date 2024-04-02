@@ -1,10 +1,10 @@
 package ca.uottawa.csi2132.group196.spaghetti.Controllers;
 
 import ca.uottawa.csi2132.group196.spaghetti.DAOs.CustomerDao;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Customer;
 import com.google.gson.Gson;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
@@ -18,5 +18,15 @@ public class CustomerController {
         this.database = database;
         this.serializer = serializer;
         this.customerDao = customerDao;
+    }
+    
+    @PostMapping("/register")
+    public String registerCustomer(@RequestBody Customer customer) {
+        return null;
+    }
+    
+    @GetMapping("/info/{customerId}")
+    public String getCustomerInfo(@PathVariable String customerId) {
+        return null;
     }
 }
