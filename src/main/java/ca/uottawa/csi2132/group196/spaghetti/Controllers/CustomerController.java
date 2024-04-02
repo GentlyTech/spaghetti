@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-
     JdbcTemplate database;
     Gson serializer;
     CustomerDao customerDao;
@@ -25,8 +24,18 @@ public class CustomerController {
         return null;
     }
     
-    @GetMapping("/info/{customerId}")
-    public String getCustomerInfo(@PathVariable String customerId) {
+    @PutMapping("/update/{customerId}")
+    public String updateCustomer(@PathVariable int customerId, @RequestBody Customer customer) {
         return null;
+    }
+
+    @DeleteMapping("/delete/{customerId}")
+    public void deleteCustomer(@PathVariable int customerId) {
+        customerDao.deleteCustomerById(customerId);
+    }
+    
+    @GetMapping("/info/{customerId}")
+    public String getCustomerInfo(@PathVariable int customerId) {
+        return serializer.toJson(customerDao.getCustomerById(customerId));
     }
 }
