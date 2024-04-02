@@ -134,20 +134,20 @@ public class AddressDao {
         database.update(UPDATE_ADDRESS_SQL, updatedAddress.getAlias(), updatedAddress.getStreet(), updatedAddress.getCity(), updatedAddress.getProvince(), updatedAddress.getPostalCode(), updatedAddress.getCountry(), existingAddress.getAddressId());
     }
     
-    public void updateCustomerAddress(int customerId, Address address) {
-        updateAddress(address, getAddressForCustomer(customerId));
+    public void updateCustomerAddress(int customerId, Address updatedAddress) {
+        updateAddress(updatedAddress, getAddressForCustomer(customerId));
     }
 
-    public void updateEmployeeAddress(int employeeId, Address address) {
-        updateAddress(address, getAddressForEmployee(employeeId));
+    public void updateEmployeeAddress(int employeeId, Address updatedAddress) {
+        updateAddress(updatedAddress, getAddressForEmployee(employeeId));
     }
 
-    public void updateHotelAddress(int hotelId, Address address) {
-        updateAddress(address, getAddressForHotel(hotelId));
+    public void updateHotelAddress(int hotelId, Address updatedAddress) {
+        updateAddress(updatedAddress, getAddressForHotel(hotelId));
     }
 
-    public void updateHotelChainAddress(int addressId, Address address) {
-        updateAddress(address, getAddressById(addressId));
+    public void updateHotelChainAddress(int addressId, Address updatedAddress) {
+        updateAddress(updatedAddress, getAddressById(addressId));
     }
     
     public void deleteAddress(int addressId) {

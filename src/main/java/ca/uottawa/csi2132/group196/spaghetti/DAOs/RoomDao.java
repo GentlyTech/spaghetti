@@ -152,13 +152,13 @@ public class RoomDao {
         });
     }
 
-    public void updateRoom(int originalHotelId, int originalRoomNumber, Room room) {
-        if (room == null) return;
+    public void updateRoom(int originalHotelId, int originalRoomNumber, Room updatedRoom) {
+        if (updatedRoom == null) return;
         Room originalRoom = getRoomByRoomNum(originalHotelId, originalRoomNumber);
         if (originalRoom == null) return;
         
-        room.fillFromInstance(originalRoom);
-        database.update(UPDATE_ROOM_SQL, room.getHotelId(), room.getRoomNumber(), room.getPrice(), room.getViewType(), room.getCapacity(), room.isExtendable(), originalHotelId, originalRoomNumber);
+        updatedRoom.fillFromInstance(originalRoom);
+        database.update(UPDATE_ROOM_SQL, updatedRoom.getHotelId(), updatedRoom.getRoomNumber(), updatedRoom.getPrice(), updatedRoom.getViewType(), updatedRoom.getCapacity(), updatedRoom.isExtendable(), originalHotelId, originalRoomNumber);
     }
 
     public void deleteRoom(int hotelId, int roomNumber) {

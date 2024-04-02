@@ -97,12 +97,12 @@ public class HotelDao {
         return database.queryForList(SELECT_ALL_CITIES_WITH_HOTEL_SQL, String.class);
     }
 
-    public void updateHotel(Hotel hotel) {
-        if (hotel == null) return;
-        Hotel originalHotel = getHotelById(hotel.getHotelId());
+    public void updateHotel(Hotel updatedHotel) {
+        if (updatedHotel == null) return;
+        Hotel originalHotel = getHotelById(updatedHotel.getHotelId());
         if (originalHotel == null) return;
         
-        hotel.fillFromInstance(originalHotel);
-        database.update(UPDATE_HOTEL_SQL, hotel.getHotelName(), hotel.getRating(), hotel.getOwner(), hotel.getHotelId());
+        updatedHotel.fillFromInstance(originalHotel);
+        database.update(UPDATE_HOTEL_SQL, updatedHotel.getHotelName(), updatedHotel.getRating(), updatedHotel.getOwner(), updatedHotel.getHotelId());
     }
 }

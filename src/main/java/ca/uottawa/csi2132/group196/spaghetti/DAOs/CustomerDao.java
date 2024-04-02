@@ -49,12 +49,12 @@ public class CustomerDao {
         return mapper.findObject(customerId);
     }
 
-    public void updateCustomer(Customer customer) {
-        if (customer == null) return;
-        Customer originalCustomer = getCustomerById(customer.getCustomerId());
+    public void updateCustomer(Customer updatedCustomer) {
+        if (updatedCustomer == null) return;
+        Customer originalCustomer = getCustomerById(updatedCustomer.getCustomerId());
         if (originalCustomer == null) return;
-        customer.fillFromInstance(originalCustomer);
-        database.update(UPDATE_CUSTOMER_SQL, customer.getName(), customer.getIdType(), originalCustomer.getCustomerId());
+        updatedCustomer.fillFromInstance(originalCustomer);
+        database.update(UPDATE_CUSTOMER_SQL, updatedCustomer.getName(), updatedCustomer.getIdType(), originalCustomer.getCustomerId());
     }
 
     public void deleteCustomerById(int customerId) {

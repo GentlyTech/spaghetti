@@ -48,13 +48,13 @@ public class EmployeeDao {
         return mapper.findObject(employeeId);
     }
     
-    public void updateEmployee(Employee employee) {
-        if (employee == null) return;
-        Employee originalEmployee = getEmployee(employee.getEmployeeId());
+    public void updateEmployee(Employee updatedEmployee) {
+        if (updatedEmployee == null) return;
+        Employee originalEmployee = getEmployee(updatedEmployee.getEmployeeId());
         if (originalEmployee == null) return;
         
-        employee.fillFromInstance(originalEmployee);
-        database.update(UPDATE_EMPLOYEE_SQL, employee.getName(), employee.getSinNumber(), originalEmployee.getEmployeeId());
+        updatedEmployee.fillFromInstance(originalEmployee);
+        database.update(UPDATE_EMPLOYEE_SQL, updatedEmployee.getName(), updatedEmployee.getSinNumber(), originalEmployee.getEmployeeId());
     }
 
     public void deleteEmployee(int employeeId) {
