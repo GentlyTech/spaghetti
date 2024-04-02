@@ -6,7 +6,7 @@ import java.util.Random;
 public enum BookingStatus {
     BOOKED("booked"),
     RENTED("rented"),
-    COMPLETED("archived"),
+    COMPLETED("completed"),
     CANCELLED("cancelled");
     
     private final String value;
