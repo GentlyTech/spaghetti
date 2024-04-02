@@ -1,43 +1,21 @@
--- function do archive booking using room number
-CREATE OR REPLACE FUNCTION archive_booking_by_room_num()
+-- function do archive booking
+CREATE OR REPLACE FUNCTION archive_booking()
     RETURNS TRIGGER
     LANGUAGE plpgsql
 AS
 '
-BEGIN
-    INSERT INTO archived_booking
-    SELECT *
-    FROM booking
-    WHERE booking.room_number = OLD.room_number;
-    RETURN old;
-end;
+    BEGIN
+        INSERT INTO archived_booking
+        SELECT *
+        FROM booking
+        WHERE booking.hotel_id = old.hotel_id AND booking.customer_id = old.customer_id AND booking.room_number = old.room_number AND booking.check_in_date = old.check_in_date AND booking.check_out_date = old.check_out_date;
+        RETURN old;
+    end;
 ';
 
--- function do archive booking using customer id
-CREATE OR REPLACE FUNCTION archive_booking_by_customer_id()
-    RETURNS TRIGGER
-    LANGUAGE plpgsql
-AS
-'
-BEGIN
-    INSERT INTO archived_booking
-    SELECT *
-    FROM booking
-    WHERE booking.customer_id = OLD.customer_id;
-    RETURN old;
-end;
-';
-
--- trigger for on delete room
-CREATE TRIGGER delete_room_trigger
+-- trigger for booking deletion
+CREATE TRIGGER delete_booking_trigger
     BEFORE DELETE
-    ON room
+    ON booking
     FOR EACH ROW
-EXECUTE FUNCTION archive_booking_by_room_num();
-
--- trigger for on delete customer
-CREATE TRIGGER delete_customer_trigger
-    BEFORE DELETE
-    ON customer
-    FOR EACH ROW
-EXECUTE FUNCTION archive_booking_by_customer_id();
+EXECUTE FUNCTION archive_booking();
