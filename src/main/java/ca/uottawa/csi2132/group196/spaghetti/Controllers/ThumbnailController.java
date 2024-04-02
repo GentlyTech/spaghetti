@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class ThumbnailController {
     private static final String DEFAULT_HOTEL_THUMBNAIL_PATH = "/thumbnails/hotels/default.png";
 
-    private Logger logger;
+    private final Logger logger;
 
     public ThumbnailController() {
         this.logger = Logger.getLogger(this.getClass().getSimpleName());
