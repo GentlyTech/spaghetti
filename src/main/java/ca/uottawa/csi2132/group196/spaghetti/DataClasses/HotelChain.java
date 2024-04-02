@@ -1,11 +1,14 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.Autofill;
 import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.AutoFillableClass;
 
 import java.util.List;
 
-public class HotelChain {
+public class HotelChain extends AutoFillableClass<HotelChain> {
     @MappedField("chain_name")
+    @Autofill
     private String chainName = null;
 
     private int hotelCount = 0;

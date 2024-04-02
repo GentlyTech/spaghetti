@@ -1,24 +1,30 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.Autofill;
 import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.AutoFillableClass;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Employee {
+public class Employee extends AutoFillableClass<Employee> {
     @MappedField("employee_id")
+    @Autofill
     private int employeeId = -1;
 
     @MappedField("creation_date")
+    @Autofill
     private String creationDate = null;
 
     @MappedField
+    @Autofill
     private String name = null;
 
     @MappedField
     private Address address = null;
 
     @MappedField("sin")
+    @Autofill
     private String sinNumber = null;
 
     private List<Role> roles = null;

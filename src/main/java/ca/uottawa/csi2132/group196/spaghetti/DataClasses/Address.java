@@ -1,27 +1,36 @@
 package ca.uottawa.csi2132.group196.spaghetti.DataClasses;
 
+import ca.uottawa.csi2132.group196.spaghetti.Annotations.Autofill;
 import ca.uottawa.csi2132.group196.spaghetti.Annotations.MappedField;
+import ca.uottawa.csi2132.group196.spaghetti.Utils.AutoFillableClass;
 
-public class Address {
+public class Address extends AutoFillableClass<Address> {
     @MappedField("address_id")
+    @Autofill
     private int addressId = -1;
 
     @MappedField
+    @Autofill
     private String alias = null;
 
     @MappedField
+    @Autofill
     private String city = null;
 
     @MappedField
+    @Autofill
     private String country = null;
 
     @MappedField("postal_code")
+    @Autofill
     private String postalCode = null;
 
     @MappedField
+    @Autofill
     private String province = null;
 
     @MappedField
+    @Autofill
     private String street = null;
 
     public int getAddressId() {
