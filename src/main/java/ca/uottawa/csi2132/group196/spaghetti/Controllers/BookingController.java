@@ -21,7 +21,7 @@ public class BookingController {
         this.bookingDao = bookingDao;
     }
 
-    @PostMapping("/get/{customerId}")
+    @GetMapping("/get/{customerId}")
     public String getBookingsForCustomer(@PathVariable int customerId) {
         return serializer.toJson(bookingDao.getBookingsByCustomerId(customerId));
     }
