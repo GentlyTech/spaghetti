@@ -1,6 +1,8 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.*;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Address;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
 import ca.uottawa.csi2132.group196.spaghetti.RestSchemas.RoomQuery;
 import ca.uottawa.csi2132.group196.spaghetti.RestSchemas.RoomQueryResult;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
@@ -151,7 +153,10 @@ public class RoomDao {
     }
 
     public void updateRoom(int originalHotelId, int originalRoomNumber, Room room) {
+        if (room == null) return;
         Room originalRoom = getRoomByRoomNum(originalHotelId, originalRoomNumber);
+        if (originalRoom == null) return;
+        
         room.fillFromInstance(originalRoom);
         database.update(UPDATE_ROOM_SQL, room.getHotelId(), room.getRoomNumber(), room.getPrice(), room.getViewType(), room.getCapacity(), room.isExtendable(), originalHotelId, originalRoomNumber);
     }

@@ -25,6 +25,7 @@ public class HotelDao {
     private static final String SELECT_HOTELS_BY_ADDRESS_SQL = "SELECT hotelInst.* FROM addresses addressInst LEFT JOIN hotel_addresses hotelRelInst ON addressInst.address_id = hotelRelInst.address_id LEFT JOIN hotel hotelInst ON hotelRelInst.hotel_id = hotelInst.hotel_id WHERE LOWER(addressInst.street) LIKE LOWER(?) OR LOWER(addressInst.city) LIKE LOWER(?) OR LOWER(addressInst.province) LIKE LOWER(?) OR LOWER(addressInst.postal_code) LIKE LOWER(?) OR LOWER(addressInst.country) LIKE LOWER(?)";
     private static final String COUNT_HOTEL_BY_CHAIN_SQL = "SELECT COUNT(*) FROM hotel WHERE owner = ?";
     private static final String SELECT_ALL_CITIES_WITH_HOTEL_SQL = "SELECT DISTINCT addresses.city FROM addresses, hotel_addresses  WHERE addresses.address_id = hotel_addresses.address_id";
+    private static final String UPDATE_HOTEL_SQL = "UPDATE hotel SET hotel_name = ?, rating = ?, owner = ? WHERE hotel_id = ?";
 
     private final JdbcTemplate database;
 
@@ -94,5 +95,14 @@ public class HotelDao {
 
     public List<String> getCities() throws SQLException {
         return database.queryForList(SELECT_ALL_CITIES_WITH_HOTEL_SQL, String.class);
+    }
+
+    public void updateHotel(Hotel hotel) {
+        if (hotel == null) return;
+        Hotel originalHotel = getHotelById(hotel.getHotelId());
+        if (originalHotel == null) return;
+        
+        hotel.fillFromInstance(originalHotel);
+        database.update(UPDATE_HOTEL_SQL, hotel.getHotelName(), hotel.getRating(), hotel.getOwner(), hotel.getHotelId());
     }
 }

@@ -49,6 +49,11 @@ public class EmployeeDao {
     }
     
     public void updateEmployee(Employee employee) {
+        if (employee == null) return;
+        Employee originalEmployee = getEmployee(employee.getEmployeeId());
+        if (originalEmployee == null) return;
+        
+        employee.fillFromInstance(originalEmployee);
         database.update(UPDATE_EMPLOYEE_SQL, employee.getName(), employee.getSinNumber());
     }
 

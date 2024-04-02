@@ -43,7 +43,10 @@ public class ProblemDao {
     }
 
     public void updateProblem(int hotelId, int roomNumber, String caption, Problem updatedProblem) {
+        if (updatedProblem == null) return;
         Problem originalProblem = getProblem(hotelId, roomNumber, caption);
+        if (originalProblem == null) return;
+        
         updatedProblem.fillFromInstance(originalProblem);
         database.update(UPDATE_PROBLEM_SQL, hotelId, roomNumber, updatedProblem.getCaption(), updatedProblem.getDescription());
     }
