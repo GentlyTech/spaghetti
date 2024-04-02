@@ -42,7 +42,7 @@ public class EmployeeDao {
         return employeeId.intValue();
     }
 
-    public Employee getEmployee(int employeeId) {
+    public Employee getEmployeeById(int employeeId) {
         FieldMapper<Employee> mapper = new FieldMapper<>(database.getDataSource(), SELECT_EMPLOYEE_SQL, Employee.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "employee_id"));
         return mapper.findObject(employeeId);
@@ -50,14 +50,14 @@ public class EmployeeDao {
     
     public void updateEmployee(Employee updatedEmployee) {
         if (updatedEmployee == null) return;
-        Employee originalEmployee = getEmployee(updatedEmployee.getEmployeeId());
+        Employee originalEmployee = getEmployeeById(updatedEmployee.getEmployeeId());
         if (originalEmployee == null) return;
         
         updatedEmployee.fillFromInstance(originalEmployee);
         database.update(UPDATE_EMPLOYEE_SQL, updatedEmployee.getName(), updatedEmployee.getSinNumber(), originalEmployee.getEmployeeId());
     }
 
-    public void deleteEmployee(int employeeId) {
+    public void deleteEmployeeById(int employeeId) {
         database.update(DELETE_EMPLOYEE_SQL, employeeId);
     }
 }
