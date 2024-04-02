@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/room")
-public class RoomControler {
+public class RoomController {
     JdbcTemplate database;
     Gson serializer;
 
@@ -22,7 +22,7 @@ public class RoomControler {
     ProblemDao problemDao;
     RoomDao roomDao;
 
-    public RoomControler(JdbcTemplate database, Gson serializer, AmenityDao amenityDao, ProblemDao problemDao, RoomDao roomDao) {
+    public RoomController(JdbcTemplate database, Gson serializer, AmenityDao amenityDao, ProblemDao problemDao, RoomDao roomDao) {
         this.database = database;
         this.serializer = serializer;
         this.amenityDao = amenityDao;
