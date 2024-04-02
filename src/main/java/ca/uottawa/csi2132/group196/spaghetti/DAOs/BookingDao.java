@@ -49,10 +49,10 @@ public class BookingDao {
         database.batchUpdate(INSERT_BOOKING_SQL, batch);
     }
 
-    public List<Booking> getBookingsByCustomer(Customer customer) {
+    public List<Booking> getBookingsByCustomerId(int customerId) {
         FieldMapper<Booking> mapper = new FieldMapper<>(database.getDataSource(), SELECT_BOOKINGS_BY_CUSTOMER_SQL, Booking.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "customer_id"));
-        return mapper.execute(customer.getCustomerId());
+        return mapper.execute(customerId);
     }
 
     public List<Booking> getBookingsByCustomerAndHotel(Customer customer, Hotel hotel) {
