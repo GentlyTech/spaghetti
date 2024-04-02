@@ -53,8 +53,7 @@ public class CustomerDao {
         if (customer == null) return;
         Customer originalCustomer = getCustomerById(customer.getCustomerId());
         if (originalCustomer == null) return;
-        if (customer.getName() == null) customer.setName(originalCustomer.getName());
-        if (customer.getIdType() == null) customer.setIdType(originalCustomer.getIdType());
+        customer.fillFromInstance(originalCustomer);
         database.update(UPDATE_CUSTOMER_SQL, customer.getName(), customer.getIdType());
     }
 
