@@ -9,30 +9,30 @@ import java.time.LocalDate;
 public class Booking extends AutoFillableClass<Booking> {
     @MappedField("room_number")
     @Autofill
-    private int roomNumber;
+    private int roomNumber = -1;
 
     @MappedField("customer_id")
     @Autofill
-    private int customerId;
+    private int customerId = -1;
 
     @MappedField("hotel_id")
     @Autofill
-    private int hotelId;
+    private int hotelId = -1;
 
     @MappedField("booking_status")
     @Autofill
-    private String bookingStatus;
+    private String bookingStatus = null;
 
     @MappedField("check_in_date")
     @Autofill
-    private String checkInDate;
+    private String checkInDate = null;
 
     @MappedField("check_out_date")
     @Autofill
-    private String checkOutDate;
+    private String checkOutDate = null;
     @MappedField("damage_fee")
     @Autofill
-    private double damageFee;
+    private double damageFee = 0.0;
 
     public int getRoomNumber() {
         return roomNumber;
