@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class AutoFillableClass<T> {
     @DoNotSerialize
+    @SuppressWarnings("unchecked")
     private final Class<T> classType = (Class<T>) this.getClass();
     
     public void fillFromInstance(T otherInstance) {
