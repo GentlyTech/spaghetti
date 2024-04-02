@@ -54,7 +54,7 @@ public class CustomerDao {
         Customer originalCustomer = getCustomerById(customer.getCustomerId());
         if (originalCustomer == null) return;
         customer.fillFromInstance(originalCustomer);
-        database.update(UPDATE_CUSTOMER_SQL, customer.getName(), customer.getIdType());
+        database.update(UPDATE_CUSTOMER_SQL, customer.getName(), customer.getIdType(), originalCustomer.getCustomerId());
     }
 
     public void deleteCustomerById(int customerId) {

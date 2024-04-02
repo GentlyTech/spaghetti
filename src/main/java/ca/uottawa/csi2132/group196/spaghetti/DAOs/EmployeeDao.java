@@ -54,7 +54,7 @@ public class EmployeeDao {
         if (originalEmployee == null) return;
         
         employee.fillFromInstance(originalEmployee);
-        database.update(UPDATE_EMPLOYEE_SQL, employee.getName(), employee.getSinNumber());
+        database.update(UPDATE_EMPLOYEE_SQL, employee.getName(), employee.getSinNumber(), originalEmployee.getEmployeeId());
     }
 
     public void deleteEmployee(int employeeId) {

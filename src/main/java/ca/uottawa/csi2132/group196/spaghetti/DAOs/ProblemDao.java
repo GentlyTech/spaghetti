@@ -48,7 +48,7 @@ public class ProblemDao {
         if (originalProblem == null) return;
         
         updatedProblem.fillFromInstance(originalProblem);
-        database.update(UPDATE_PROBLEM_SQL, hotelId, roomNumber, updatedProblem.getCaption(), updatedProblem.getDescription());
+        database.update(UPDATE_PROBLEM_SQL, updatedProblem.getCaption(), updatedProblem.getDescription(), hotelId, roomNumber, caption);
     }
 
     public void deleteProblem(int hotelId, int roomNumber, String caption) {
