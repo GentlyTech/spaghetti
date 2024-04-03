@@ -14,6 +14,7 @@ import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 @Repository
 public class BookingDao {
@@ -24,7 +25,8 @@ public class BookingDao {
     private static final String SELECT_BOOKING_SQL = "SELECT * FROM booking WHERE room_number = ? AND customer_id = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
     private static final String DELETE_BOOKING_SQL = "DELETE FROM booking WHERE room_number = ? AND customer_id = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
     private static final String UPDATE_BOOKING_SQL = "UPDATE booking SET room_number = ?, customer_id = ?, hotel_id = ?, booking_status = ?, check_in_date = ?, check_out_date = ?, damage_fee = ? WHERE room_number = ? AND customer_id = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
-    private static final String SELECT_BOOKINGS_BY_HOTEL_ROOM = "SELECT * FROM booking WHERE booking.hotel_id = ? AND booking.room_number = ?";
+    private static final String SELECT_BOOKINGS_BY_HOTEL_ROOM_SQL = "SELECT * FROM booking WHERE booking.hotel_id = ? AND booking.room_number = ?";
+    private static final String SELECT_BOOKINGS_BY_HOTEL_SQL = "SELECT * FROM booking WHERE booking.hotel_id = ?";
     private static final String BOOKING_EXISTS_COUNT_SQL = "SELECT COUNT(*) FROM booking WHERE (booking.hotel_id = ? AND booking.room_number = ?) AND EXISTS(SELECT * FROM booking WHERE check_in_date > ? AND check_out_date > ?)";
     private final JdbcTemplate database;
 
@@ -89,6 +91,12 @@ public class BookingDao {
         Integer bookingCount = database.queryForObject(BOOKING_EXISTS_COUNT_SQL, Integer.class, room.getHotelId(), room.getRoomNumber(), checkInDate, checkOutDate);
         if (bookingCount == null) return false;
         return bookingCount > 0;
+    }
+
+    public List<Booking> getBookingsByHotel(int hotel_id) {
+        FieldMapper<Booking> mapper = new FieldMapper<>(database.getDataSource(), SELECT_BOOKINGS_BY_HOTEL_SQL, Booking.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
+        return mapper.execute(hotel_id);
     }
 
 }

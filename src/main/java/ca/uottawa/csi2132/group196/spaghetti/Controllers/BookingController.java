@@ -46,5 +46,9 @@ public class BookingController {
     public void deleteBooking(@RequestBody BookingId query) {
         bookingDao.deleteBooking(query.getRoomNumber(), query.getCustomerId(), query.getHotelId(), query.getCheckInDate(), query.getCheckOutDate());
     }
+    @GetMapping("/get/hotelId/{hotelId}")
+    public String getBookingsByHotel(@PathVariable int hotelId){
+        return serializer.toJson(bookingDao.getBookingsByHotel(hotelId));
+    }
 
 }
