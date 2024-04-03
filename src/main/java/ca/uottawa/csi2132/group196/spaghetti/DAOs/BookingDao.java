@@ -1,20 +1,23 @@
 package ca.uottawa.csi2132.group196.spaghetti.DAOs;
 
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Booking;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Customer;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Hotel;
-import ca.uottawa.csi2132.group196.spaghetti.DataClasses.Room;
+import ca.uottawa.csi2132.group196.spaghetti.DataClasses.*;
+import ca.uottawa.csi2132.group196.spaghetti.RestSchemas.BookingResult;
+import ca.uottawa.csi2132.group196.spaghetti.RestSchemas.RoomQueryResult;
 import ca.uottawa.csi2132.group196.spaghetti.Utils.FieldMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.SqlParameterValue;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.object.SqlQuery;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
+import java.rmi.MarshalledObject;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 @Repository
 public class BookingDao {
@@ -27,12 +30,15 @@ public class BookingDao {
     private static final String UPDATE_BOOKING_SQL = "UPDATE booking SET room_number = ?, customer_id = ?, hotel_id = ?, booking_status = ?, check_in_date = ?, check_out_date = ?, damage_fee = ? WHERE room_number = ? AND customer_id = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
     private static final String SELECT_BOOKINGS_BY_HOTEL_ROOM_SQL = "SELECT * FROM booking WHERE booking.hotel_id = ? AND booking.room_number = ?";
     private static final String SELECT_BOOKINGS_BY_HOTEL_SQL = "SELECT * FROM booking WHERE booking.hotel_id = ?";
+    private static final String SELECT_DETAILED_BOOKING_BY_HOTEL_SQL = "SELECT * FROM booking LEFT JOIN public.customer on booking.customer_id = customer.customer_id JOIN room on booking.hotel_id = ? AND booking.room_number = room.room_number";
     private static final String BOOKING_EXISTS_COUNT_SQL = "SELECT COUNT(*) FROM booking WHERE (booking.hotel_id = ? AND booking.room_number = ?) AND EXISTS(SELECT * FROM booking WHERE check_in_date > ? AND check_out_date > ?)";
     private final JdbcTemplate database;
+    private final NamedParameterJdbcTemplate namedDatabase;
 
 
-    public BookingDao(JdbcTemplate database) {
-        this.database = database;
+    public BookingDao(DataSource dataSource) {
+        this.database = new JdbcTemplate(dataSource);
+        this.namedDatabase = new NamedParameterJdbcTemplate(dataSource);
     }
 
 
@@ -97,6 +103,55 @@ public class BookingDao {
         FieldMapper<Booking> mapper = new FieldMapper<>(database.getDataSource(), SELECT_BOOKINGS_BY_HOTEL_SQL, Booking.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         return mapper.execute(hotel_id);
+    }
+
+    public List<BookingResult> getDetailedBookingsByHotel(int hotelId) {
+
+        FieldMapper<BookingResult> mapper = new FieldMapper<>(database.getDataSource(), SELECT_DETAILED_BOOKING_BY_HOTEL_SQL, BookingResult.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
+
+        return mapper.execute(hotelId);
+
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("hotel_id", hotel_id);
+
+        ///SqlQuery query = "SELECT * FROM booking LEFT JOIN public.customer on booking.customer_id = customer.customer_id LEFT JOIN room on booking.hotel_id = ? AND booking.room_number = room.room_number"
+        // query.declareParameter();
+//        return namedDatabase.query(SELECT_DETAILED_BOOKING_BY_HOTEL_SQL, params, (resultSet, rowNum) -> {
+//            BookingResult result = new BookingResult();
+//
+//            Room room = new Room();
+//            room.setHotelId(resultSet.getInt("hotel_id"));
+//            room.setRoomNumber(resultSet.getInt("room_number"));
+//            room.setCapacity(resultSet.getInt("capacity"));
+//            room.setPrice(resultSet.getDouble("price"));
+//            room.setExtendable(resultSet.getBoolean("extendable"));
+//            room.setViewType(resultSet.getString("view_type"));
+//
+//            result.setRoom(room);
+//
+//            Customer customer = new Customer();
+//            customer.setCustomerId(resultSet.getInt("customer_id"));
+//            customer.setIdType(resultSet.getString("id_type"));
+//            customer.setName(resultSet.getString("name"));
+//            customer.setCreationDate(resultSet.getString("creation_date"));
+//
+//            result.setCustomer(customer);
+//
+//            Booking booking = new Booking();
+//            booking.setRoomNumber(resultSet.getInt("room_number"));
+//            booking.setRoomNumber(resultSet.getInt("customer_id"));
+//            booking.setRoomNumber(resultSet.getInt("hotel_id"));
+//            booking.setBookingStatus(resultSet.getString("booking_status"));
+//            booking.setBookingStatus(resultSet.getString("check_in_date"));
+//            booking.setBookingStatus(resultSet.getString("check_out_date"));
+//            booking.setRoomNumber(resultSet.getInt("damage_fee"));
+//
+//
+//            result.setBooking(booking);
+//            return result;
+//        });
+
     }
 
 }

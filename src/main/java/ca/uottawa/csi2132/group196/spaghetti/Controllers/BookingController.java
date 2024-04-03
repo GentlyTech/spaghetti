@@ -51,4 +51,8 @@ public class BookingController {
         return serializer.toJson(bookingDao.getBookingsByHotel(hotelId));
     }
 
+    @GetMapping("/getDetailed/hotelId/{hotelId}")
+    public String getDetailedBookingsByHotel(@PathVariable int hotelId) {
+        return serializer.toJson(bookingDao.getDetailedBookingsByHotel(hotelId));
+    }
 }
