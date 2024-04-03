@@ -38,7 +38,7 @@ public class BookingController {
         if (id == null) return;
         Booking booking = query.getUpdatedBooking();
         if (booking == null) return;
-        
+
         bookingDao.updateBooking(id.getRoomNumber(), id.getCustomerId(), id.getHotelId(), id.getCheckInDate(), id.getCheckOutDate(), booking);
     }
 
@@ -46,8 +46,9 @@ public class BookingController {
     public void deleteBooking(@RequestBody BookingId query) {
         bookingDao.deleteBooking(query.getRoomNumber(), query.getCustomerId(), query.getHotelId(), query.getCheckInDate(), query.getCheckOutDate());
     }
+
     @GetMapping("/get/hotelId/{hotelId}")
-    public String getBookingsByHotel(@PathVariable int hotelId){
+    public String getBookingsByHotel(@PathVariable int hotelId) {
         return serializer.toJson(bookingDao.getBookingsByHotel(hotelId));
     }
 
