@@ -62,17 +62,17 @@ public class BookingDao {
         return mapper.execute(customer.getCustomerId(), hotel.getHotelId());
     }
 
-    public Booking getBookingById(int roomNumber, int customerId, int hotelId, String checkInDate, String checkOutDate) {
+    public Booking getBookingById(int roomNumber, int customerId, int hotelId, LocalDate checkInDate, LocalDate checkOutDate) {
         FieldMapper<Booking> mapper = new FieldMapper<>(database.getDataSource(), SELECT_BOOKING_SQL, Booking.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "room_number"));
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "customer_id"));
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
-        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "check_in_date"));
-        mapper.declareParameter(new SqlParameterValue(Types.LONGVARCHAR, "check_out_date"));
+        mapper.declareParameter(new SqlParameterValue(Types.DATE, "check_in_date"));
+        mapper.declareParameter(new SqlParameterValue(Types.DATE, "check_out_date"));
         return mapper.findObject(roomNumber, customerId, hotelId, checkInDate, checkOutDate);
     }
 
-    public void updateBooking(int roomNumber, int customerId, int hotelId, String checkInDate, String checkOutDate, Booking booking) {
+    public void updateBooking(int roomNumber, int customerId, int hotelId, LocalDate checkInDate, LocalDate checkOutDate, Booking booking) {
         if (booking == null) return;
         Booking previousBooking = getBookingById(roomNumber, customerId, hotelId, checkInDate, checkOutDate);
         if (previousBooking == null) return;
@@ -81,7 +81,7 @@ public class BookingDao {
         database.update(UPDATE_BOOKING_SQL, booking.getBookingStatus(), booking.getHotelId(), booking.getCustomerId(), booking.getRoomNumber(), booking.getCheckInDate().toString(), booking.getCheckOutDate().toString(), booking.getDamageFee(), roomNumber, customerId, hotelId, checkInDate, checkOutDate);
     }
 
-    public void deleteBooking(int roomNumber, int customerId, int hotelId, String checkInDate, String checkOutDate) {
+    public void deleteBooking(int roomNumber, int customerId, int hotelId, LocalDate checkInDate, LocalDate checkOutDate) {
         database.update(DELETE_BOOKING_SQL, roomNumber, customerId, hotelId, checkInDate, checkOutDate);
     }
 

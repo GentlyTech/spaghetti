@@ -1,5 +1,7 @@
 package ca.uottawa.csi2132.group196.spaghetti.RestSchemas;
 
+import java.time.LocalDate;
+
 public class BookingId {
     private int roomNumber = -1;
     private int customerId = -1;
@@ -31,19 +33,27 @@ public class BookingId {
         this.hotelId = hotelId;
     }
 
-    public String getCheckInDate() {
-        return checkInDate;
+    public LocalDate getCheckInDate() {
+        return LocalDate.parse(checkInDate);
+    }
+
+    public void setCheckInDate(LocalDate checkInDate) {
+        this.checkInDate = checkInDate.toString();
     }
 
     public void setCheckInDate(String checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public String getCheckOutDate() {
-        return checkOutDate;
+    public LocalDate getCheckOutDate() {
+        return LocalDate.parse(checkOutDate);
     }
 
     public void setCheckOutDate(String checkOutDate) {
         this.checkOutDate = checkOutDate;
+    }
+
+    public void setCheckOutDate(LocalDate checkOutDate) {
+        this.checkOutDate = checkOutDate.toString();
     }
 }
