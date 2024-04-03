@@ -78,7 +78,7 @@ public class BookingDao {
         if (previousBooking == null) return;
 
         booking.fillFromInstance(previousBooking);
-        database.update(UPDATE_BOOKING_SQL, booking.getBookingStatus(), booking.getHotelId(), booking.getCustomerId(), booking.getRoomNumber(), booking.getCheckInDate().toString(), booking.getCheckOutDate().toString(), booking.getDamageFee(), roomNumber, customerId, hotelId, checkInDate, checkOutDate);
+        database.update(UPDATE_BOOKING_SQL, booking.getRoomNumber(), booking.getCustomerId(), booking.getHotelId(), booking.getBookingStatus(), booking.getCheckInDate().toString(), booking.getCheckOutDate().toString(), booking.getDamageFee(), roomNumber, customerId, hotelId, checkInDate, checkOutDate);
     }
 
     public void deleteBooking(int roomNumber, int customerId, int hotelId, LocalDate checkInDate, LocalDate checkOutDate) {
