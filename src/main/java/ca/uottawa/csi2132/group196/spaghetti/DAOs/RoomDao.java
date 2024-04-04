@@ -111,7 +111,7 @@ public class RoomDao {
         return mapper.execute(min, max);
     }
 
-    public List<RoomQueryResult> getRoomsByQuery(RoomQuery query, int limit, int offset) {
+    public List<RoomQueryResult> getRoomsByQuery(RoomQuery query, Integer limit, Integer offset) {
         Double[] priceRange = query.getPriceRange();
         Double minPrice = null;
         Double maxPrice = null;
@@ -120,11 +120,11 @@ public class RoomDao {
             maxPrice = priceRange[1];
         }
         
-        if (limit > MAX_ROWS || limit < 0) {
+        if (limit == null || limit > MAX_ROWS || limit < 0) {
             limit = MAX_ROWS;
         }
 
-        if (offset < 0) {
+        if (offset == null || offset < 0) {
             offset = 0;
         }
         

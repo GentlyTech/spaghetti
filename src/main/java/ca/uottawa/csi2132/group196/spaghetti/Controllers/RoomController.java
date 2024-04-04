@@ -56,7 +56,7 @@ public class RoomController {
     }
     
     @PostMapping("/query")
-    public String queryRooms(@RequestBody RoomQuery query, @RequestParam int limit, @RequestParam int offset) {
+    public String queryRooms(@RequestBody RoomQuery query, @RequestParam(required = false) Integer limit, @RequestParam(required = false) Integer offset) {
         List<RoomQueryResult> results = roomDao.getRoomsByQuery(query, limit, offset);
         
         for (int i = 0; i < results.size(); i++) {
