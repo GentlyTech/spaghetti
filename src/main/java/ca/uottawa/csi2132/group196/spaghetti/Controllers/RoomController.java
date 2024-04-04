@@ -56,8 +56,8 @@ public class RoomController {
     }
     
     @PostMapping("/query")
-    public String queryRooms(@RequestBody RoomQuery query) {
-        List<RoomQueryResult> results = roomDao.getRoomsByQuery(query);
+    public String queryRooms(@RequestBody RoomQuery query, @RequestParam(required = false) Integer limit, @RequestParam(required = false) Integer offset) {
+        List<RoomQueryResult> results = roomDao.getRoomsByQuery(query, limit, offset);
         
         for (int i = 0; i < results.size(); i++) {
             RoomQueryResult result = results.get(i);
@@ -67,6 +67,12 @@ public class RoomController {
             result.setRoom(room);
             results.set(i, result);
         }
+        return serializer.toJson(results);
+    }
+
+    @PostMapping("/query/count")
+    public String queryRooms(@RequestBody RoomQuery query) {
+        int results = roomDao.countRoomsByQuery(query);
         return serializer.toJson(results);
     }
 }
