@@ -120,8 +120,12 @@ public class RoomDao {
             maxPrice = priceRange[1];
         }
         
-        if (limit > MAX_ROWS) {
+        if (limit > MAX_ROWS || limit < 0) {
             limit = MAX_ROWS;
+        }
+
+        if (offset < 0) {
+            offset = 0;
         }
         
         Map<String, Object> params = new HashMap<>();
