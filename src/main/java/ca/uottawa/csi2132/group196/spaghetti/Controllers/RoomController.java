@@ -70,4 +70,10 @@ public class RoomController {
         
         return serializer.toJson(results);
     }
+
+    @PostMapping("/query/count")
+    public String queryRooms(@RequestBody RoomQuery query) {
+        int results = roomDao.countRoomsByQuery(query);
+        return serializer.toJson(results);
+    }
 }
