@@ -17,6 +17,17 @@ public class RoomQuery {
 
     private Integer capacity = -1;
 
+    public Integer getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Integer hotelId) {
+        this.hotelId = hotelId;
+    }
+
+    private Integer hotelId = -1;
+
+
     public Double[] getPriceRange() {
         return priceRange;
     }

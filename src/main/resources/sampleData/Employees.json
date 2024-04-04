@@ -1,6 +1,7 @@
 [
   {
     "name": "Some Employee",
+    "hotel_id": 1,
     "address": {
       "street": "69 This Street",
       "city": "Muffin",
@@ -18,6 +19,7 @@
   },
   {
     "name": "Some Other Employee",
+    "hotel_id": 1,
     "address": {
       "street": "420 That Street",
       "city": "Muffin",

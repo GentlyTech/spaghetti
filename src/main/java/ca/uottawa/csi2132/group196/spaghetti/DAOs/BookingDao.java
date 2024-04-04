@@ -25,12 +25,12 @@ public class BookingDao {
     private static final String SELECT_BOOKINGS_BY_CUSTOMER_SQL = "SELECT * FROM booking WHERE customer_id = ?";
     private static final String SELECT_BOOKING_BY_CUSTOMER_HOTEL_SQL = "SELECT * FROM booking WHERE customer_id = ? AND hotel_id = ?";
     private static final String INSERT_BOOKING_SQL = "INSERT INTO booking (room_number, customer_id, hotel_id, booking_status, check_in_date, check_out_date, damage_fee) VALUES (?, ?, ?, ?, ? , ?, ?)";
-    private static final String SELECT_BOOKING_SQL = "SELECT * FROM booking WHERE room_number = ? AND customer_id = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
-    private static final String DELETE_BOOKING_SQL = "DELETE FROM booking WHERE room_number = ? AND customer_id = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
-    private static final String UPDATE_BOOKING_SQL = "UPDATE booking SET room_number = ?, customer_id = ?, hotel_id = ?, booking_status = ?, check_in_date = ?, check_out_date = ?, damage_fee = ? WHERE room_number = ? AND customer_id = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
+    private static final String SELECT_BOOKING_SQL = "SELECT * FROM booking WHERE room_number = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
+    private static final String DELETE_BOOKING_SQL = "DELETE FROM booking WHERE room_number = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
+    private static final String UPDATE_BOOKING_SQL = "UPDATE booking SET room_number = ?, customer_id = ?, hotel_id = ?, booking_status = ?, check_in_date = ?, check_out_date = ?, damage_fee = ? WHERE room_number = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
     private static final String SELECT_BOOKINGS_BY_HOTEL_ROOM_SQL = "SELECT * FROM booking WHERE booking.hotel_id = ? AND booking.room_number = ?";
     private static final String SELECT_BOOKINGS_BY_HOTEL_SQL = "SELECT * FROM booking WHERE booking.hotel_id = ?";
-    private static final String SELECT_DETAILED_BOOKING_BY_HOTEL_SQL = "SELECT * FROM booking LEFT JOIN public.customer on booking.customer_id = customer.customer_id JOIN room on booking.hotel_id = ? AND booking.room_number = room.room_number";
+    private static final String SELECT_DETAILED_BOOKING_BY_HOTEL_SQL = "SELECT * FROM booking JOIN public.customer on booking.customer_id = customer.customer_id JOIN room on booking.hotel_id = ? AND room.hotel_id = ? AND booking.room_number = room.room_number";
     private static final String BOOKING_EXISTS_COUNT_SQL = "SELECT COUNT(*) FROM booking WHERE (booking.hotel_id = ? AND booking.room_number = ?) AND EXISTS(SELECT * FROM booking WHERE check_in_date > ? AND check_out_date > ?)";
     private final JdbcTemplate database;
     private final NamedParameterJdbcTemplate namedDatabase;
@@ -70,27 +70,26 @@ public class BookingDao {
         return mapper.execute(customer.getCustomerId(), hotel.getHotelId());
     }
 
-    public Booking getBookingById(int roomNumber, int customerId, int hotelId, LocalDate checkInDate, LocalDate checkOutDate) {
+    public Booking getBookingById(int roomNumber, int hotelId, LocalDate checkInDate, LocalDate checkOutDate) {
         FieldMapper<Booking> mapper = new FieldMapper<>(database.getDataSource(), SELECT_BOOKING_SQL, Booking.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "room_number"));
-        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "customer_id"));
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
         mapper.declareParameter(new SqlParameterValue(Types.DATE, "check_in_date"));
         mapper.declareParameter(new SqlParameterValue(Types.DATE, "check_out_date"));
-        return mapper.findObject(roomNumber, customerId, hotelId, checkInDate, checkOutDate);
+        return mapper.findObject(roomNumber, hotelId, checkInDate, checkOutDate);
     }
 
-    public void updateBooking(int roomNumber, int customerId, int hotelId, LocalDate checkInDate, LocalDate checkOutDate, Booking booking) {
+    public void updateBooking(int roomNumber, int hotelId, LocalDate checkInDate, LocalDate checkOutDate, Booking booking) {
         if (booking == null) return;
-        Booking previousBooking = getBookingById(roomNumber, customerId, hotelId, checkInDate, checkOutDate);
+        Booking previousBooking = getBookingById(roomNumber, hotelId, checkInDate, checkOutDate);
         if (previousBooking == null) return;
 
         booking.fillFromInstance(previousBooking);
-        database.update(UPDATE_BOOKING_SQL, booking.getRoomNumber(), booking.getCustomerId(), booking.getHotelId(), booking.getBookingStatus(), booking.getCheckInDate(), booking.getCheckOutDate(), booking.getDamageFee(), roomNumber, customerId, hotelId, checkInDate, checkOutDate);
+        database.update(UPDATE_BOOKING_SQL, booking.getRoomNumber(), booking.getCustomerId(), booking.getHotelId(), booking.getBookingStatus(), booking.getCheckInDate(), booking.getCheckOutDate(), booking.getDamageFee(), roomNumber, hotelId, checkInDate, checkOutDate);
     }
 
-    public void deleteBooking(int roomNumber, int customerId, int hotelId, LocalDate checkInDate, LocalDate checkOutDate) {
-        database.update(DELETE_BOOKING_SQL, roomNumber, customerId, hotelId, checkInDate, checkOutDate);
+    public void deleteBooking(int roomNumber, int hotelId, LocalDate checkInDate, LocalDate checkOutDate) {
+        database.update(DELETE_BOOKING_SQL, roomNumber, hotelId, checkInDate, checkOutDate);
     }
 
     public boolean isBooked(LocalDate checkInDate, LocalDate checkOutDate, Room room) {
@@ -108,9 +107,9 @@ public class BookingDao {
     public List<BookingResult> getDetailedBookingsByHotel(int hotelId) {
 
         FieldMapper<BookingResult> mapper = new FieldMapper<>(database.getDataSource(), SELECT_DETAILED_BOOKING_BY_HOTEL_SQL, BookingResult.class);
-        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
-
-        return mapper.execute(hotelId);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "booking.hotel_id"));
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "room.hotel_id"));
+        return mapper.execute(hotelId, hotelId);
 
 //        Map<String, Object> params = new HashMap<>();
 //        params.put("hotel_id", hotel_id);

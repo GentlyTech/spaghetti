@@ -4,7 +4,11 @@ CREATE TABLE IF NOT EXISTS public.employee
     creation_date timestamp NOT NULL default current_timestamp,
     name          text      NOT NULL,
     sin           text      NOT NULL,
-    CONSTRAINT employee_pk PRIMARY KEY (employee_id)
+    hotel_id      integer      NOT NULL,
+    CONSTRAINT employee_pk PRIMARY KEY (employee_id),
+    CONSTRAINT hotel_id_fk FOREIGN KEY (hotel_id) REFERENCES public.hotel (hotel_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS public.employee_addresses

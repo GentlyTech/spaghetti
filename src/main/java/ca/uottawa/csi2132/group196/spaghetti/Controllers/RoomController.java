@@ -67,7 +67,6 @@ public class RoomController {
             result.setRoom(room);
             results.set(i, result);
         }
-        
         return serializer.toJson(results);
     }
 }

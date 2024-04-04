@@ -20,8 +20,8 @@ public class CustomerController {
     }
     
     @PostMapping("/register")
-    public void registerCustomer(@RequestBody Customer customer) {
-        customerDao.insertCustomer(customer);
+    public int registerCustomer(@RequestBody Customer customer) {
+        return customerDao.insertCustomer(customer);
     }
     
     @PostMapping("/update")

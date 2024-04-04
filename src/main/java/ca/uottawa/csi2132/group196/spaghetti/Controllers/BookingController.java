@@ -39,12 +39,12 @@ public class BookingController {
         Booking booking = query.getUpdatedBooking();
         if (booking == null) return;
 
-        bookingDao.updateBooking(id.getRoomNumber(), id.getCustomerId(), id.getHotelId(), id.getCheckInDate(), id.getCheckOutDate(), booking);
+        bookingDao.updateBooking(id.getRoomNumber(), id.getHotelId(), id.getCheckInDate(), id.getCheckOutDate(), booking);
     }
 
     @DeleteMapping("/delete")
     public void deleteBooking(@RequestBody BookingId query) {
-        bookingDao.deleteBooking(query.getRoomNumber(), query.getCustomerId(), query.getHotelId(), query.getCheckInDate(), query.getCheckOutDate());
+        bookingDao.deleteBooking(query.getRoomNumber(), query.getHotelId(), query.getCheckInDate(), query.getCheckOutDate());
     }
 
     @GetMapping("/get/hotelId/{hotelId}")

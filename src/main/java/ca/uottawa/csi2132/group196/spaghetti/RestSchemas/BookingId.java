@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class BookingId {
     private int roomNumber = -1;
-    private int customerId = -1;
     private int hotelId = -1;
     private String checkInDate = null;
     private String checkOutDate = null;
@@ -16,15 +15,7 @@ public class BookingId {
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
     }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
+    
     public int getHotelId() {
         return hotelId;
     }

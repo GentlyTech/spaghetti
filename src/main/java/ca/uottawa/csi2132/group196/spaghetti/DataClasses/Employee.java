@@ -20,12 +20,16 @@ public class Employee extends AutoFillableClass<Employee> {
     @Autofill
     private String name = null;
 
-    @MappedField
+//    @MappedField
     private Address address = null;
 
     @MappedField("sin")
     @Autofill
     private String sinNumber = null;
+
+    @MappedField("hotel_id")
+    @Autofill
+    private int hotelId = -1;
 
     private List<Role> roles = null;
 
@@ -79,5 +83,13 @@ public class Employee extends AutoFillableClass<Employee> {
 
     public void setSinNumber(String sinNumber) {
         this.sinNumber = sinNumber;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 }

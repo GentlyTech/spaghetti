@@ -38,4 +38,9 @@ public class EmployeeController {
     public String getEmployeeInfo(@PathVariable int employeeId) {
         return serializer.toJson(employeeDao.getEmployeeById(employeeId));
     }
+
+    @GetMapping("/info/login/{hotelId}/{sin}")
+    public String login(@PathVariable int hotelId, @PathVariable int sin) {
+        return serializer.toJson(employeeDao.getEmployeeByHotelAndSin(hotelId, sin));
+    }
 }

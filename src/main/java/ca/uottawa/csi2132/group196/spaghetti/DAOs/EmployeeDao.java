@@ -15,8 +15,9 @@ import java.util.Map;
 
 @Repository
 public class EmployeeDao {
-    private static final String INSERT_EMPLOYEE_SQL = "INSERT INTO employee (name, sin) VALUES (?, ?)";
+    private static final String INSERT_EMPLOYEE_SQL = "INSERT INTO employee (name, sin, hotel_id) VALUES (?, ?, ?)";
     private static final String SELECT_EMPLOYEE_SQL = "SELECT * FROM employee WHERE employee_id = ?";
+    private static final String SELECT_EMPLOYEE_FROM_HOTEL_SQL = "SELECT * FROM employee WHERE hotel_id = ? AND sin = ?";
     private static final String UPDATE_EMPLOYEE_SQL = "UPDATE employee SET name = ?, sin = ? WHERE employee_id = ?";
     private static final String DELETE_EMPLOYEE_SQL = "DELETE FROM employee WHERE employee_id = ?";
 
@@ -32,6 +33,7 @@ public class EmployeeDao {
             PreparedStatement statement = connection.prepareStatement(INSERT_EMPLOYEE_SQL, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, employee.getName());
             statement.setString(2, employee.getSinNumber());
+            statement.setInt(3, 1);
             return statement;
         }, keyHolder);
 
@@ -46,6 +48,13 @@ public class EmployeeDao {
         FieldMapper<Employee> mapper = new FieldMapper<>(database.getDataSource(), SELECT_EMPLOYEE_SQL, Employee.class);
         mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "employee_id"));
         return mapper.findObject(employeeId);
+    }
+
+    public Employee getEmployeeByHotelAndSin(int hotelId, int sin) {
+        FieldMapper<Employee> mapper = new FieldMapper<>(database.getDataSource(), SELECT_EMPLOYEE_FROM_HOTEL_SQL, Employee.class);
+        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "hotel_id"));
+        mapper.declareParameter(new SqlParameterValue(Types.VARCHAR, "sin"));
+        return mapper.findObject(hotelId, sin);
     }
     
     public void updateEmployee(Employee updatedEmployee) {
