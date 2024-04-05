@@ -66,7 +66,7 @@ public class RoomGenerator {
             room.setCapacity(capacity);
 
             // also base price based on capacity now (each additional person increases price by 40%)
-            room.setPrice(basePrice + basePrice * (capacity - 1) * 0.4);
+            room.setPrice(basePrice + Math.round(basePrice * (capacity - 1) * 0.4));
 
             //viewtype
             int viewType = rand.nextInt(2);
