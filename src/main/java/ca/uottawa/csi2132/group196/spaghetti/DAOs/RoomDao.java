@@ -112,21 +112,13 @@ public class RoomDao {
         return mapper.execute(min, max);
     }
 
-    public List<RoomQueryResult> getRoomsByQuery(RoomQuery query, Integer limit, Integer offset) {
+    public List<RoomQueryResult> getRoomsByQuery(RoomQuery query) {
         Double[] priceRange = query.getPriceRange();
         Double minPrice = null;
         Double maxPrice = null;
         if (priceRange != null && priceRange.length > 1) {
             minPrice = priceRange[0];
             maxPrice = priceRange[1];
-        }
-        
-        if (limit == null || limit > MAX_ROWS || limit < 0) {
-            limit = MAX_ROWS;
-        }
-
-        if (offset == null || offset < 0) {
-            offset = 0;
         }
 
         Map<String, Object> params = new HashMap<>();
@@ -137,8 +129,6 @@ public class RoomDao {
         params.put("location", query.getLocation());
         params.put("rating", query.getRating());
         params.put("capacity", query.getCapacity());
-        params.put("limit", limit);
-        params.put("offset", offset);
 
         params.put("hotelId", query.getHotelId());
 
