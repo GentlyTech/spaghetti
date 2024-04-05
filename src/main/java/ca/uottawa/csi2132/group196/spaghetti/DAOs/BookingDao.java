@@ -30,7 +30,7 @@ public class BookingDao {
     private static final String UPDATE_BOOKING_SQL = "UPDATE booking SET room_number = ?, customer_id = ?, hotel_id = ?, booking_status = ?, check_in_date = ?, check_out_date = ?, damage_fee = ? WHERE room_number = ? AND hotel_id = ? AND check_in_date = ? AND check_out_date = ?";
     private static final String SELECT_BOOKINGS_BY_HOTEL_ROOM_SQL = "SELECT * FROM booking WHERE booking.hotel_id = ? AND booking.room_number = ?";
     private static final String SELECT_BOOKINGS_BY_HOTEL_SQL = "SELECT * FROM booking WHERE booking.hotel_id = ?";
-    private static final String SELECT_DETAILED_BOOKING_BY_HOTEL_SQL = "SELECT * FROM booking JOIN public.customer on booking.customer_id = customer.customer_id JOIN room on booking.hotel_id = ? AND room.hotel_id = ? AND booking.room_number = room.room_number";
+    private static final String SELECT_DETAILED_BOOKING_BY_HOTEL_SQL = "SELECT * FROM booking JOIN public.customer on booking.customer_id = customer.customer_id JOIN room on booking.hotel_id = :hotelId AND room.hotel_id = :hotelId AND booking.room_number = room.room_number";
     private static final String BOOKING_EXISTS_COUNT_SQL = "SELECT COUNT(*) FROM booking WHERE (booking.hotel_id = ? AND booking.room_number = ?) AND EXISTS(SELECT * FROM booking WHERE check_in_date > ? AND check_out_date > ?)";
     private final JdbcTemplate database;
     private final NamedParameterJdbcTemplate namedDatabase;
@@ -105,52 +105,41 @@ public class BookingDao {
     }
 
     public List<BookingResult> getDetailedBookingsByHotel(int hotelId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("hotelId", hotelId);
+        
+        return namedDatabase.query(SELECT_DETAILED_BOOKING_BY_HOTEL_SQL, params, (resultSet, rowNum) -> {
+            BookingResult result = new BookingResult();
 
-        FieldMapper<BookingResult> mapper = new FieldMapper<>(database.getDataSource(), SELECT_DETAILED_BOOKING_BY_HOTEL_SQL, BookingResult.class);
-        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "booking.hotel_id"));
-        mapper.declareParameter(new SqlParameterValue(Types.INTEGER, "room.hotel_id"));
-        return mapper.execute(hotelId, hotelId);
+            Room room = new Room();
+            room.setHotelId(resultSet.getInt("hotel_id"));
+            room.setRoomNumber(resultSet.getInt("room_number"));
+            room.setCapacity(resultSet.getInt("capacity"));
+            room.setPrice(resultSet.getDouble("price"));
+            room.setExtendable(resultSet.getBoolean("extendable"));
+            room.setViewType(resultSet.getString("view_type"));
 
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("hotel_id", hotel_id);
+            result.setRoom(room);
 
-        ///SqlQuery query = "SELECT * FROM booking LEFT JOIN public.customer on booking.customer_id = customer.customer_id LEFT JOIN room on booking.hotel_id = ? AND booking.room_number = room.room_number"
-        // query.declareParameter();
-//        return namedDatabase.query(SELECT_DETAILED_BOOKING_BY_HOTEL_SQL, params, (resultSet, rowNum) -> {
-//            BookingResult result = new BookingResult();
-//
-//            Room room = new Room();
-//            room.setHotelId(resultSet.getInt("hotel_id"));
-//            room.setRoomNumber(resultSet.getInt("room_number"));
-//            room.setCapacity(resultSet.getInt("capacity"));
-//            room.setPrice(resultSet.getDouble("price"));
-//            room.setExtendable(resultSet.getBoolean("extendable"));
-//            room.setViewType(resultSet.getString("view_type"));
-//
-//            result.setRoom(room);
-//
-//            Customer customer = new Customer();
-//            customer.setCustomerId(resultSet.getInt("customer_id"));
-//            customer.setIdType(resultSet.getString("id_type"));
-//            customer.setName(resultSet.getString("name"));
-//            customer.setCreationDate(resultSet.getString("creation_date"));
-//
-//            result.setCustomer(customer);
-//
-//            Booking booking = new Booking();
-//            booking.setRoomNumber(resultSet.getInt("room_number"));
-//            booking.setRoomNumber(resultSet.getInt("customer_id"));
-//            booking.setRoomNumber(resultSet.getInt("hotel_id"));
-//            booking.setBookingStatus(resultSet.getString("booking_status"));
-//            booking.setBookingStatus(resultSet.getString("check_in_date"));
-//            booking.setBookingStatus(resultSet.getString("check_out_date"));
-//            booking.setRoomNumber(resultSet.getInt("damage_fee"));
-//
-//
-//            result.setBooking(booking);
-//            return result;
-//        });
+            Customer customer = new Customer();
+            customer.setCustomerId(resultSet.getInt("customer_id"));
+            customer.setIdType(resultSet.getString("id_type"));
+            customer.setName(resultSet.getString("name"));
+            customer.setCreationDate(resultSet.getString("creation_date"));
 
+            result.setCustomer(customer);
+
+            Booking booking = new Booking();
+            booking.setRoomNumber(resultSet.getInt("room_number"));
+            booking.setCustomerId(resultSet.getInt("customer_id"));
+            booking.setHotelId(resultSet.getInt("hotel_id"));
+            booking.setBookingStatus(resultSet.getString("booking_status"));
+            booking.setCheckInDate(resultSet.getString("check_in_date"));
+            booking.setCheckOutDate(resultSet.getString("check_out_date"));
+            booking.setDamageFee(resultSet.getInt("damage_fee"));
+            
+            result.setBooking(booking);
+            return result;
+        });
     }
-
 }
