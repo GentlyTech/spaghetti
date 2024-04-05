@@ -30,7 +30,7 @@ public class RoomDao {
     private static final String SELECT_ROOMS_BY_CITY_SQL = "SELECT * FROM addresses, hotel_addresses, room WHERE addresses.address_id = hotel_addresses.address_id AND hotel_addresses.hotel_id = room.hotel_id AND addresses.city = ?";
     private static final String SELECT_ROOMS_BY_CAPACITY_SQL = "SELECT * FROM room WHERE capacity = ?";
     private static final String SELECT_ROOMS_BY_PRICE_SQL = "SELECT * FROM room WHERE price > ? AND price < ?";
-    private static final String COUNT_FULL_QUERY_ROOMS_SQL = "SELECT COUNT(*) FROM giga_map WHERE ((:minPrice::decimal IS NULL OR :maxPrice::decimal IS NULL) OR (price >= :minPrice AND price <= :maxPrice)) AND (COALESCE(:chain_name, '') = '' OR owner = :chain_name) AND (COALESCE(:hotel_name, '') = '' OR hotel_name = :hotel_name) AND (COALESCE(:location, '') = '' OR (LOWER(street) LIKE LOWER(:location) OR LOWER(city) LIKE LOWER(:location) OR LOWER(province) LIKE LOWER(:location) OR LOWER(postal_code) LIKE LOWER(:location) OR LOWER(country) LIKE LOWER(:location))) AND (:rating < 0 OR rating = :rating) AND (:capacity < 0 OR capacity = :capacity)";
+    private static final String COUNT_FULL_QUERY_ROOMS_SQL = "SELECT COUNT(*) FROM giga_map WHERE ((:minPrice::decimal IS NULL OR :maxPrice::decimal IS NULL) OR (price >= :minPrice AND price <= :maxPrice)) AND (COALESCE(:chain_name, '') = '' OR owner = :chain_name) AND (COALESCE(:hotel_name, '') = '' OR hotel_name = :hotel_name) AND (COALESCE(:location, '') = '' OR (LOWER(street) LIKE LOWER(:location) OR LOWER(city) LIKE LOWER(:location) OR LOWER(province) LIKE LOWER(:location) OR LOWER(postal_code) LIKE LOWER(:location) OR LOWER(country) LIKE LOWER(:location))) AND (:rating < 0 OR rating = :rating) AND (:capacity < 0 OR capacity = :capacity) AND (:hotelId < 0 OR hotel_id = :hotelId)";
     private static final String SELECT_FULL_QUERY_ROOMS_SQL = "SELECT * FROM giga_map WHERE ((:minPrice::decimal IS NULL OR :maxPrice::decimal IS NULL) OR (price >= :minPrice AND price <= :maxPrice)) AND (COALESCE(:chain_name, '') = '' OR owner = :chain_name) AND (COALESCE(:hotel_name, '') = '' OR hotel_name = :hotel_name) AND (COALESCE(:location, '') = '' OR (LOWER(street) LIKE LOWER(:location) OR LOWER(city) LIKE LOWER(:location) OR LOWER(province) LIKE LOWER(:location) OR LOWER(postal_code) LIKE LOWER(:location) OR LOWER(country) LIKE LOWER(:location))) AND (:rating < 0 OR rating = :rating) AND (:capacity < 0 OR capacity = :capacity) AND (:hotelId < 0 OR hotel_id = :hotelId) LIMIT :limit OFFSET :offset";
     private static final String UPDATE_ROOM_SQL = "UPDATE room SET hotel_id = ?, room_number = ?, price = ?, view_type = ?, capacity = ?, extendable = ? WHERE hotel_id = ? AND room_number = ?";
     private static final String DELETE_ROOM_SQL = "DELETE FROM room WHERE hotel_id = ? AND room_number = ?";
@@ -137,10 +137,9 @@ public class RoomDao {
         params.put("location", query.getLocation());
         params.put("rating", query.getRating());
         params.put("capacity", query.getCapacity());
+        params.put("hotelId", query.getHotelId());
         params.put("limit", limit);
         params.put("offset", offset);
-
-        params.put("hotelId", query.getHotelId());
 
         return namedDatabase.query(SELECT_FULL_QUERY_ROOMS_SQL, params, (resultSet, rowNum) -> {
             RoomQueryResult result = new RoomQueryResult();
@@ -191,6 +190,7 @@ public class RoomDao {
         params.put("location", query.getLocation());
         params.put("rating", query.getRating());
         params.put("capacity", query.getCapacity());
+        params.put("hotelId", query.getHotelId());
 
         Integer count = namedDatabase.queryForObject(COUNT_FULL_QUERY_ROOMS_SQL, params, Integer.class);
         if (count == null) return 0;
