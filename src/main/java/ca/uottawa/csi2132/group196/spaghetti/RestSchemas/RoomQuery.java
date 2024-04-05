@@ -16,6 +16,8 @@ public class RoomQuery {
     private Integer rating = -1;
 
     private Integer capacity = -1;
+    
+    private Integer hotelId = -1;
 
     public Integer getHotelId() {
         return hotelId;
@@ -24,9 +26,6 @@ public class RoomQuery {
     public void setHotelId(Integer hotelId) {
         this.hotelId = hotelId;
     }
-
-    private Integer hotelId = -1;
-
 
     public Double[] getPriceRange() {
         return priceRange;
